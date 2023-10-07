@@ -18,11 +18,33 @@
     </ion-item>
     <ion-item>
       <ion-icon aria-hidden="true" src="assets/icon/file.svg" slot="start" ></ion-icon>
-      <ion-label>Archivos</ion-label>
+      <ion-button fill="clear" [routerLink]="['/library']">Archivos</ion-button>
     </ion-item>
     <ion-item>
       <ion-icon aria-hidden="true" src="assets/icon/pregunta.svg" slot="start" ></ion-icon>
       <ion-button fill="clear" [routerLink]="['/question']">Preguntas</ion-button>
     </ion-item>
   </ion-list>
+
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    
+    <!-- Boton principal -->
+    <ion-fab-button>
+      <ion-icon name="chevron-down-circle"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+      <!-- Botones secundarios -->
+      <!-- Tabla group -->
+      <ion-fab-button [routerLink]="['/group']">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-fab-button>
+      <!-- Tabla classroom -->
+      <ion-fab-button [routerLink]="['/classroom']">
+        <ion-icon name="business-outline"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+  </ion-fab>
+  
 </ion-content>

@@ -2,25 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import axios from 'axios';
 
-
 @Component({
-  selector: 'app-question',
-  templateUrl: './question.page.html',
-  styleUrls: ['./question.page.scss'],
+  selector: 'app-library',
+  templateUrl: './library.page.html',
+  styleUrls: ['./library.page.scss'],
 })
-export class QuestionPage implements OnInit {
-  questions: any = [];
+export class LibraryPage implements OnInit {
+  librarys: any = [];
   constructor(
     private loadingCtrl: LoadingController,
-
   ) { }
 
   ngOnInit() {
-    this.cargarQuestions();
-
+    this.cargarLibrarys();
   }
-
-  async cargarQuestions(event?: InfiniteScrollCustomEvent) {
+ 
+  async cargarLibrarys(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -29,15 +26,15 @@ export class QuestionPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url de Monica, Zarate
-      url: "http://attendancedb.test/question?expand=tag,teacher,person",
+      url: "http://attendancedb.test/library?expand=group",
       // Url de Raul
-      //url: "http://attendancedb1.test/question?expand=tag,teacher,person",
+      //url: "http://attendancedb1.test/library?expand=group",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
     }).then((response) => {
-      this.questions = response.data;
+      this.librarys = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);

@@ -10,6 +10,18 @@ const routes: Routes = [
     path: 'question',
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
   },
+  {
+    path: 'library',
+    loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
+  },
+  {
+    path: 'classroom',
+    loadChildren: () => import('./classroom/classroom.module').then( m => m.ClassroomPageModule)
+  },
+  {
+    path: 'group',
+    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+  },  
 ];
 @NgModule({
   imports: [

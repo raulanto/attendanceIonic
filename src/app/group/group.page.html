@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+<!--     Boton para regresar
+ -->    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Grupos Creados</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Grupos Creados</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item button *ngFor="let group of groups">
+      
+      <ion-label class="ion-text-wrap">
+        <h2>{{group.subject}}</h2>
+        <h3>{{group.teacher}} </h3>
+        <h3>Codigo del grupo: {{group.gro_code}}</h3>
+        <p>Ubicación {{group.classroom}}</p>
+        <p>Creado  el: {{group.gro_date | date:'y-MM-dd'}} {{group.gro_time}}</p>
+      </ion-label>
+ 
+    </ion-item>
+  </ion-list>
+
+</ion-content>
