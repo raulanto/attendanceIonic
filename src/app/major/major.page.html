@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/ruta-anterior"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Carreras Disponibles
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <ion-fab-button>
+      <ion-icon name="chevron-down-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="mostrarAlerta()">
+        <ion-icon name="pencil-outline"></ion-icon>
+      </ion-fab-button >
+      <ion-fab-button [routerLink] = "['/elim-major']">
+        <ion-icon name="backspace-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="help-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+
+  <!-- Utiliza *ngFor para iterar sobre las asignaturas y mostrarlas en tarjetas -->
+  <ion-card *ngFor="let majors of major">
+    <ion-card-header>
+      <ion-card-title>{{ majors.maj_name }}</ion-card-title>
+      <ion-card-subtitle>{{ majors.maj_code }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Añade el contenido de la asignatura aquí si es necesario -->
+      <p>info de la materia</p>
+      <!-- Otros detalles de la asignatura pueden ir aquí -->
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>

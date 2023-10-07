@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/ruta-anterior"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Eliminar Carrera</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let majors of major">
+      <ion-checkbox label-placement="stacked" alignment="start">{{ majors.maj_name }}</ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="center"z >Guardar Cambios</ion-button>
+</ion-content>
