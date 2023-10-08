@@ -25,8 +25,10 @@ export class LibraryPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url de Monica, Zarate
+      // Url de Monica
       url: "http://attendancedb.test/library?expand=group",
+      // Url de Zarate
+      //url: "http://attendancebd.test/library?expand=group",      
       // Url de Raul
       //url: "http://attendancedb1.test/library?expand=group",
       withCredentials: true,

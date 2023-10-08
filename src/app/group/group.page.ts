@@ -25,8 +25,10 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url de Monica, Zarate
+      // Url de Monica
       url: "http://attendancedb.test/group?expand=subject,teacher,classroom",
+      // Url de Zarate
+      //url: "http://attendancebd.test/group?expand=subject,teacher,classroom",      
       // Url de Raul
       //url: "http://attendancedb1.test/group?expand=subject,teacher,classroom",
       withCredentials: true,

@@ -31,7 +31,12 @@ export class ElimSubjectPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancebd.test/subject",
+      // Url de Monica
+      url: "http://attendancedb.test/subject",      
+      // Url de Zarate
+      //url: "http://attendancebd.test/subject",
+      // Url de Raul
+      //url: "http://attendancedb1.test/subject",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

@@ -74,7 +74,12 @@ export class SubjectPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancebd.test/subject",
+      // Url de Zarate      
+      url: "http://attendancedb.test/subject",      
+      // Url de Zarate      
+      //url: "http://attendancebd.test/subject",
+      // Url de Zarate      
+      //url: "http://attendancedb1.test/subject",        
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

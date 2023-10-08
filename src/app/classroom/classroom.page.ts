@@ -25,8 +25,10 @@ export class ClassroomPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url de Monica, Zarate
+      // Url de Monica
       url: "http://attendancedb.test/classroom",
+      // Url de Zarate
+      //url: "http://attendancebd.test/classroom",      
       // Url de Raul
       //url: "http://attendancedb1.test/classroom",
       withCredentials: true,
