@@ -10,16 +10,40 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list lines="inset">
-    <ion-item>
-      <ion-label>Lista de codigos</ion-label>
-      <ion-button fill="clear" [routerLink]="['/lista-codigos']">
-        <ion-icon name="arrow-forward-outline" large="large"></ion-icon>
-      </ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label>Generar Codigo</ion-label>
+  <ion-searchbar class="custom"></ion-searchbar>
+
+
+
+  <ion-list>
+    <ion-item button *ngFor="let codigo of codigos">
+      
+      <ion-label class="ion-text-wrap">
+        <h2>{{codigo.cod_code}}</h2>
+        <h3> {{codigo.tag}} </h3>
+        <p>{{codigo.cod_time}}</p>
+        <p>{{codigo.cod_date | date:'y-MM-dd'}}</p>
+      </ion-label>
+
     </ion-item>
   </ion-list>
+
+
+<!--   Boton generar codigo 
+
+
+[routerLink]="['/lista-codigos']"
+-->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+
+      <ion-fab-button>
+        <ion-icon name="document" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+  </ion-fab>
   
 </ion-content>
