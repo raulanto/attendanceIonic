@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!--     Boton para regresar
+ -->
+ <ion-buttons slot="start">
+  <ion-back-button></ion-back-button>
+</ion-buttons>
+    <ion-title>Codigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="inset">
+    <ion-item>
+      <ion-label>Lista de codigos</ion-label>
+      <ion-button fill="clear" [routerLink]="['/lista-codigos']"
+        ><ion-icon name="arrow-forward-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>Generar Codigo</ion-label>
+    </ion-item>
+  </ion-list>
+  
+</ion-content>

@@ -9,7 +9,19 @@ const routes: Routes = [
   {
     path: 'question',
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
+  },  {
+    path: 'codigos',
+    loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
   },
+  {
+    path: 'asistencia',
+    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
+  },
+  {
+    path: 'lista-codigos',
+    loadChildren: () => import('./lista-codigos/lista-codigos.module').then( m => m.ListaCodigosPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

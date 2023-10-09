@@ -28,7 +28,8 @@ export class QuestionPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      url: "http://attendancedb1.test/question?expand=tag,teacher,person",
+      //es attendancedb
+      url: "http://attendancedb.test/question?expand=tag,teacher,person",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
