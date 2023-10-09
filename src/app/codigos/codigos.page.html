@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <!--     Boton para regresar
  -->
@@ -13,9 +13,9 @@
   <ion-list lines="inset">
     <ion-item>
       <ion-label>Lista de codigos</ion-label>
-      <ion-button fill="clear" [routerLink]="['/lista-codigos']"
-        ><ion-icon name="arrow-forward-outline"></ion-icon
-      ></ion-button>
+      <ion-button fill="clear" [routerLink]="['/lista-codigos']">
+        <ion-icon name="arrow-forward-outline" large="large"></ion-icon>
+      </ion-button>
     </ion-item>
     <ion-item>
       <ion-label>Generar Codigo</ion-label>
