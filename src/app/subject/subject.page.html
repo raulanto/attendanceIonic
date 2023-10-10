@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start"> 
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/ruta-anterior"></ion-back-button>
     </ion-buttons>
     <ion-title>
@@ -10,17 +10,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<!-- declaramos el botoón desplegable-->
+
   <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
     <ion-fab-button>
 
       <ion-icon name="chevron-down-circle"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button (click)="mostrarAlerta()"> <!-- Mandamos a llamar el metodo de la alerta con el botón desplegado que tiene un lapiz-->
+      <ion-fab-button color= var(--ion-color-primary) (click)="mostrarAlerta()">
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button [routerLink] = "['/elim-subject']"> <!-- Mandamos a llamar la pagina eliminar materia-->
+      <ion-fab-button [routerLink] = "['/elim-subject']" >
         <ion-icon name="backspace-outline"></ion-icon>
       </ion-fab-button>
       <ion-fab-button>
@@ -38,10 +38,13 @@
       <ion-card-title>{{ subjects.sub_name }}</ion-card-title>
       <ion-card-subtitle>{{ subjects.sub_code }}</ion-card-subtitle>
     </ion-card-header>
-
+  
     <ion-card-content>
+   
+      
     </ion-card-content>
   </ion-card>
+  
 
 
 

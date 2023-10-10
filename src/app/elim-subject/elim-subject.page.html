@@ -8,12 +8,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list> <!-- Mandamos a llamar todos los titulos de las materias para que se muestren en la lista con check box-->
+  <ion-list>
     <ion-item *ngFor="let subjects of subject">
       <ion-checkbox label-placement="stacked" alignment="start">{{ subjects.sub_name }}</ion-checkbox>
     </ion-item>
   </ion-list>
   <ion-button expand="center"z >Guardar Cambios</ion-button>
+  <ion-button defaultHref="/ruta-anterior" expand="center"z >Cancelar</ion-button>
 </ion-content>
 
 
