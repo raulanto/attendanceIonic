@@ -11,13 +11,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class QuestionPage implements OnInit {
   items: any = [];
-  public tagselect: string = '';
-  public questionarray = [
-    'Carrera 1',
-    'Carrera 2',
-    'Carrera 3',
-    // Agrega más carreras según sea necesario
-  ];
+  imagenPath: string = 'assets/icon/image.png';
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController
@@ -38,16 +32,6 @@ export class QuestionPage implements OnInit {
         maxlength: 15,
       },
     },
-    {
-      name: 'selectorCarrera',
-      type: 'select',
-      placeholder: 'Selecciona una carrera',
-      options: this.questionarray.map((question) => ({
-        text: question,
-        value: question,
-      })),
-    },
-
   ];
 
   async mostrarAlerta() {
