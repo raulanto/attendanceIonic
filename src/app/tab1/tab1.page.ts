@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
+//http://attendancedb.test/group
   constructor(
     private route: ActivatedRoute,
   ) { }

@@ -15,7 +15,7 @@ export class ListaAsistenciaPage implements OnInit {
     private loadingCtrl: LoadingController,
     private loading: LoadingController
   ) { }
-  asistencia: any = [];
+  asistencias: any = [];
   ngOnInit() {
     this.cargarAsistencia()
   }
@@ -27,13 +27,13 @@ export class ListaAsistenciaPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/attendance",
+      url: "http://attendancedb.test/attendance/?expand=code",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
     }).then((response) => {
-      this.asistencia = response.data;
+      this.asistencias = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
