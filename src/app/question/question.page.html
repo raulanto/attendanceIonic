@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar
- -->    <ion-buttons slot="start">
+    <!--     Boton para regresar
+ --> <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Preguntas</ion-title>
@@ -9,23 +9,39 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Questions</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-list>
-    <ion-item button *ngFor="let question of questions">
-      
-      <ion-label class="ion-text-wrap">
-        <h2>{{question.que_title}}</h2>
-        <h3> {{question.tag}} </h3>
-        <p>{{question.person}}</p>
-        <p>{{question.que_create | date:'y-MM-dd'}}</p>
-      </ion-label>
+  <ion-card *ngFor="let question of questions">
+    <ion-card-header>
+      <ion-card-title>{{ question.que_title }}</ion-card-title>
+      <ion-card-subtitle>{{ question.que_description }}</ion-card-subtitle>
+    </ion-card-header>
 
-    </ion-item>
-  </ion-list>
+    <ion-card-content>
+      <!-- Añade el contenido de la asignatura aquí si es necesario -->
+      <p>{{ question.teacher }}</p>
+      <p>{{ question.que_create }}</p>
+      <!-- Otros detalles de la asignatura pueden ir aquí -->
+    </ion-card-content>
+  </ion-card>
 
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <!-- Boton principal -->
+    <ion-fab-button>
+      <ion-icon name="chevron-down-circle"></ion-icon>
+    </ion-fab-button>
 
+    <ion-fab-list side="bottom">
+
+      <!-- Eliminar question -->
+      <ion-fab-button (click)="mostrarAlerta()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-fab-button>
+      <!-- agregar question -->
+      <ion-fab-button>
+        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+        <ion-action-sheet trigger="open-action-sheet" header="Example header" subHeader="Example subheader"></ion-action-sheet>
+      </ion-fab-button>
+    
+
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

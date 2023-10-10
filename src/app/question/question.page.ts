@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import axios from 'axios';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -9,15 +10,77 @@ import axios from 'axios';
   styleUrls: ['./question.page.scss'],
 })
 export class QuestionPage implements OnInit {
-  questions: any = [];
+  items: any = [];
+  public tagselect: string = '';
+  public questionarray = [
+    'Carrera 1',
+    'Carrera 2',
+    'Carrera 3',
+    // Agrega más carreras según sea necesario
+  ];
   constructor(
     private loadingCtrl: LoadingController,
-
+    private alertController: AlertController
   ) { }
 
+
+  public alertButtons = ['Crear'];
+  public alertInputs = [
+    {
+      placeholder: 'Codigo de la Carrera',
+      attributes: {
+        maxlength: 15,
+      },
+    },
+    {
+      placeholder: 'Codigo de la Carrera',
+      attributes: {
+        maxlength: 15,
+      },
+    },
+    {
+      name: 'selectorCarrera',
+      type: 'select',
+      placeholder: 'Selecciona una carrera',
+      options: this.questionarray.map((question) => ({
+        text: question,
+        value: question,
+      })),
+    },
+
+  ];
+
+  async mostrarAlerta() {
+    const alert = await this.alertController.create({
+      header: 'Realizar una pregunta',
+      inputs: [
+        {
+          name: 'nombreCarrera',
+          type: 'text',
+          placeholder: 'Nombre de la carrera',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  questions: any = [];
   ngOnInit() {
     this.cargarQuestions();
 
+  }
+
+  private generateItems() {
+    const count = this.items.length + 1;
+    for (let i = 0; i < 50; i++) {
+      this.items.push(`Item ${count + i}`);
+    }
   }
 
   async cargarQuestions(event?: InfiniteScrollCustomEvent) {
@@ -29,7 +92,7 @@ export class QuestionPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url de Monica
-      url: "http://attendancedb.test/question?expand=tag,teacher,person",
+      url: "http://attendancedb1.test/question?expand=tag,teacher,person",
       // Url de Zarate
       //url: "http://attendancebd.test/question?expand=tag,teacher,person",      
       // Url de Raul
@@ -46,6 +109,5 @@ export class QuestionPage implements OnInit {
     });
     loading.dismiss();
   }
-
 
 }
