@@ -29,8 +29,11 @@
     </ion-fab-list>
   </ion-fab>
 
+
+
+
   <!-- Utiliza *ngFor para iterar sobre las asignaturas y mostrarlas en tarjetas -->
-  <ion-card *ngFor="let subjects of subject">
+  <ion-card *ngFor="let subjects of subject" >
     <ion-card-header>
       <ion-card-title>{{ subjects.sub_name }}</ion-card-title>
       <ion-card-subtitle>{{ subjects.sub_code }}</ion-card-subtitle>
@@ -38,4 +41,8 @@
   
   </ion-card>
   
+  
+
+
+
 </ion-content>

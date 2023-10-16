@@ -3,6 +3,8 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import axios from 'axios';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-major',
@@ -14,7 +16,8 @@ export class MajorPage {
   items: any = [];
   constructor(
     private loadingCtrl: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router, private navCtrl: NavController,
   ) { }
 
   public alertButtons = ['Crear'];
@@ -66,6 +69,8 @@ export class MajorPage {
     }
   }
 
+  
+
   async loadMajors(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -74,8 +79,7 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      // Url
-      url: "http://attendancedb.test/major",          
+      url: "http://attendancebd.test/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -88,5 +92,14 @@ export class MajorPage {
     });
     loading.dismiss();
   }
+
+  onClickCard() {
+    // Navegar al tab "subject"
+    // Puedes usar this.router.navigate(['/tabs/tab-subject']) si tu ruta es así
+    
+    this.navCtrl.navigateForward('/tabs/subject');
+  }
+
+  
 
 }

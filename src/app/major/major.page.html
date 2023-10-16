@@ -30,17 +30,16 @@
 
 
   <!-- Utiliza *ngFor para iterar sobre las asignaturas y mostrarlas en tarjetas -->
-  <ion-card *ngFor="let majors of major">
+  <ion-card *ngFor="let majors of major" (click)="onClickCard()">
     <ion-card-header>
       <ion-card-title>{{ majors.maj_name }}</ion-card-title>
       <ion-card-subtitle>{{ majors.maj_code }}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <!-- Añade el contenido de la asignatura aquí si es necesario -->
-      <p>info de la Carrera</p>
-      <!-- Otros detalles de la asignatura pueden ir aquí -->
     </ion-card-content>
   </ion-card>
+
+
 
 </ion-content>
