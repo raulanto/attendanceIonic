@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar
- -->    <ion-buttons slot="start">
+<!--     Boton para regresar -->    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Archivos</ion-title>
@@ -9,22 +8,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Archivos</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-list>
-    <ion-item button *ngFor="let library of librarys">
-      
-      <ion-label class="ion-text-wrap">
-        <h2>{{library.lib_title}}</h2>
-        <h3>Grupo: {{library.group}}</h3>
-        <p> {{library.lib_description}} </p>
-        <p>{{library.lib_type}}</p>
+    <ion-item *ngFor="let library of librarys">
+      <ion-icon [name]="getIconName(library.lib_type)" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ library.lib_title }}</h2>
+        <h3>{{ library.lib_description }}</h3>
       </ion-label>
- 
+      <ion-button fill="clear" (click)="openLibraryFile(library.lib_file)">Abrir</ion-button>
     </ion-item>
   </ion-list>
-
 </ion-content>

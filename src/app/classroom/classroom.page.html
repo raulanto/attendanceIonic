@@ -14,15 +14,23 @@
       <ion-title size="large">Archivos</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-list>
     <ion-item button *ngFor="let classroom of classrooms">
       
       <ion-label class="ion-text-wrap">
-        <h2>{{classroom.clas_name}}</h2>
-        <p> {{classroom.clas_description}} </p>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{classroom.clas_name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content> {{classroom.clas_description}} </ion-card-content>
+        
+        </ion-card>
       </ion-label>
- 
+
     </ion-item>
   </ion-list>
 
+  
 </ion-content>

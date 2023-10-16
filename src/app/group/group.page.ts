@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import axios from 'axios';
 
 @Component({
@@ -11,7 +13,37 @@ export class GroupPage implements OnInit {
   groups: any = [];
   constructor(
     private loadingCtrl: LoadingController,
+    private alertController: AlertController
   ) { }
+
+  public alertButtons = ['Unirse'];
+  public alertInputs = [
+    {
+      placeholder: 'Ingresa el código',
+      attributes: {
+        maxlength: 15,
+      },
+    },
+    
+  ];
+  
+  async mostrarAlerta() {
+    const alert = await this.alertController.create({
+      header: 'Unirse a un equipo con un código',
+      inputs: this.alertInputs,
+      buttons: [
+        {
+          text: this.alertButtons[0],
+          handler: (data) => {
+            // Manejar los datos ingresados en el formulario aquí
+            console.log('Datos del formulario:', data);
+          },
+        }, 
+      ],
+    });
+
+    await alert.present();
+  }
 
   ngOnInit() {
     this.cargarGroups();
@@ -25,12 +57,8 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url de Monica
+      // Url
       url: "http://attendancedb.test/group?expand=subject,teacher,classroom",
-      // Url de Zarate
-      //url: "http://attendancebd.test/group?expand=subject,teacher,classroom",      
-      // Url de Raul
-      //url: "http://attendancedb1.test/group?expand=subject,teacher,classroom",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -43,6 +71,5 @@ export class GroupPage implements OnInit {
     });
     loading.dismiss();
   }
-
 
 }

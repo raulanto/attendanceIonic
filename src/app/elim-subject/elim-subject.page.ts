@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import axios from 'axios';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
@@ -31,12 +31,8 @@ export class ElimSubjectPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      // Url de Monica
+      // Url
       url: "http://attendancedb.test/subject",      
-      // Url de Zarate
-      //url: "http://attendancebd.test/subject",
-      // Url de Raul
-      //url: "http://attendancedb1.test/subject",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -49,7 +45,4 @@ export class ElimSubjectPage {
     });
     loading.dismiss();
   }
-
- 
-
 }

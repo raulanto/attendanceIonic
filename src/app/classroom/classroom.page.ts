@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import axios from 'axios';
 
 @Component({
@@ -25,12 +26,8 @@ export class ClassroomPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url de Monica
+      // Url
       url: "http://attendancedb.test/classroom",
-      // Url de Zarate
-      //url: "http://attendancebd.test/classroom",      
-      // Url de Raul
-      //url: "http://attendancedb1.test/classroom",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

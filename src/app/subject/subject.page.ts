@@ -39,7 +39,6 @@ export class SubjectPage {
 
   //creamos un metodo para iniciar la alerta 
 
-
   async mostrarAlerta() {
     const alert = await this.alertController.create({
       header: 'Registro Nueva Materia',
@@ -62,9 +61,6 @@ export class SubjectPage {
   ngOnInit() {
     this.loadSubjects();
   }
-
-  
-
 
   async loadSubjects(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -92,8 +88,5 @@ export class SubjectPage {
     });
     loading.dismiss();
   }
-
-
-
 
 }
