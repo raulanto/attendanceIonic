@@ -17,13 +17,22 @@ const routes: Routes = [
   {
     path: 'asistencia',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
-  },  {
+  },
+  {
     path: 'lista-asistencia',
     loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
   },
   {
     path: 'generar-codigo',
     loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
+  },
+  {
+    path: 'grupo-opc',
+    loadChildren: () => import('./grupo-opc/grupo-opc.module').then( m => m.GrupoOpcPageModule)
+  },
+  {
+    path: 'grupo-opc/:matricula',
+    loadChildren: () => import('./grupo-opc/grupo-opc.module').then(m => m.GrupoOpcPageModule)
   },
 
 
