@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Información </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="flex-container" *ngIf="extra as extra">
+    
+    <ion-card class="card-title">
+      <ion-card-content class="center">
+        <div class="image-container">
+          <img src="assets/img/extra.png" alt="Foto" />
+        </div>
+      </ion-card-content>
+      <ion-card-header class="center">
+        <ion-card-title>
+          <h2 class="title">{{extra.extracurricular}}</h2>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="card-message">
+      <ion-card-content>
+            <ion-label>
+              <p>{{extra.extgro_commit}}</p>
+            </ion-label>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="card-info">
+      <ion-card-content>
+        <ion-list lines="none">
+
+          <ion-item>
+            <ion-label>
+              <ion-icon slot="start" name="people"></ion-icon>
+              <p class="info-label">Grupo</p>
+              <h2 class="info-value">{{extra.group}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon slot="start" name="clipboard"></ion-icon>
+              <p class="info-label">Descripcion</p>
+              <h2 class="info-value">{{extra.description}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="calendar"></ion-icon>
+              <p class="info-label">Fecha</p>
+              <h2 class="info-value">{{extra.date | date: 'dd/MM/y'}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon slot="start" name="time"></ion-icon>
+              <p class="info-label">Hora</p>
+              <h2 class="info-value">{{extra.time}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon slot="start" name="location"></ion-icon>
+              <p class="info-label">Lugar</p>
+              <h2 class="info-value">{{extra.place}}</h2>
+            </ion-label>
+          </ion-item>
+
+
+        </ion-list>
+          
+        
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

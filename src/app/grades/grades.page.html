@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mis calificaciones
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-accordion-group [multiple]="true" expand="inset">
+    <ion-accordion *ngFor="let grades of grade">
+      
+      <ion-item slot="header">
+        <ion-icon name="clipboard" slot="start"></ion-icon>
+        <ion-label>
+          {{grades.gra_type}}
+        </ion-label>
+      </ion-item>
+
+      <div class="ion-padding" slot="content">
+        {{grades.gra_score}} / 100
+        <ion-icon name="star" slot="start"></ion-icon>
+      </div>
+
+      <div class="ion-padding" slot="content">
+        {{grades.gra_commit}}
+      </div>
+      
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

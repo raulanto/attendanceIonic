@@ -9,7 +9,8 @@ const routes: Routes = [
   {
     path: 'question',
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
-  },  {
+  },
+  {
     path: 'codigos',
     loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
   },
@@ -20,6 +21,18 @@ const routes: Routes = [
   {
     path: 'lista-codigos',
     loadChildren: () => import('./lista-codigos/lista-codigos.module').then( m => m.ListaCodigosPageModule)
+  },
+  {
+    path: 'extracurricular/:extcode',
+    loadChildren: () => import('./extracurricular/extracurricular.module').then( m => m.ExtracurricularPageModule)
+  },
+  {
+    path: 'notextracurricular',
+    loadChildren: () => import('./notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
+  },
+  {
+    path: 'grades',
+    loadChildren: () => import('./grades/grades.module').then( m => m.GradesPageModule)
   },
 
 ];
