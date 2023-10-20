@@ -29,7 +29,11 @@ const routes: Routes = [
   {
     path: 'notextracurricular',
     loadChildren: () => import('./notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
+  },  {
+    path: 'newextracurricular',
+    loadChildren: () => import('./newextracurricular/newextracurricular.module').then( m => m.NewextracurricularPageModule)
   }
+
 ];
 @NgModule({
   imports: [
