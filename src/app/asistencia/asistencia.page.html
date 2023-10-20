@@ -4,7 +4,7 @@
  --> <ion-buttons slot="start">
   <ion-back-button></ion-back-button>
 </ion-buttons>
-    <ion-title>Asistencia</ion-title>
+    <ion-title>Asistencia {{grupoid}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Codigo</ion-label>
-      <ion-button fill="clear" [routerLink]="['/codigos']"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
+      <ion-button fill="clear" [routerLink]="['/codigos',grupoid]"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
     </ion-item>
   </ion-list>
 

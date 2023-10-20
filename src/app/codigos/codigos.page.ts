@@ -9,15 +9,19 @@ import axios from 'axios';
   styleUrls: ['./codigos.page.scss'],
 })
 export class CodigosPage implements OnInit {
-
+	public grupoid: any;
 	constructor(
 		private route: ActivatedRoute,
 		private loadingCtrl : LoadingController,
 		private loading: LoadingController
-	) { }
+	) {
+		this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+
+	}
 	codigos: any = [];
 	ngOnInit() {
-		this.cargarCodigo()
+		this.cargarCodigo();
+		this.mostrar();
 	}
 	async cargarCodigo(event?: InfiniteScrollCustomEvent) {
 		const loading = await this.loadingCtrl.create({
@@ -40,6 +44,11 @@ export class CodigosPage implements OnInit {
 		});
 		loading.dismiss();
 	}
+
+	mostrar() {
+		console.log('Valor de grupoid en codigo:', this.grupoid);
+	}
+
 	
 
 }

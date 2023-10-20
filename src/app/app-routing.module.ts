@@ -11,11 +11,19 @@ const routes: Routes = [
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
   },
   {
+    path: 'codigos/:grupoid',
+    loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
+  },
+  {
     path: 'codigos',
     loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
   },
   {
     path: 'asistencia',
+    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
+  },
+  {
+    path: 'asistencia/:grupoid',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
   {
@@ -27,11 +35,15 @@ const routes: Routes = [
     loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
   },
   {
+    path: 'generar-codigo/:grupoid',
+    loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
+  },
+  {
     path: 'grupo-opc',
     loadChildren: () => import('./grupo-opc/grupo-opc.module').then( m => m.GrupoOpcPageModule)
   },
   {
-    path: 'grupo-opc/:matricula',
+    path: 'grupo-opc/:grupoid',
     loadChildren: () => import('./grupo-opc/grupo-opc.module').then(m => m.GrupoOpcPageModule)
   },
 
