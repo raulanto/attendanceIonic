@@ -42,6 +42,11 @@ const routes: Routes = [
     path: 'group',
     loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
   },
+  {
+    path: 'newlibrary',
+    loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
+  },
+
   
 ];
 @NgModule({

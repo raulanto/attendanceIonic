@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import axios from 'axios';
+import { NewlibraryPage } from '../newlibrary/newlibrary.page';
 
 @Component({
   selector: 'app-library',
@@ -12,6 +14,7 @@ export class LibraryPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private platform: Platform,
+    public modalCtrl: ModalController,
   ) { }
 
   ngOnInit() {
@@ -65,5 +68,17 @@ export class LibraryPage implements OnInit {
     }
   }
   
+  async new() {
+    // Crear una página modal utilizando el controlador de modales 
+    const paginaModal = await this.modalCtrl.create({
+      component: NewlibraryPage, // El componente que se mostrará en el modal
+      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+    });
+    // Presentar la página modal en la interfaz de usuario
+    await paginaModal.present();
+  }
+  
+
 }
 
