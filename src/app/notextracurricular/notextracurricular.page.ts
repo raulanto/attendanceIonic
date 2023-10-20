@@ -51,8 +51,8 @@ async new() {
   // Crear una página modal utilizando el controlador de modales 
   const paginaModal = await this.modalCtrl.create({
     component: NewextracurricularPage, // El componente que se mostrará en el modal
-    breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
-    initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+    breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
+    initialBreakpoint: 1.1, // Ubicacion inicial del punto de quiebre
   });
   // Presentar la página modal en la interfaz de usuario
   await paginaModal.present();

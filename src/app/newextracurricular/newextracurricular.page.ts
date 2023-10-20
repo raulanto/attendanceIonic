@@ -18,12 +18,24 @@ export class NewextracurricularPage implements OnInit {
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
     'ext_name': [{ type: 'required', message: 'Nombre requerido.' }],
-    'ext_date': [{ type: 'required', message: 'Fecha requerido.' }],
-    'ext_opening': [{ type: 'required', message: 'Hora de inicio requerida.' }],
-    'ext_closing': [{ type: 'required', message: 'Hora de cierre requerida.' }],
+    'ext_date': [
+      { type: 'required', message: 'Fecha requerida.' },
+      { type: 'pattern', message: 'Fecha en formato YYYY-MM-DD.' },
+    ],
+    'ext_opening': [
+      { type: 'required', message: 'Hora de inicio requerida.' },
+      { type: 'pattern', message: 'Hora en formato HH-MM-SS.' },
+    ],
+    'ext_closing': [
+      { type: 'required', message: 'Hora de cierre requerida.' },
+      { type: 'pattern', message: 'Hora en formato HH-MM-SS.' },
+    ],
     'ext_description': [{ type: 'required', message: 'Descripcion requerida.' }],
     'ext_place': [{ type: 'required', message: 'Lugar requerido.' }],
-    'ext_code': [{ type: 'required', message: 'Codigo requerido.' }],
+    'ext_code': [
+      { type: 'required', message: 'Codigo requerido.' },
+      { type : 'maxLength', message : 'Codigo de no más de 10 caracteres.'},
+    ],
   };
 
   constructor(
@@ -40,12 +52,24 @@ export class NewextracurricularPage implements OnInit {
     // Crear el formulario reactivo con campos y validaciones
     this.extracur = this.formBuilder.group({
       ext_name: ['', [Validators.required]],
-      ext_date: ['', [Validators.required]],
-      ext_opening: ['', [Validators.required]],
-      ext_closing: ['', [Validators.required]],
+      ext_date: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
+      ])],
+      ext_opening: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern("^([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")
+      ])],
+      ext_closing: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern("^([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")
+      ])],
       ext_description: ['', [Validators.required]],
       ext_place: ['', [Validators.required]],
-      ext_code: ['', [Validators.required]],
+      ext_code: ['', Validators.compose([
+        Validators.maxLength(10),
+        Validators.required,
+      ])],
     });
   }
 
