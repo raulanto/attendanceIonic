@@ -1,0 +1,25 @@
+ion-card {
+    background-color:var(--ion-color-tertiary) ;
+    border-radius: 15px;
+    box-shadow: #cfcfcf;
+    margin-bottom: 22px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    width: 200px; /* Ancho deseado para la tarjeta */
+    height: 200px;
+    font-size: 14px;
+}
+
+.ic{
+    position: relative;
+    display: flex;
+    text-align: left;
+  }
+.ic2{
+    position: relative;
+    display: flex;
+    text-align: right;
+    left: 140px;
+    
+  }
