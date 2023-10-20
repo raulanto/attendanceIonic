@@ -29,12 +29,7 @@ const routes: Routes = [
   {
     path: 'notextracurricular',
     loadChildren: () => import('./notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
-  },
-  {
-    path: 'grades',
-    loadChildren: () => import('./grades/grades.module').then( m => m.GradesPageModule)
-  },
-
+  }
 ];
 @NgModule({
   imports: [

@@ -6,14 +6,14 @@ ion-grid {
         border-radius: 10px;
         box-shadow: 0 5px 5px rgba(13, 13, 13, 0.2);
         margin-bottom: 10px; // Espacio entre notificaciones
-        padding: 5px;
+        padding: 10px;
         ion-col {
             display: flex;
             align-items: center;
+            padding: 10px;
             &:nth-child(1) {
                 justify-content: flex-start;
                 padding: 0px;
-                margin: 0px;
             }
             &:nth-child(2) {
                 flex-grow: 1;
@@ -27,25 +27,17 @@ ion-grid {
 }
 
 .extracurricular-text {
-    font-size: 16px;
+    font-size: 18px;
+    font-style: oblique;
     font-weight: bold;
 }
 
-.ver-mas {
-    font-size: 11px;
+.extracurricular-code {
+    font-size: 15px;
     color: var(--ion-color-text2);
-    text-align: right;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    cursor: pointer;
-    transition: background-color 0.1s, color 0.1s;
+    padding: 5px;
 }
 
-.ver-mas:hover {
-    color: #5225cd6b;
-}
-
-.ver-mas:active {
-    color: var(--ion-color-text2-shade);
+.extracurricular-info {
+    font-size: 12px;
 }

@@ -29,7 +29,7 @@ export class NotextracurricularPage implements OnInit {
     const response = await axios({
         method: 'get',
         //url : "http://attendancedb.test/extracurricular",
-        url : "http://attendancedb.test/extra-group/?expand=extracurricular,group",
+        url : "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
         withCredentials: true,
         headers: {
             'Accept': 'application/json'
@@ -44,3 +44,4 @@ export class NotextracurricularPage implements OnInit {
 }
 
 }
+
