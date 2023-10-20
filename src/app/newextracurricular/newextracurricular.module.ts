@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -8,12 +8,14 @@ import { NewextracurricularPageRoutingModule } from './newextracurricular-routin
 
 import { NewextracurricularPage } from './newextracurricular.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewextracurricularPageRoutingModule
+    NewextracurricularPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [NewextracurricularPage]
 })
