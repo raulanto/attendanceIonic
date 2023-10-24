@@ -12,9 +12,11 @@
   <ion-list lines="inset">
     <ion-item class="ion-text-wrap">
       <ion-label>Ver asistencia</ion-label>
-      <ion-button fill="clear" [routerLink]="['/lista-asistencia']"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
+      <!-- lista de asistencia -->
+      <ion-button fill="clear" [routerLink]="['/lista-asistencia',grupoid]"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
     </ion-item>
     <ion-item>
+      <!-- Tomar asistencia por  -->
       <ion-label>Tomar asistencia</ion-label>
     </ion-item>
     <ion-item>

@@ -10,17 +10,16 @@
 
 <ion-content [fullscreen]="true">
 
+
+
     <ion-list>
-      <ion-item button *ngFor="let asistencia of asistencias" >
-        
-        <ion-label class="ion-text-wrap">
-          <h2>{{asistencia.att_commit}}</h2>
-          <h3> {{asistencia.code}} </h3>
-          <p>{{asistencia.att_time}}</p>
-          <p>{{asistencia.att_date | date:'y-MM-dd'}}</p>
-        </ion-label>
-  
+      <ion-item button *ngFor="let lista of listas" [routerLink]="['/detalle-asistencia',lista.list_id]">
+        <ion-avatar aria-hidden="true" slot="start">
+          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label>{{lista.list_fkperson}}</ion-label>
       </ion-item>
     </ion-list>
+
 
 </ion-content>

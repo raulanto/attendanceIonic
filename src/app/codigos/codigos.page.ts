@@ -35,10 +35,12 @@ export class CodigosPage implements OnInit {
 		await loading.present();
 		const response = await axios({
 			method: 'get',
-			url: "http://attendancedb.test/code",
+			url: "http://attendancedb.test/code/codigos?id="+this.grupoid,
 			withCredentials: true,
 			headers: {
-				'Accept': 'application/json'
+				'Accept': 'application/json',
+				//token Bearer 100-token
+				'Authorization': 'Bearer 100-token'
 			}
 		}).then((response) => {
 			this.codigos = response.data;

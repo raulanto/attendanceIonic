@@ -4,25 +4,33 @@ import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-lista-asistencia',
-  templateUrl: './lista-asistencia.page.html',
-  styleUrls: ['./lista-asistencia.page.scss'],
+  selector: 'app-detalle-asistencia',
+  templateUrl: './detalle-asistencia.page.html',
+  styleUrls: ['./detalle-asistencia.page.scss'],
 })
-export class ListaAsistenciaPage implements OnInit {
-  public grupoid: any;
-
+export class DetalleAsistenciaPage implements OnInit {
+  public idperson: any;
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
     private loading: LoadingController
   ) {
     //mandamos a pedir el id del grupo desde route paramMap
-    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
-   }
-  listas: any = [];
-  ngOnInit() {
-    this.cargarAsistencia()
+    this.idperson = this.route.snapshot.paramMap.get('idperson');
   }
+
+  ngOnInit() {
+    this.mostrar();
+    this.cargarAsistencia();
+  }
+
+  // Una función que utiliza el valor de 'idperson'
+  mostrar() {
+    console.log('Valor de idperson en asistencia:', this.idperson);
+  }
+
+  asistencias: any = [];
+
   async cargarAsistencia(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -31,7 +39,7 @@ export class ListaAsistenciaPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/listg/listas?id="+this.grupoid,
+      url: "http://attendancedb.test/attendance/asistencias?id=" + this.idperson,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
@@ -39,7 +47,7 @@ export class ListaAsistenciaPage implements OnInit {
         'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
-      this.listas = response.data;
+      this.asistencias = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);

@@ -10,6 +10,7 @@ const routes: Routes = [
     path: 'question',
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
   },
+  //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'codigos/:grupoid',
     loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
@@ -22,18 +23,26 @@ const routes: Routes = [
     path: 'asistencia',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
+  //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'asistencia/:grupoid',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
+  
   {
     path: 'lista-asistencia',
+    loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
+  },
+  //Agrego la nueva ruta donde llevara el id del grupo
+  {
+    path: 'lista-asistencia/:grupoid',
     loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
   },
   {
     path: 'generar-codigo',
     loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
   },
+  //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'generar-codigo/:grupoid',
     loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
@@ -42,10 +51,21 @@ const routes: Routes = [
     path: 'grupo-opc',
     loadChildren: () => import('./grupo-opc/grupo-opc.module').then( m => m.GrupoOpcPageModule)
   },
+  //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'grupo-opc/:grupoid',
     loadChildren: () => import('./grupo-opc/grupo-opc.module').then(m => m.GrupoOpcPageModule)
   },
+  {
+    path: 'detalle-asistencia',
+    loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+  },
+  //esta ruta nos mandara al despliege todas las asistencia que pertenecen a la persona
+  {
+    path: 'detalle-asistencia/:idperson',
+    loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+  },
+
 
 
 
