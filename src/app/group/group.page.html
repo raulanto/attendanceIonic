@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar
- -->    <ion-buttons slot="start">
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Tus Grupos</ion-title>
@@ -15,19 +15,23 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    <ion-item button *ngFor="let group of groups" [routerLink]="['/menu1', group.gro_id, group.subject, group.gro_code]">
-
-      
-      <ion-label class="ion-text-wrap">
-        <h2>{{group.subject}} {{group.gro_code}}</h2>
-        <h3>{{group.teacher}} </h3>
-        <p>Ubicación {{group.classroom}}</p>
-        <p>Creado  el: {{group.gro_date | date:'y-MM-dd'}} {{group.gro_time}}</p>
-      </ion-label>
- 
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor="let group of groups" >
+      <!-- Crear columna para el icono-->
+      <ion-col size="1" [routerLink]="['/menu1', group.gro_id, group.subject, group.gro_code]">
+      <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col [routerLink]="['/menu1', group.gro_id, group.subject, group.gro_code]">
+        <ion-label>
+          <h2>{{group.subject}} {{group.gro_code}}</h2>
+          <h3>Docente: {{group.teacher}} </h3>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 
   <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
     
