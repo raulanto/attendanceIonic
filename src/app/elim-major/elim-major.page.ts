@@ -130,6 +130,9 @@ async guardarDatos() {
         if (error?.response?.status == 422) {
           this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
         }
+        if (error?.response?.status == 500) {
+          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+        }
       });
     } else {
       // Mostrar un mensaje de error si no se ha seleccionado una carrera
