@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class ElimMajorPage  {
 
   items: any = [];
+  selectedMajor: any;
   constructor(
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
@@ -29,16 +30,18 @@ export class ElimMajorPage  {
 
 
   ngOnInit() {
-    this.loadMajors();
+    this.loadMajor();
   }
 
   baseUrl:string = "http://attendanceproyect.atwebpages.com/"
   majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
-  major: any = [];
+  majors: any = [];
   public eliminarCarrera!: FormGroup;
 
+  
 
-  async loadMajors(event?: InfiniteScrollCustomEvent) {
+
+  async loadMajor(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -52,7 +55,7 @@ export class ElimMajorPage  {
         'Accept': 'application/json'
       }
     }).then((response) => {
-      this.major = response.data;
+      this.majors = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
@@ -64,38 +67,52 @@ export class ElimMajorPage  {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  async alertEliminar(Carrera: any) {
+  confirmSelection() {
+    if (this.selectedMajor) {
+      // Realizar alguna acción si es necesario antes de asignar el valor
+      // Por ejemplo, mostrar un cuadro de diálogo de confirmación.
+      this.alertEliminar(this.selectedMajor);
+    }
+  }
+
+  
+
+
+  async alertEliminar(selectedMajor: any) {
     const alert = await this.alert.create({
-    header: 'Alumno',
-    subHeader: 'Eliminar',
-    message: '¿Estás seguro de eliminar al estudiante con matrícula ' + Carrera + '?',
-    cssClass: 'alert-center',
-    buttons: [
+      header: 'Alumno',
+      subHeader: 'Eliminar',
+      message: '¿Estás seguro de eliminar la carrera ' + selectedMajor + '?',
+      cssClass: 'alert-center',
+      buttons: [
         {
-        text: 'Cancelar',
-        role: 'cancel'
+          text: 'Cancelar',
+          role: 'cancel'
         },
         {
-        text: 'Confirmar',
-        role: 'confirm',
-        handler: () => {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.selectedMajor = selectedMajor;
             this.guardarDatos();
+          }
         }
-        }
-    ]
+      ]
     });
     await alert.present();
-}
+  }
+  
 
 
-
-  async guardarDatos() {
-    try {
-      const eliminar = this.eliminarCarrera?.value; 
+async guardarDatos() {
+  try {
+    if (this.selectedMajor) {
+      const eliminar = { maj_name: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
       const response = await axios({
         method: 'delete',
-        url : this.majorUrl,
-        data: eliminar, 
+        url: "http://attendanceproyect.atwebpages.com/major",
+        withCredentials: true,
+        data: eliminar,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
@@ -106,15 +123,19 @@ export class ElimMajorPage  {
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
-        }    
+          this.alertEliminado(eliminar.maj_name, error?.response?.data[0]?.message, "Error");
+        }
       });
-    } catch (e) {
-      console.log(e);
+    } else {
+      // Mostrar un mensaje de error si no se ha seleccionado una carrera
+      this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
     }
+  } catch (e) {
+    console.log(e);
   }
+}
 
-  async alertEliminado(maj_id: String, msg = "",  subMsg= "eliminado") {
+  async alertEliminado(selectedMajor: any, msg = "",  subMsg= "eliminado") {
     const alert = await this.alert.create({
     header: 'Carrera',
     subHeader: subMsg,
@@ -143,6 +164,12 @@ export class ElimMajorPage  {
     window.location.reload();
     });
 }
+
+handleMajorSelection(event: any) {
+  // Aquí puedes acceder al valor seleccionado con this.selectedMajor
+  console.log("Carrera seleccionada:", this.selectedMajor);
+}
+
 
 
 
