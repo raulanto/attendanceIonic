@@ -33,7 +33,7 @@ export class ElimMajorPage  {
     this.loadMajor();
   }
 
-  baseUrl:string = "http://attendancedb.test/major/"
+  baseUrl:string = "http://attendancedb.test/major"
   majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
   majors: any = [];
   public eliminarCarrera!: FormGroup;
@@ -106,7 +106,7 @@ export class ElimMajorPage  {
 //"http://attendancedb.test/major"
 
 //link base de datos en linea
-//"http://attendanceproyect.atwebpages.com/majors"
+//"http://attendanceproyect.atwebpages.com/major"
 
 
 async guardarDatos() {
@@ -115,7 +115,7 @@ async guardarDatos() {
       const eliminar = { maj_id: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
       const response = await axios({
         method: 'delete',
-        url: this.baseUrl + this.selectedMajor,
+        url: this.baseUrl + "/" + this.selectedMajor,
         withCredentials: true,
         data: eliminar,
         headers: {
