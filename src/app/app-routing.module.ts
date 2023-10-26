@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'group',
     loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
   },
+  {
+    path: 'newmajor',
+    loadChildren: () => import('./newmajor/newmajor.module').then( m => m.NewmajorPageModule)
+  },
   
 ];
 @NgModule({

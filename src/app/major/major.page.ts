@@ -5,11 +5,15 @@ import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewmajorPage } from '../newmajor/newmajor.page';
+import { ElimMajorPage } from '../elim-major/elim-major.page';
 
 @Component({
   selector: 'app-major',
-  templateUrl: 'major.page.html',
-  styleUrls: ['major.page.scss'],
+  templateUrl: './major.page.html',
+  styleUrls: ['./major.page.scss'],
 })
 export class MajorPage {
 
@@ -18,6 +22,8 @@ export class MajorPage {
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private router: Router, private navCtrl: NavController,
+    public modalCtrl: ModalController,
+    
   ) { }
 
   public alertButtons = ['Crear'];
@@ -36,6 +42,8 @@ export class MajorPage {
     },
     
   ];
+
+  
 
 
   async mostrarAlerta() {
@@ -57,9 +65,9 @@ export class MajorPage {
   }
 
 
-  major: any = [];
+  majors: any = [];
   ngOnInit() {
-    this.loadMajors();
+    this.loadMajor();
   }
 
   private generateItems() {
@@ -71,7 +79,7 @@ export class MajorPage {
 
   
 
-  async loadMajors(event?: InfiniteScrollCustomEvent) {
+  async loadMajor(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -79,13 +87,13 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancebd.test/major",
+      url: "http://attendanceproyect.atwebpages.com/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
       }
     }).then((response) => {
-      this.major = response.data;
+      this.majors = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
@@ -99,6 +107,24 @@ export class MajorPage {
     
     this.navCtrl.navigateForward('/tabs/subject');
   }
+
+  async newMajor() {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewmajorPage,
+    breakpoints : [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+}
+
+async elimMajor() {
+  const paginaModal = await this.modalCtrl.create({
+  component: ElimMajorPage,
+  breakpoints : [0, 0.3, 0.5, 0.95],
+  initialBreakpoint: 0.95
+  });
+  await paginaModal.present();
+}
 
   
 
