@@ -72,11 +72,11 @@ export class GenerarCodigoPage implements OnInit {
         }
       }).then( (response) => {//Llama la alerta en caso de exito
         if(response?.status == 201) {
-        this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido registrado');
+        this.alertGuardado(response.data.cod_code, 'El archivo ' + response.data.cod_code + ' ha sido registrado');
         }
     }).catch( (error) => {
         if(error?.response?.status == 422) {
-        this.alertGuardado(codigo.lib_title, error?.response?.data[0]?.message, "Error");
+        this.alertGuardado(codigo.cod_code, error?.response?.data[0]?.message, "Error");
         }     
     });
     } catch(e){
