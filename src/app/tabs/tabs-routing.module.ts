@@ -19,6 +19,10 @@ const routes: Routes = [
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
+      {
+        path: 'library/:grupoid',
+        loadChildren: () => import('../library/library.module').then( m => m.LibraryPageModule)
+      },
 
       
       {
