@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController, Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
 import { NewlibraryPage } from '../newlibrary/newlibrary.page';
 
@@ -10,17 +11,30 @@ import { NewlibraryPage } from '../newlibrary/newlibrary.page';
   styleUrls: ['./library.page.scss'],
 })
 export class LibraryPage implements OnInit {
-  librarys: any = [];
+  public grupoid: any;
+
   constructor(
+    private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
     private platform: Platform,
     public modalCtrl: ModalController,
-  ) { }
+  ) { 
+    //mandamos a pedir el id del grupo desde route paramMap
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
 
+  }
+    // Una función que utiliza el valor de 'idperson'
+    mostrar() {
+      console.log('Valor de idperson en asistencia:', this.grupoid);
+    }
+  
   ngOnInit() {
+    this.mostrar();
     this.cargarLibrarys();
   }
  
+  librarys: any = [];
+
   async cargarLibrarys(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -30,7 +44,8 @@ export class LibraryPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url
-      url: "http://attendancedb.test/library?expand=group",
+      url: "http://attendancedb.test/library/librarys?id=" + this.grupoid,
+      //url: "http://attendancedb.test/library?expand=group",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -79,6 +94,5 @@ export class LibraryPage implements OnInit {
     await paginaModal.present();
   }
   
-
 }
 

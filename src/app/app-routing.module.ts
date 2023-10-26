@@ -6,13 +6,23 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+    //Agrego la nueva ruta donde llevara el id del grupo, materia y codigo
   {
     path: 'menu1/:gro_id/:gro_subject/:gro_code',
     loadChildren: () => import('./menu1/menu1.module').then( m => m.Menu1PageModule)
   },
+    //Agrego la nueva ruta donde llevara el id del grupo
+  {
+    path: 'library/:grupoid',
+    loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
+  },
   {
     path: 'library',
     loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
+  },
+  {
+    path: 'newlibrary',
+    loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
   },
   {
     path: 'classroom',
@@ -42,10 +52,7 @@ const routes: Routes = [
     path: 'group',
     loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
   },
-  {
-    path: 'newlibrary',
-    loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
-  },
+
 
   
 ];

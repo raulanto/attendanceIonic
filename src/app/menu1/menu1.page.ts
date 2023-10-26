@@ -7,18 +7,26 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./menu1.page.scss'],
 })
 export class Menu1Page implements OnInit {
-  groupData: any = {};
+  public grupoid: any;
+  public gruposubject: any;
+  public grupocode: any;
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.groupData = {
-        gro_id: params.get('gro_id'),
-        gro_subject: params.get('gro_subject'),
-        gro_code: params.get('gro_code'),
-      };
-    });
+  constructor(private route: ActivatedRoute) {
+    // Acceder al valor de 'grupoid' y asignarlo a la propiedad de clase 'grupoid'
+    this.grupoid = this.route.snapshot.paramMap.get('gro_id');
+    this.gruposubject = this.route.snapshot.paramMap.get('gro_subject');
+    this.grupocode = this.route.snapshot.paramMap.get('gro_code');
   }
+  ngOnInit() {
+    this.mostrar();
+  }
+ 
+  // Una función que utiliza el valor de 'grupoid'
+  mostrar() {
+    console.log('Valor de grupoid en miFuncion:', this.grupoid);
+
+    // Puedes realizar otras acciones con 'grupoid' aquí
+  }
+
 }
 
