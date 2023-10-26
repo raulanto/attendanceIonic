@@ -33,7 +33,7 @@ export class ElimMajorPage  {
     this.loadMajor();
   }
 
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/"
+  baseUrl:string = "http://attendancedb.test/major/"
   majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
   majors: any = [];
   public eliminarCarrera!: FormGroup;
@@ -49,7 +49,7 @@ export class ElimMajorPage  {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/majors",
+      url: "http://attendanceproyect.atwebpages.com/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -103,7 +103,7 @@ export class ElimMajorPage  {
   }
   
 //link base de datos local
-//"http://attendancedb.test/majors"
+//"http://attendancedb.test/major"
 
 //link base de datos en linea
 //"http://attendanceproyect.atwebpages.com/majors"
@@ -112,10 +112,10 @@ export class ElimMajorPage  {
 async guardarDatos() {
   try {
     if (this.selectedMajor) {
-      const eliminar = { maj_name: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
+      const eliminar = { maj_id: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
       const response = await axios({
         method: 'delete',
-        url: "http://attendanceproyect.atwebpages.com/majors/",
+        url: this.baseUrl + this.selectedMajor,
         withCredentials: true,
         data: eliminar,
         headers: {
@@ -128,7 +128,7 @@ async guardarDatos() {
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertEliminado(eliminar.maj_name, error?.response?.data[0]?.message, "Error");
+          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
         }
       });
     } else {

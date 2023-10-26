@@ -44,9 +44,6 @@ export class MajorPage {
     
   ];
 
-  
-
-
   async mostrarAlerta() {
     const alert = await this.alertController.create({
       header: 'Registro Nueva Carrera',
@@ -67,7 +64,7 @@ export class MajorPage {
 
 
   majors: any = [];
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/major"
+  baseUrl:string = "http://attendancedb.test/major"
   ngOnInit() {
     this.loadMajor();
   }
@@ -89,7 +86,7 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/major",
+      url: "http://attendancedb.test/major/",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -103,12 +100,7 @@ export class MajorPage {
     loading.dismiss();
   }
 
-  onClickCard() {
-    // Navegar al tab "subject"
-    // Puedes usar this.router.navigate(['/tabs/tab-subject']) si tu ruta es así
-    
-    this.navCtrl.navigateForward('/tabs/subject');
-  }
+
 
   async newMajor() {
     const paginaModal = await this.modalCtrl.create({
@@ -128,11 +120,11 @@ async elimMajor() {
   await paginaModal.present();
 }
 
-async alertEliminar(majors: any) {
+async alertEliminar(carreras: any) {
   const alert = await this.alertCtrl.create({
   header: 'Alumno',
   subHeader: 'Eliminar',
-  message: '¿Estás seguro de eliminar al estudiante con matrícula ' + majors + '?',
+  message: '¿Estás seguro de eliminar al estudiante con matrícula ' + carreras + '?',
   cssClass: 'alert-center',
   buttons: [
       {
@@ -143,7 +135,7 @@ async alertEliminar(majors: any) {
       text: 'Confirmar',
       role: 'confirm',
       handler: () => {
-          this.eliminar(majors);
+          this.eliminar(carreras);
       }
       }
   ]
@@ -151,10 +143,10 @@ async alertEliminar(majors: any) {
   await alert.present();
 }
 
-async eliminar(major:string) {
+async eliminar(majors:any) {
   const response = await axios({
   method: 'delete',
-  url: this.baseUrl + 's/' + major,
+  url: this.baseUrl + "/" + majors,
   withCredentials: true,
   headers: {
       'Content-Type': 'application/json',
@@ -162,7 +154,7 @@ async eliminar(major:string) {
   }
   }).then((response) => {
   if (response?.status == 204) {
-      this.alertEliminado(major, 'El alumno con matricula ' + major + ' ha sido eliminado');
+      this.alertEliminado(majors, 'El alumno con matricula ' + majors + ' ha sido eliminado');
   }
   }).catch(function (error) {
   console.log(error);

@@ -14,7 +14,7 @@
   <ion-list>
     <ion-item>
       <ion-select label="Elimina Carreras" [(ngModel)]="selectedMajor" (ionChange)="handleMajorSelection($event)">
-        <ion-select-option *ngFor="let major of majors" [value]="major.maj_name">{{ major.maj_name }}</ion-select-option>
+        <ion-select-option *ngFor="let major of majors" [value]="major.maj_id">{{ major.maj_name }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
