@@ -65,6 +65,7 @@ export class MajorPage {
 
   majors: any = [];
   baseUrl:string = "http://attendancedb.test/major"
+  majorUrl:String = "http://attendanceproyect.atwebpages.com/major"
   ngOnInit() {
     this.loadMajor();
   }
@@ -86,7 +87,7 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/major/",
+      url: "http://attendanceproyect.atwebpages.com/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

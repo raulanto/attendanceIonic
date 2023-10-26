@@ -115,7 +115,7 @@ async guardarDatos() {
       const eliminar = { maj_id: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
       const response = await axios({
         method: 'delete',
-        url: this.baseUrl + "/" + this.selectedMajor,
+        url: this.majorUrl + "/" + this.selectedMajor,
         withCredentials: true,
         data: eliminar,
         headers: {
