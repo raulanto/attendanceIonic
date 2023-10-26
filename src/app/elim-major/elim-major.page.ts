@@ -49,7 +49,7 @@ export class ElimMajorPage  {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/major",
+      url: "http://attendanceproyect.atwebpages.com/majors",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -102,6 +102,11 @@ export class ElimMajorPage  {
     await alert.present();
   }
   
+//link base de datos local
+//"http://attendancedb.test/majors"
+
+//link base de datos en linea
+//"http://attendanceproyect.atwebpages.com/majors"
 
 
 async guardarDatos() {
@@ -110,7 +115,7 @@ async guardarDatos() {
       const eliminar = { maj_name: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
       const response = await axios({
         method: 'delete',
-        url: "http://attendanceproyect.atwebpages.com/major",
+        url: "http://attendanceproyect.atwebpages.com/majors/",
         withCredentials: true,
         data: eliminar,
         headers: {

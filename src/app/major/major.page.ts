@@ -23,6 +23,7 @@ export class MajorPage {
     private alertController: AlertController,
     private router: Router, private navCtrl: NavController,
     public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     
   ) { }
 
@@ -66,6 +67,7 @@ export class MajorPage {
 
 
   majors: any = [];
+  baseUrl:string = "http://attendanceproyect.atwebpages.com/major"
   ngOnInit() {
     this.loadMajor();
   }
@@ -126,6 +128,75 @@ async elimMajor() {
   await paginaModal.present();
 }
 
-  
+async alertEliminar(majors: any) {
+  const alert = await this.alertCtrl.create({
+  header: 'Alumno',
+  subHeader: 'Eliminar',
+  message: '¿Estás seguro de eliminar al estudiante con matrícula ' + majors + '?',
+  cssClass: 'alert-center',
+  buttons: [
+      {
+      text: 'Cancelar',
+      role: 'cancel'
+      },
+      {
+      text: 'Confirmar',
+      role: 'confirm',
+      handler: () => {
+          this.eliminar(majors);
+      }
+      }
+  ]
+  });
+  await alert.present();
+}
+
+async eliminar(major:string) {
+  const response = await axios({
+  method: 'delete',
+  url: this.baseUrl + 's/' + major,
+  withCredentials: true,
+  headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer 100-token'
+  }
+  }).then((response) => {
+  if (response?.status == 204) {
+      this.alertEliminado(major, 'El alumno con matricula ' + major + ' ha sido eliminado');
+  }
+  }).catch(function (error) {
+  console.log(error);
+  });
+}
+
+async alertEliminado(matricula: String, msg = "") {
+  const alert = await this.alertCtrl.create({
+  header: 'Alumno',
+  subHeader: 'Eliminado',
+  message: msg,
+  cssClass: 'alert-center',
+  buttons: [
+      {
+      text: 'Continuar',
+      role: 'cancel',
+      },
+      {
+      text: 'Salir',
+      role: 'confirm',
+      handler: () => {
+          this.regresar();
+      },
+      },
+  ],
+  });
+
+  await alert.present();
+}
+
+private regresar() {
+  this.router.navigate(['/major/major']).then(() => {
+  window.location.reload();
+  });
+}
 
 }
