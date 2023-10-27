@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InfiniteScrollCustomEvent, LoadingController, AlertController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, LoadingController, AlertController ,ToastController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import axios from 'axios';
 
@@ -18,7 +18,8 @@ export class DetalleAsistenciaPage implements OnInit {
     private loadingCtrl: LoadingController,
     private loading: LoadingController,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastController:ToastController
   ) {
     //mandamos a pedir el id del grupo desde route paramMap
     this.idperson = this.route.snapshot.paramMap.get('idperson');
@@ -97,34 +98,25 @@ export class DetalleAsistenciaPage implements OnInit {
       }
     }).then((response) => {
       if (response?.status == 204) {
-        this.alertEliminado(person, 'El alumno con id ' + person + ' ha sido eliminado');
+        this.alertEliminado( 'El alumno con id ' + person + ' ha sido eliminado');
       }
     }).catch(function (error) {
       console.log(error);
     });
   }
 
-  async alertEliminado(person: any, msg = "") {
-    const alert = await this.alertCtrl.create({
-      header: 'Alumno',
-      subHeader: 'Eliminado',
+  async alertEliminado( msg = "") {
+    const toast = await this.toastController.create({
       message: msg,
-      cssClass: 'alert-center',
-      buttons: [
-        {
-          text: 'Salir',
-          role: 'confirm',
-          handler: () => {
-            this.regresar();
-          },
-        },
-      ],
+      duration: 1500,
+      position: 'bottom',
     });
 
-    await alert.present();
+    await toast.present();
+    this.regresar();
   }
   private regresar() {
-    this.router.navigate(['/tabs/detalle-asistencia']).then(() => {
+    this.router.navigate(['/tabs/detalle-asistencia',this.idperson]).then(() => {
       window.location.reload();
     });
   }
