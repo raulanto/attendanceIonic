@@ -64,6 +64,7 @@ export class MajorPage {
 
 
   majors: any = [];
+  majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
   baseUrl:string = "http://attendancedb.test/major"
   majorUrl:String = "http://attendanceproyect.atwebpages.com/major"
   ngOnInit() {
@@ -147,7 +148,7 @@ async alertEliminar(carreras: any) {
 async eliminar(majors:any) {
   const response = await axios({
   method: 'delete',
-  url: this.baseUrl + "/" + majors,
+  url: this.majorUrl + "/" + majors,
   withCredentials: true,
   headers: {
       'Content-Type': 'application/json',

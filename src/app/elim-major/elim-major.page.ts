@@ -131,7 +131,10 @@ async guardarDatos() {
           this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
         }
         if (error?.response?.status == 500) {
-          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+          this.alertEliminado(this.selectedMajor,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+        }
+        if (error?.response?.status == 404) {
+          this.alertEliminado(this.selectedMajor,"Este elemento no ha sido encontrado");
         }
       });
     } else {
