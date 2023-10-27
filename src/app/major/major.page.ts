@@ -64,6 +64,7 @@ export class MajorPage {
 
 
   majors: any = [];
+  majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
   baseUrl:string = "http://attendancedb.test/major"
   ngOnInit() {
     this.loadMajor();
@@ -86,7 +87,7 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/major/",
+      url: "http://attendanceproyect.atwebpages.com/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -146,7 +147,7 @@ async alertEliminar(carreras: any) {
 async eliminar(majors:any) {
   const response = await axios({
   method: 'delete',
-  url: this.baseUrl + "/" + majors,
+  url: this.majorUrl + "/" + majors,
   withCredentials: true,
   headers: {
       'Content-Type': 'application/json',

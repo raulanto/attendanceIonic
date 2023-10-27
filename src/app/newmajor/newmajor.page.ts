@@ -57,7 +57,7 @@ export class NewmajorPage implements OnInit {
       const agregar = this.agregar?.value; 
       const response = await axios({
         method: 'post',
-        url : this.baseUrl,
+        url : "http://attendanceproyect.atwebpages.com/major",
         data: agregar, 
         headers: {
           'Content-Type': 'application/json',
