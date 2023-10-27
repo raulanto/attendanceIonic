@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mis calificaciones
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-accordion-group [multiple]="true" expand="inset">
+    <ion-accordion *ngFor="let grades of grade">
+      
+      <ion-item slot="header">
+        <ion-icon name="clipboard" slot="start"></ion-icon>
+        <ion-label>
+          {{grades.gra_type}}
+        </ion-label>
+      </ion-item>
+
+      <div class="ion-padding" slot="content">
+        {{grades.gra_score}} / 100
+        <ion-icon name="star" slot="start"></ion-icon>
+      </div>
+
+      <div class="ion-padding" slot="content">
+        {{grades.gra_commit}}
+      </div>
+
+      <div class="ion-padding" slot="content">
+        <ion-button id="click-trigger-{{grades.gra_id}}">
+          <ion-icon name="ellipsis-horizontal"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-popover
+      trigger="click-trigger-{{grades.gra_id}}"
+      [dismissOnSelect]="true"
+      [keepContentsMounted]="true"
+      side="end">
+      <ng-template>
+        <ion-content>
+          <ion-list>
+            <ion-item 
+            [button]="true" 
+            [detail]="false"
+            > 
+            <ion-icon name="trash"></ion-icon>
+            Eliminar
+            </ion-item>
+            <ion-item
+              [button]="true"
+              [detail]="false"> 
+              <ion-icon name="create"></ion-icon>
+              Modificar 
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+      
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button [routerLink]="['/newgrade']">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

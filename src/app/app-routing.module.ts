@@ -32,6 +32,14 @@ const routes: Routes = [
   },  {
     path: 'newextracurricular',
     loadChildren: () => import('./newextracurricular/newextracurricular.module').then( m => m.NewextracurricularPageModule)
+  },
+  {
+    path: 'grade',
+    loadChildren: () => import('./grade/grade.module').then( m => m.GradePageModule)
+  },
+  {
+    path: 'newgrade',
+    loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
   }
 
 ];

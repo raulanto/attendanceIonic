@@ -29,39 +29,53 @@
       </ion-col>
 
       <ion-col>
-        <ion-button id="click-trigger-{{extras.extgro_id}}"
-          ><ion-icon name="pencil"></ion-icon
-        ></ion-button>
+        <ion-button id="click-trigger-{{extras.extgro_id}}">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
         <ion-popover
           trigger="click-trigger-{{extras.extgro_id}}"
           [dismissOnSelect]="true"
           [keepContentsMounted]="true"
-          side="end"
-        >
+          side="end">
           <ng-template>
             <ion-content>
               <ion-list>
-                <ion-item [button]="true" [detail]="false">Eliminar</ion-item>
+                <ion-item 
+                [button]="true" 
+                [detail]="false"
+                (click)="alertEliminar(extras.extgro_id)"> 
+                <ion-icon name="trash"></ion-icon>
+                Eliminar
+                </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['modextra', extras.extgro_id]"
-                  >Modificar</ion-item
-                >
+                  [routerLink]="['modextra', extras.extgro_id]"> 
+                  <ion-icon name="create"></ion-icon>
+                  Modificar 
+                </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['extracurricular', extras.extgro_id]"
-                  >Ver mas</ion-item
-                >
+                  [routerLink]="['extracurricular', extras.extgro_id]"> 
+                  <ion-icon name="eye"></ion-icon>
+                  Ver mas 
+                </ion-item>
               </ion-list>
             </ion-content>
           </ng-template>
         </ion-popover>
       </ion-col>
+
+      <!-- <ion-col>
+        <ion-button (click)="alertEliminar(extras.extgro_id)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
     </ion-row>
   </ion-grid>
-
+  
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
@@ -75,4 +89,5 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
+
 </ion-content>
