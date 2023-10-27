@@ -13,24 +13,11 @@ import axios from 'axios';
   templateUrl: './newmajor.page.html',
   styleUrls: ['./newmajor.page.scss'],
 })
-export class NewmajorPage implements OnInit {
+export class NewmajorPage {
 
-  ngOnInit() {
-    this.formulario();
-  }
+  baseUrl:string = "http://attendanceproyect.atwebpages.com/majors"
 
-  constructor(
-    private formBuilder : FormBuilder,
-    private alert : AlertController,
-    private modalCtrl: ModalController
-  ) { }
-
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/major"
-  majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
-  major: any = [];
-  public agregar!: FormGroup;
-
-
+  public libro!: FormGroup;
 
   mensajes_validacion:any = {
     'maj_name' : [
@@ -43,9 +30,18 @@ export class NewmajorPage implements OnInit {
     
   }
 
+  constructor(
+    private formBuilder : FormBuilder,
+    private alert : AlertController,
+    private modalCtrl: ModalController
+  ) { }
 
-  private formulario() {
-    this.agregar = this.formBuilder.group({
+  ngOnInit() {
+    this.formulario();
+  }
+
+  public formulario() {
+    this.libro = this.formBuilder.group({
     maj_name: ['', [Validators.required]],
     maj_code: ['',[Validators.required]],
  
@@ -54,10 +50,10 @@ export class NewmajorPage implements OnInit {
 
   async guardarDatos() {
     try {
-      const agregar = this.agregar?.value; 
+      const agregar = this.libro?.value; 
       const response = await axios({
         method: 'post',
-        url : "http://attendanceproyect.atwebpages.com/major",
+        url : this.baseUrl,
         data: agregar, 
         headers: {
           'Content-Type': 'application/json',
@@ -79,14 +75,14 @@ export class NewmajorPage implements OnInit {
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.agregar.get(controlName);
+    const control = this.libro.get(controlName);
     if (control?.touched && control?.errors != null) {
     errors = JSON.parse(JSON.stringify(control?.errors));
     }
     return errors;
   }
 
-  private async alertGuardado(maj_id: String, msg = "",  subMsg= "Guardado") {
+  private async alertGuardado(matricula: String, msg = "",  subMsg= "Guardado") {
     const alert = await this.alert.create({
     header: 'Recurso',
     subHeader: subMsg,
@@ -109,4 +105,5 @@ export class NewmajorPage implements OnInit {
 
     await alert.present();
   }
+
 }

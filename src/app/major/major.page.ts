@@ -66,7 +66,7 @@ export class MajorPage {
   majors: any = [];
   majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
   baseUrl:string = "http://attendancedb.test/major"
-  majorUrl:String = "http://attendanceproyect.atwebpages.com/major"
+
   ngOnInit() {
     this.loadMajor();
   }
