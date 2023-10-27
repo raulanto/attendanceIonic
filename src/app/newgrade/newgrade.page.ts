@@ -12,8 +12,11 @@ import axios from 'axios';
 export class NewgradePage implements OnInit {
 
   baseUrl: string = "http://attendancedb.test/grade";
+  personaUrl: string = "http://attendancedb.test/person";
 
   public grad!: FormGroup;
+
+  personas: any = [];
 
     // Mensajes de validación para campos del formulario
     mensajes_validacion: any = {
@@ -40,6 +43,7 @@ export class NewgradePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cargarPersonas();
     this.formulario();
   }
 
@@ -63,9 +67,26 @@ export class NewgradePage implements OnInit {
     });
   }
 
+  async cargarPersonas() {
+    const response = await axios({
+    method: 'get',
+    url : this.personaUrl,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then( (response) => {
+    this.personas = response.data;
+    }).catch(function (error) {
+    console.log(error);     
+    });
+}
+
+
   async guardarDatos() {
     try {
       const grad = this.grad?.value; //Obtener los valores del formulario
+      const { gra_type, gra_date, gra_time } = this.grad.value; // Guardar los valores de Tipo, Fecha y Hora
       const response = await axios({
         method: 'post',
         url: this.baseUrl,
@@ -77,6 +98,14 @@ export class NewgradePage implements OnInit {
       }).then( (response) => {//Llama la alerta en caso de exito
         if(response?.status == 201) {
         this.alertGuardado('El evento ' + response.data.ext_code + ' ha sido registrado');
+
+        this.grad.reset(); // Reiniciar los valores del formulario
+        this.grad.patchValue({ // Volver a asignar los valores guardados de Tipo, Fecha y Hora
+          gra_type: gra_type,
+          gra_date: gra_date,
+          gra_time: gra_time
+        });
+
         }
     }).catch( (error) => {
         if(error?.response?.status == 422) {

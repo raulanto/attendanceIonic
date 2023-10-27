@@ -56,64 +56,74 @@
 
 
         <ion-col size="12">
-          <ion-item>
-              <ion-label position="floating" color="primary">Calificacion</ion-label>
-              <ion-input type="text" formControlName="gra_score"
-              class="form-control"></ion-input>
-          </ion-item>
-          <div id="note" *ngFor="let validation of
-              mensajes_validacion.gra_score">
-              <ion-note color="danger"
-              *ngIf="getError('gra_score')[(validation.type)]">
-              <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-              </ion-note>
-          </div>
-          </ion-col>
 
-          <ion-col size="12">
-            <ion-item>
-                <ion-label position="floating" color="primary">Comentario</ion-label>
+          <table class="table">
+
+            <tr>
+              <th>Grupo</th>
+              <th>Persona</th>
+              <th>Calificación</th>
+              <th>Comentario</th>
+            </tr>
+
+            <tr>
+
+              <td>
+                <ion-input type="text" formControlName="gra_fkgroup"
+                class="form-control"></ion-input>
+                <div id="note" *ngFor="let validation of
+                mensajes_validacion.gra_fkgroup">
+                <ion-note color="danger"
+                *ngIf="getError('gra_fkgroup')[(validation.type)]">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+                </ion-note>
+                </div>
+              </td>
+
+              <td>
+                <ion-select formControlName="gra_fkperson" class="form-control">
+                  <ion-select-option *ngFor="let person of personas"
+                      value="{{person.per_id}}">
+                      {{ person.per_name }}
+                  </ion-select-option>
+                  </ion-select>
+                <div id="note" *ngFor="let validation of
+                mensajes_validacion.gra_fkperson">
+                <ion-note color="danger"
+                *ngIf="getError('gra_fkperson')[(validation.type)]">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+                </ion-note>
+                </div>
+              </td>
+
+              <td>
+                <ion-input type="text" formControlName="gra_score"
+                class="form-control"></ion-input>
+                <div id="note" *ngFor="let validation of
+                mensajes_validacion.gra_score">
+                <ion-note color="danger"
+                *ngIf="getError('gra_score')[(validation.type)]">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+                </ion-note>
+                </div>
+              </td>
+
+              <td>
                 <ion-input type="text" formControlName="gra_commit"
                 class="form-control"></ion-input>
-            </ion-item>
-            <div id="note" *ngFor="let validation of
+                <div id="note" *ngFor="let validation of
                 mensajes_validacion.gra_commit">
                 <ion-note color="danger"
                 *ngIf="getError('gra_commit')[(validation.type)]">
                 <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
-            </div>
-            </ion-col>
-
-            <ion-col size="12">
-              <ion-item>
-                  <ion-label position="floating" color="primary">Grupo</ion-label>
-                  <ion-input type="text" formControlName="gra_fkgroup"
-                  class="form-control"></ion-input>
-              </ion-item>
-              <div id="note" *ngFor="let validation of
-                  mensajes_validacion.gra_fkgroup">
-                  <ion-note color="danger"
-                  *ngIf="getError('gra_fkgroup')[(validation.type)]">
-                  <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-                  </ion-note>
-              </div>
-              </ion-col>
-
-              <ion-col size="12">
-                <ion-item>
-                    <ion-label position="floating" color="primary">Persona</ion-label>
-                    <ion-input type="text" formControlName="gra_fkperson"
-                    class="form-control"></ion-input>
-                </ion-item>
-                <div id="note" *ngFor="let validation of
-                    mensajes_validacion.gra_fkperson">
-                    <ion-note color="danger"
-                    *ngIf="getError('gra_fkperson')[(validation.type)]">
-                    <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-                    </ion-note>
                 </div>
-                </ion-col>
+              </td>
+
+            </tr>
+
+          </table>
+          </ion-col>
 
 
 
