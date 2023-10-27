@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'newmajor',
     loadChildren: () => import('./newmajor/newmajor.module').then( m => m.NewmajorPageModule)
   },
+  {
+    path: 'new-subject',
+    loadChildren: () => import('./new-subject/new-subject.module').then( m => m.NewSubjectPageModule)
+  },
   
 ];
 @NgModule({

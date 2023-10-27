@@ -3,7 +3,12 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import axios from 'axios';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-//añadimos la libreria para el controlador de las alertas
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { NewSubjectPage } from '../new-subject/new-subject.page';
+import { ElimSubjectPage } from '../elim-subject/elim-subject.page';
+
 @Component({
   selector: 'app-subject',
   templateUrl: 'subject.page.html',
@@ -15,10 +20,10 @@ export class SubjectPage {
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
-    //añadimos al constructor el controlador
+    private router: Router, private navCtrl: NavController,
+    public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
   ) { }
-
-  //Este es el formulario en forma de alerta para poder regirstrar una nueva materia, lo mismo para las Carreras
 
   public alertButtons = ['Crear'];
   public alertInputs = [
@@ -37,7 +42,7 @@ export class SubjectPage {
     
   ];
 
-  //creamos un metodo para iniciar la alerta 
+
 
   async mostrarAlerta() {
     const alert = await this.alertController.create({
@@ -61,6 +66,9 @@ export class SubjectPage {
   ngOnInit() {
     this.loadSubjects();
   }
+  subjectUrl:string = "http://attendanceproyect.atwebpages.com/subject"
+  baseUrl:string = "http://attendancedb.test/subject"
+
 
   async loadSubjects(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -70,12 +78,7 @@ export class SubjectPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      // Url de Zarate      
-      url: "http://attendancedb.test/subject",      
-      // Url de Zarate      
-      //url: "http://attendancebd.test/subject",
-      // Url de Zarate      
-      //url: "http://attendancedb1.test/subject",        
+      url: "http://attendanceproyect.atwebpages.com/subject",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -88,5 +91,23 @@ export class SubjectPage {
     });
     loading.dismiss();
   }
+
+  async newSubject() {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewSubjectPage,
+    breakpoints : [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+}
+
+async elimSubject() {
+  const paginaModal = await this.modalCtrl.create({
+  component: ElimSubjectPage,
+  breakpoints : [0, 0.3, 0.5, 0.95],
+  initialBreakpoint: 0.95
+  });
+  await paginaModal.present();
+}
 
 }

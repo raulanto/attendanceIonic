@@ -70,15 +70,7 @@ export class MajorPage {
   ngOnInit() {
     this.loadMajor();
   }
-
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
-
-  
+ 
 
   async loadMajor(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({

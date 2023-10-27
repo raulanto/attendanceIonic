@@ -6,23 +6,22 @@ import { Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import axios from 'axios';
 
-
 @Component({
-  selector: 'app-newmajor',
-  templateUrl: './newmajor.page.html',
-  styleUrls: ['./newmajor.page.scss'],
+  selector: 'app-new-subject',
+  templateUrl: './new-subject.page.html',
+  styleUrls: ['./new-subject.page.scss'],
 })
-export class NewmajorPage {
+export class NewSubjectPage {
 
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/majors"
+  baseUrl:string = "http://attendanceproyect.atwebpages.com/subjects"
 
-  public libro!: FormGroup;
+  public materia!: FormGroup;
 
   mensajes_validacion:any = {
-    'maj_name' : [
+    'sub_name' : [
         {type : 'required' , message : 'Titulo Requerido.'},
     ],
-    'maj_code' : [
+    'sub_code' : [
         {type : 'required' , message : 'Codigo requerido.'},
     ],
 
@@ -40,16 +39,17 @@ export class NewmajorPage {
   }
 
   public formulario() {
-    this.libro = this.formBuilder.group({
-    maj_name: ['', [Validators.required]],
-    maj_code: ['',[Validators.required]],
+    this.materia = this.formBuilder.group({
+    sub_name: ['', [Validators.required]],
+    sub_code: ['',[Validators.required]],
  
     })
   }
 
+  
   async guardarDatos() {
     try {
-      const agregar = this.libro?.value; 
+      const agregar = this.materia?.value; 
       const response = await axios({
         method: 'post',
         url : this.baseUrl,
@@ -60,11 +60,11 @@ export class NewmajorPage {
         }
       }).then((response) => {
         if (response?.status == 201) {
-          this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido registrada');
+          this.alertGuardado(response.data.sub_id, 'La Materia con el id ' + response.data.sub_id + ' ha sido registrada');
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertGuardado(agregar.maj_id, error?.response?.data[0]?.message, "Error");
+          this.alertGuardado(agregar.sub_id, error?.response?.data[0]?.message, "Error");
         }    
       });
     } catch (e) {
@@ -74,7 +74,7 @@ export class NewmajorPage {
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.libro.get(controlName);
+    const control = this.materia.get(controlName);
     if (control?.touched && control?.errors != null) {
     errors = JSON.parse(JSON.stringify(control?.errors));
     }
