@@ -27,14 +27,14 @@ const routes: Routes = [
       
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/group',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/group',
     pathMatch: 'full'
   }
 ];

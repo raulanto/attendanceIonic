@@ -6,6 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  {
+    path: 'group',
+    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+  },
     //Agrego la nueva ruta donde llevara el id del grupo, materia y codigo
   {
     path: 'menu1/:gro_id/:gro_subject/:gro_code',
@@ -43,11 +47,16 @@ const routes: Routes = [
   {
     path: 'elim-subject',
     loadChildren: () => import('./elim-subject/elim-subject.module').then( m => m.ElimSubjectPageModule)
-  },  
-  {
-    path: 'group',
-    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+  },   {
+    path: 'newgroup',
+    loadChildren: () => import('./newgroup/newgroup.module').then( m => m.NewgroupPageModule)
   },
+  {
+    path: 'newclassroom',
+    loadChildren: () => import('./newclassroom/newclassroom.module').then( m => m.NewclassroomPageModule)
+  },
+ 
+
 
 
   

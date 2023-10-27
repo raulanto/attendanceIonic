@@ -8,9 +8,10 @@
 <form [formGroup]="libro" (ngSubmit)="guardarDatos()">
   <ion-grid> <!-- Cuadrícula de diseño -->
   <ion-row> <!-- Fila de la cuadrícula -->
+     <!-- Valor 1 -->
       <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
       <ion-item>
-          <ion-label position="floating" color="primary">Tipo</ion-label>
+          <ion-label position="floating" color="primary">Tipo de Archivo</ion-label>
           <ion-input type="text" formControlName="lib_type"
           class="form-control"></ion-input>
       </ion-item>
@@ -27,8 +28,7 @@
           <ion-input type="text" formControlName="lib_title"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_title">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_title">
           <ion-note color="danger"
           *ngIf="getError('lib_title')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
@@ -41,8 +41,7 @@
           <ion-input type="text" formControlName="lib_description"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_description">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_description">
           <ion-note color="danger"
           *ngIf="getError('lib_description')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
@@ -55,8 +54,7 @@
           <ion-input type="text" formControlName="lib_file"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_file">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_file">
           <ion-note color="danger"
           *ngIf="getError('lib_file')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
@@ -76,6 +74,7 @@
             </ion-note>
         </div>
       </ion-col>
+        <!-- Boton de Guardar -->
       <ion-col size="12">
       <p class="ion-text-center">
           <ion-button type="submit" [disabled]="!libro.valid">Guardar</ion-button>

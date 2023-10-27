@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+      <ion-title class="ion-text-center">Nuevo Grupo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="grupo" (ngSubmit)="guardarDatos()">
+  <ion-grid> <!-- Cuadrícula de diseño -->
+  <ion-row> <!-- Fila de la cuadrícula -->
+      <!-- Valor 1 -->
+      <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
+      <ion-item>
+          <ion-label position="floating" color="primary">Codigo para el grupo</ion-label>
+          <ion-input type="text" formControlName="gro_code"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of mensajes_validacion.gro_code">
+          <ion-note color="danger"
+          *ngIf="getError('gro_code')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <!-- Valor 2 -->
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" color="primary">Materia</ion-label>
+          <ion-select formControlName="gro_fksubject" class="form-control">
+            <ion-select-option *ngFor="let materia of materias" [value]="materia.sub_id">
+              {{ materia.sub_name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.gro_fksubject">
+          <ion-note color="danger" *ngIf="getError('gro_fksubject')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </ion-note>
+        </div>
+      </ion-col>
+      <!-- Valor 3 -->
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" color="primary">Docente</ion-label>
+          <ion-select formControlName="gro_fkteacher" class="form-control">
+            <ion-select-option *ngFor="let docente of docentes" [value]="docente.tea_id">
+              {{ docente.tea_name }} {{ docente.tea_paternal }} {{ docente.tea_maternal }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.gro_fkteacher">
+          <ion-note color="danger" *ngIf="getError('gro_fkteacher')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </ion-note>
+        </div>
+      </ion-col>
+      <!-- Valor 4 -->
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" color="primary">Salon</ion-label>
+          <ion-select formControlName="gro_fkclassroom" class="form-control">
+            <ion-select-option *ngFor="let clase of clases" [value]="clase.clas_id">
+              {{ clase.clas_name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.gro_fkclassroom">
+          <ion-note color="danger" *ngIf="getError('gro_fkclassroom')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </ion-note>
+        </div>
+      </ion-col>
+      <!-- Valor 5 -->
+      <ion-col size="12">
+        <ion-item>
+            <ion-label position="floating" color="primary">Fecha de inicio (AAAA-MM-DD) </ion-label>
+            <ion-input type="text" formControlName="gro_date"
+            class="form-control"></ion-input>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.gro_date">
+            <ion-note color="danger"
+            *ngIf="getError('gro_date')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+        </div>
+      </ion-col>
+      <!-- Valor 6 -->
+      <ion-col size="12">
+        <ion-item>
+            <ion-label position="floating" color="primary">Hora de creación (HH:MM:SS)</ion-label>
+            <ion-input type="text" formControlName="gro_time"
+            class="form-control"></ion-input>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.gro_time">
+            <ion-note color="danger"
+            *ngIf="getError('gro_time')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+        </div>
+      </ion-col>      
+      <!-- Boton de Guardar -->
+      <ion-col size="12">
+      <p class="ion-text-center">
+          <ion-button type="submit" [disabled]="!grupo.valid">Guardar</ion-button>
+      </p>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

@@ -1,3 +1,11 @@
+ion-header {
+    ion-toolbar {
+        --ion-toolbar-background: linear-gradient(90deg, rgba(111,96,228,1) 4%, rgba(94,109,231,1) 37%, rgba(14,171,245,1) 60%, rgba(146,197,215,1) 86%);
+        color: #fff;
+        font-weight: bold;
+    }
+}
+
 ion-grid {
     margin: 5px;
     ion-row {
@@ -24,8 +32,19 @@ ion-grid {
             }
         }
     }
-}
+} 
 
 .icon-large {
     font-size: 30px; /* Tamaño de los iconos de los archivos */
   }
+
+  .button-with-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-with-text ion-icon {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+  }
+  
+  

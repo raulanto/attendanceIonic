@@ -1,36 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar
- -->    <ion-buttons slot="start">
+<!--     Boton para regresar -->    
+      <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Clases</ion-title>
+    <ion-title>Salones</ion-title>
   </ion-toolbar> 
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Archivos</ion-title>
+      <ion-title size="large">Ubicaciones</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    <ion-item button *ngFor="let classroom of classrooms">
-      
-      <ion-label class="ion-text-wrap">
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor= "let classroom of classrooms" >
+      <!-- Crear columna para el icono-->
+      <ion-col size="1">
+        <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col>
+      <ion-label>
+          <h2>{{classroom.clas_name}}</h2>
+          <h3>{{classroom.clas_description}}</h3>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{classroom.clas_name}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content> {{classroom.clas_description}} </ion-card-content>
-        
-        </ion-card>
-      </ion-label>
-
-    </ion-item>
-  </ion-list>
-
-  
 </ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

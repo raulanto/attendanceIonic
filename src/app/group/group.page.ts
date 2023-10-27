@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
+import { NewgroupPage } from '../newgroup/newgroup.page';
 
 @Component({
   selector: 'app-group',
@@ -15,6 +16,7 @@ export class GroupPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private route: ActivatedRoute,
+    public modalCtrl: ModalController,
   ) { }
 
   grupos: any = [];
@@ -57,6 +59,17 @@ export class GroupPage implements OnInit {
     },
     
   ];
+
+  async new() {
+    // Crear una página modal utilizando el controlador de modales 
+    const paginaModal = await this.modalCtrl.create({
+      component: NewgroupPage, // El componente que se mostrará en el modal
+      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+    });
+    // Presentar la página modal en la interfaz de usuario
+    await paginaModal.present();
+  }
   
   async mostrarAlerta() {
     const alert = await this.alertController.create({
