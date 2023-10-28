@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+      <ion-title class="ion-text-center">Agregar alumno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="lista" (ngSubmit)="guardarDatos()">
+  <ion-grid> <!-- Cuadrícula de diseño -->
+  <ion-row> <!-- Fila de la cuadrícula -->
+
+     <!-- Valor 1 ya esta siendo recibido, no hace falta visualizarlo-->
+<!-- <ion-col size="12"> 
+        <ion-item>
+            <ion-label position="floating" color="primary">Nombre del grupo</ion-label>
+            <ion-input
+              type="text"
+              formControlName="list_fkgroup"
+              class="form-control"
+              readonly 
+            ></ion-input>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.list_fkgroup">
+            <ion-note color="danger"
+            *ngIf="getError('list_fkgroup')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+        </div>
+    </ion-col>-->
+
+      <!-- Valor 2 -->
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" color="primary">Nombre del Alumno</ion-label>
+          <ion-select formControlName="list_fkperson" class="form-control">
+            <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno.per_id">
+              {{ alumno.per_name }} {{ alumno.per_paternal }} {{ alumno.per_maternal }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.list_fkperson">
+          <ion-note color="danger" *ngIf="getError('list_fkperson')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </ion-note>
+        </div>
+        
+      </ion-col>
+
+        <!-- Boton de Guardar -->
+        <ion-col size="12">
+            <p class="ion-text-center">
+                <ion-button type="submit" [disabled]="!lista.valid">Guardar</ion-button>
+            </p>
+            </ion-col>
+        </ion-row>
+        </ion-grid>
+      </form>
+      </ion-content>

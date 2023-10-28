@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Acciones disponibles</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Acciones disponibles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row>
+      <!-- Crear columna para el texto-->
+      <ion-col size = "6" [routerLink]="['/lista', grupoid]">
+        <ion-label>
+          <h2>Ver integrantes</h2>
+        </ion-label>
+      </ion-col>
+      <!-- Crear columna para icono de flecha-->
+      <ion-col size = "6" class="ion-justify-content-end" [routerLink]="['/lista', grupoid]">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row>
+      <!-- Crear columna para el texto-->
+      <ion-col size = "6">
+        <ion-label>
+          <h2>Tomar asistencia</h2>
+        </ion-label>
+      </ion-col>
+      <!-- Crear columna para icono de flecha-->
+      <ion-col size = "6" class="ion-justify-content-end">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row>
+      <!-- Crear columna para el texto-->
+      <ion-col size = "6">
+        <ion-label>
+          <h2>Codigo</h2>
+        </ion-label>
+      </ion-col>
+      <!-- Crear columna para icono de flecha-->
+      <ion-col size = "6" class="ion-justify-content-end">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<ion-content>
