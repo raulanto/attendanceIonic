@@ -128,7 +128,7 @@ export class NewgroupPage implements OnInit {
         }
       }).then( (response) => {//Llama la alerta en caso de exito
         if(response?.status == 201) {
-        this.alertGuardado(response.data.gro_code, 'El archivo ' + response.data.gro_code + ' ha sido registrado');
+        this.alertGuardado(response.data.gro_code, 'El grupo ' + response.data.gro_code + ' ha sido registrado');
         }
     }).catch( (error) => {
         if(error?.response?.status == 422) {

@@ -4,17 +4,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import axios from 'axios';
 
-
 @Component({
   selector: 'app-newlibrary',
   templateUrl: './newlibrary.page.html',
   styleUrls: ['./newlibrary.page.scss'],
 })
 export class NewlibraryPage implements OnInit {
-
+  groupID: any; // Recibir el ID del grupo como un parámetro
   baseUrl: string = "http://attendancedb.test/library";
 
   public libro!: FormGroup; //Sirve para ingresar datos de "libros"
+
+  archivos:any = [];
+
+  tiposArchivo = [
+    { 'lib_type': 'Libro', 'typ_type': 'Libro' },
+    { 'lib_type': 'Artículo', 'typ_type': 'Artículo' },
+    { 'lib_type': 'Video', 'typ_type': 'Video' },
+    { 'lib_type': 'Página web', 'typ_type': 'Página web' },
+  ];
+  
 
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
@@ -33,6 +42,10 @@ export class NewlibraryPage implements OnInit {
 
   ngOnInit() {
     this.formulario();// Inicializar el formulario al cargar pagina
+    if (this.groupID) {
+      // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
+      this.libro.patchValue({ lib_fkgroup: this.groupID });
+    }
   }
 
   private formulario() {

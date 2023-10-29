@@ -92,6 +92,7 @@ export class LibraryPage implements OnInit {
     // Crear una página modal utilizando el controlador de modales 
     const paginaModal = await this.modalCtrl.create({
       component: NewlibraryPage, // El componente que se mostrará en el modal
+      componentProps: { groupID: this.grupoid }, // Pasar el ID del grupo como un parámetro
       breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
       initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
     });
