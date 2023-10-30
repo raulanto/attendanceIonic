@@ -26,7 +26,7 @@ export class UpMajorPage {
   ngOnInit() {
   }
 
-  async editar(matricula: string) {
+ /* async editar(matricula: string) {
 
     const paginaModal = await this.modalCtrl.create({
     component: UpMajorPage,
@@ -41,8 +41,8 @@ export class UpMajorPage {
     paginaModal.onDidDismiss().then((data) => {
         this.cargarAlumnos();
     });
-}´
-
+}
+*/
 
 
 }

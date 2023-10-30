@@ -19,11 +19,13 @@ import { UpMajorPage } from '../up-major/up-major.page';
 export class MajorPage {
 
   items: any = [];
+  selectedMajor: any;
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private router: Router, private navCtrl: NavController,
     public modalCtrl: ModalController,
+    private alert : AlertController,
     private alertCtrl: AlertController,
     
   ) { }
@@ -95,6 +97,109 @@ export class MajorPage {
     loading.dismiss();
   }
 
+  seleccionarMajor(majorName: string) {
+    this.selectedMajor = majorName;
+    this.alertEliminar(majorName);
+  }
+
+  async alertEliminar(selectedMajor: any) {
+    const alert = await this.alert.create({
+      header: 'Alumno',
+      subHeader: 'Eliminar',
+      message: '¿Estás seguro de eliminar la carrera ' + selectedMajor + '?',
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.selectedMajor = selectedMajor;
+            this.guardarDatos();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  
+//link base de datos local
+//"http://attendancedb.test/major"
+
+//link base de datos en linea
+//"http://attendanceproyect.atwebpages.com/major"
+
+
+async guardarDatos() {
+  try {
+    if (this.selectedMajor) {
+      const eliminar = { maj_id: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
+      const response = await axios({
+        method: 'delete',
+        url: this.majorUrl + "s/" + this.selectedMajor,
+        withCredentials: true,
+        data: eliminar,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+      }).then((response) => {
+        if (response?.status == 201) {
+          this.alertEliminado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
+        }
+      }).catch((error) => {
+        if (error?.response?.status == 422) {
+          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
+        }
+        if (error?.response?.status == 500) {
+          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+        }
+        if (error?.response?.status == 404) {
+          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
+        }
+      });
+    } else {
+      // Mostrar un mensaje de error si no se ha seleccionado una carrera
+      this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+  async alertEliminado(selectedMajor: any, msg = "",  subMsg= "eliminado") {
+    const alert = await this.alert.create({
+    header: 'Carrera',
+    subHeader: subMsg,
+    message: msg,
+    cssClass: 'alert-center',
+    buttons: [
+        {
+        text: 'Continuar',
+        role: 'cancel',
+        },
+        {
+        text: 'Salir',
+        role: 'confirm',
+        handler: () => {
+            this.regresar();
+        },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+
+  private regresar() {
+    this.router.navigate(['/major/major']).then(() => {
+    window.location.reload();
+    });
+}
+
 
 
   async newMajor() {
@@ -123,6 +228,7 @@ async UpMajor() {
   });
   await paginaModal.present();
 }
+
 
 
 
