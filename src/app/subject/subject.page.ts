@@ -8,6 +8,8 @@ import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NewSubjectPage } from '../new-subject/new-subject.page';
 import { ElimSubjectPage } from '../elim-subject/elim-subject.page';
+import { UpSubjectPage } from '../up-subject/up-subject.page';
+
 
 @Component({
   selector: 'app-subject',
@@ -104,6 +106,15 @@ export class SubjectPage {
 async elimSubject() {
   const paginaModal = await this.modalCtrl.create({
   component: ElimSubjectPage,
+  breakpoints : [0, 0.3, 0.5, 0.95],
+  initialBreakpoint: 0.95
+  });
+  await paginaModal.present();
+}
+
+async UpSubject() {
+  const paginaModal = await this.modalCtrl.create({
+  component: UpSubjectPage,
   breakpoints : [0, 0.3, 0.5, 0.95],
   initialBreakpoint: 0.95
   });

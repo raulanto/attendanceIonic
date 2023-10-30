@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewmajorPage } from '../newmajor/newmajor.page';
 import { ElimMajorPage } from '../elim-major/elim-major.page';
+import { UpMajorPage } from '../up-major/up-major.page';
 
 @Component({
   selector: 'app-major',
@@ -114,75 +115,16 @@ async elimMajor() {
   await paginaModal.present();
 }
 
-async alertEliminar(carreras: any) {
-  const alert = await this.alertCtrl.create({
-  header: 'Alumno',
-  subHeader: 'Eliminar',
-  message: '¿Estás seguro de eliminar al estudiante con matrícula ' + carreras + '?',
-  cssClass: 'alert-center',
-  buttons: [
-      {
-      text: 'Cancelar',
-      role: 'cancel'
-      },
-      {
-      text: 'Confirmar',
-      role: 'confirm',
-      handler: () => {
-          this.eliminar(carreras);
-      }
-      }
-  ]
+async UpMajor() {
+  const paginaModal = await this.modalCtrl.create({
+  component: UpMajorPage,
+  breakpoints : [0, 0.3, 0.5, 0.95],
+  initialBreakpoint: 0.95
   });
-  await alert.present();
+  await paginaModal.present();
 }
 
-async eliminar(majors:any) {
-  const response = await axios({
-  method: 'delete',
-  url: this.majorUrl + "/" + majors,
-  withCredentials: true,
-  headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer 100-token'
-  }
-  }).then((response) => {
-  if (response?.status == 204) {
-      this.alertEliminado(majors, 'El alumno con matricula ' + majors + ' ha sido eliminado');
-  }
-  }).catch(function (error) {
-  console.log(error);
-  });
-}
 
-async alertEliminado(matricula: String, msg = "") {
-  const alert = await this.alertCtrl.create({
-  header: 'Alumno',
-  subHeader: 'Eliminado',
-  message: msg,
-  cssClass: 'alert-center',
-  buttons: [
-      {
-      text: 'Continuar',
-      role: 'cancel',
-      },
-      {
-      text: 'Salir',
-      role: 'confirm',
-      handler: () => {
-          this.regresar();
-      },
-      },
-  ],
-  });
 
-  await alert.present();
-}
-
-private regresar() {
-  this.router.navigate(['/major/major']).then(() => {
-  window.location.reload();
-  });
-}
 
 }

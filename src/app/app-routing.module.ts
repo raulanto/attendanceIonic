@@ -49,7 +49,15 @@ const routes: Routes = [
   {
     path: 'new-subject',
     loadChildren: () => import('./new-subject/new-subject.module').then( m => m.NewSubjectPageModule)
+  },  {
+    path: 'up-major',
+    loadChildren: () => import('./up-major/up-major.module').then( m => m.UpMajorPageModule)
   },
+  {
+    path: 'up-subject',
+    loadChildren: () => import('./up-subject/up-subject.module').then( m => m.UpSubjectPageModule)
+  },
+
   
 ];
 @NgModule({
