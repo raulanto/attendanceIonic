@@ -74,6 +74,7 @@ export class MajorPage {
     this.loadMajor();
   }
  
+  //Metodo GET comienza
 
   async loadMajor(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -96,6 +97,8 @@ export class MajorPage {
     });
     loading.dismiss();
   }
+
+  //Metodo Eliminar comienza
 
   seleccionarMajor(majorName: string) {
     this.selectedMajor = majorName;
@@ -230,7 +233,24 @@ async UpMajor() {
 }
 
 
+//Metodo Actualizar comienza
 
+async editar(selectedMajor:any) {
+
+  const paginaModal = await this.modalCtrl.create({
+  component: UpMajorPage,
+  componentProps: {
+      'careraEdit': selectedMajor
+  },
+  breakpoints: [0, 0.3, 0.5, 0.95],
+  initialBreakpoint: 0.95
+  });
+  await paginaModal.present();
+
+  paginaModal.onDidDismiss().then((data) => {
+      this.loadMajor();
+  });
+}
 
 
 }
