@@ -48,7 +48,7 @@
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['modextra', major.maj_id]"> 
+                  (click)="UpMajor(major.maj_id)"> 
                   <ion-icon name="create"></ion-icon>
                   Modificar 
                 </ion-item>

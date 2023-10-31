@@ -223,19 +223,11 @@ async elimMajor() {
   await paginaModal.present();
 }
 
-async UpMajor() {
-  const paginaModal = await this.modalCtrl.create({
-  component: UpMajorPage,
-  breakpoints : [0, 0.3, 0.5, 0.95],
-  initialBreakpoint: 0.95
-  });
-  await paginaModal.present();
-}
 
 
 //Metodo Actualizar comienza
 
-async editar(selectedMajor:any) {
+async UpMajor(selectedMajor:any) {
 
   const paginaModal = await this.modalCtrl.create({
   component: UpMajorPage,
