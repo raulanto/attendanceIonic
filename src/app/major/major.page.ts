@@ -19,7 +19,7 @@ import { UpMajorPage } from '../up-major/up-major.page';
 export class MajorPage {
 
   items: any = [];
-  selectedMajor: any;
+  selectedMajor: any = [];
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
@@ -232,7 +232,7 @@ async UpMajor(selectedMajor:any) {
   const paginaModal = await this.modalCtrl.create({
   component: UpMajorPage,
   componentProps: {
-      'careraEdit': selectedMajor
+      'selectedMajor': selectedMajor 
   },
   breakpoints: [0, 0.3, 0.5, 0.95],
   initialBreakpoint: 0.95

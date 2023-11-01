@@ -86,9 +86,9 @@ export class UpMajorPage {
 
 
     });
-    if (this.selectedMajor !== undefined) {
+    /*if (this.selectedMajor !== undefined) {
       this.editCarrera.get('maj_name')?.disable();
-    }
+    }*/
   }
 
   async guardarDatos() {
