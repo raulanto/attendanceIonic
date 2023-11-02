@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -14,46 +14,48 @@ import axios from 'axios';
 })
 export class NewmajorPage {
 
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/majors"
+  baseUrl: string = "http://attendanceproyect.atwebpages.com/majors"
 
+  @Input() selectedMajor: any | undefined;
   public libro!: FormGroup;
 
-  mensajes_validacion:any = {
-    'maj_name' : [
-        {type : 'required' , message : 'Titulo Requerido.'},
+  mensajes_validacion: any = {
+    'maj_name': [
+      { type: 'required', message: 'Titulo Requerido.' },
     ],
-    'maj_code' : [
-        {type : 'required' , message : 'Codigo requerido.'},
+    'maj_code': [
+      { type: 'required', message: 'Codigo requerido.' },
     ],
 
-    
+
   }
 
   constructor(
-    private formBuilder : FormBuilder,
-    private alert : AlertController,
+    private formBuilder: FormBuilder,
+    private alert: AlertController,
     private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
+    this.loadMajors()
     this.formulario();
   }
 
   public formulario() {
     this.libro = this.formBuilder.group({
-    maj_name: ['', [Validators.required]],
-    maj_code: ['',[Validators.required]],
- 
+      maj_name: ['', [Validators.required]],
+      maj_code: ['', [Validators.required]],
+
     })
   }
 
   async guardarDatos() {
     try {
-      const agregar = this.libro?.value; 
+      const agregar = this.libro?.value;
       const response = await axios({
         method: 'post',
-        url : this.baseUrl,
-        data: agregar, 
+        url: this.baseUrl,
+        data: agregar,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
@@ -65,7 +67,7 @@ export class NewmajorPage {
       }).catch((error) => {
         if (error?.response?.status == 422) {
           this.alertGuardado(agregar.maj_id, error?.response?.data[0]?.message, "Error");
-        }    
+        }
       });
     } catch (e) {
       console.log(e);
@@ -76,30 +78,30 @@ export class NewmajorPage {
     let errors: any[] = [];
     const control = this.libro.get(controlName);
     if (control?.touched && control?.errors != null) {
-    errors = JSON.parse(JSON.stringify(control?.errors));
+      errors = JSON.parse(JSON.stringify(control?.errors));
     }
     return errors;
   }
 
-  private async alertGuardado(matricula: String, msg = "",  subMsg= "Guardado") {
+  private async alertGuardado(matricula: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-    header: 'Recurso',
-    subHeader: subMsg,
-    message: msg,
-    cssClass: 'alert-center',
-    buttons: [
+      header: 'Recurso',
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
         {
-        text: 'Continuar',
-        role: 'cancel',
+          text: 'Continuar',
+          role: 'cancel',
         },
         {
-        text: 'Salir',
-        role: 'confirm',
-        handler: () => {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
             this.modalCtrl.dismiss();
+          },
         },
-        },
-    ],
+      ],
     });
 
     await alert.present();

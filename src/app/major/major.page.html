@@ -75,24 +75,40 @@
   </ion-grid>
   
   <!--
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="new()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  -->
+  
+  
 
-  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-down-circle"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="bottom">
+    <ion-fab-list side="top">
       <ion-fab-button (click)="newMajor()">
         <ion-icon name="create-outline"></ion-icon>
       </ion-fab-button >
       <ion-fab-button (click)="elimMajor()">
         <ion-icon name="backspace-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="UpMajor()">
+      <ion-fab-button >
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
--->
+
 
   <!--<ion-grid>
     Crear una fila por cada elemento

@@ -84,7 +84,7 @@ export class MajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/major",
+      url: "http://attendanceproyect.atwebpages.com/major?per-page=50",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -230,7 +230,7 @@ async elimMajor() {
 async UpMajor(selectedMajor:any) {
 
   const paginaModal = await this.modalCtrl.create({
-  component: UpMajorPage,
+  component: NewmajorPage,
   componentProps: {
       'selectedMajor': selectedMajor 
   },
