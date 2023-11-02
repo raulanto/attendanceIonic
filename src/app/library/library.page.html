@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar -->    
+<!-- Boton para regresar -->    
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -9,30 +9,71 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item-sliding *ngFor="let library of librarys">
-    <ion-item (click)="openLibraryFile(library.lib_file)">
-      <ion-grid class="custom-grid">
-        <ion-row>
-          <ion-col size="auto">
-            <ion-icon [name]="getIconName(library.lib_type)" class="icon-large"></ion-icon>
-          </ion-col>
-          <ion-col>
-            <ion-label>
-              <h2>{{ library.lib_title }}</h2>
-              <h3>{{ library.lib_description }}</h3>
-            </ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    <ion-item-options side="end">
-      <ion-item-option color="danger" expandable="true" (click)="alertEliminar(library.lib_id)">
-        <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor="let library of librarys">
+      <!-- Crear columna para el icono -->
+      <ion-col size="auto">
+        <ion-icon [name]="getIconName(library.lib_type)" class="icon-large"></ion-icon>
+      </ion-col>
+      <!-- Crear columna para el texto -->
+      <ion-col>
+        <ion-label>
+          <h2>{{ library.lib_title }}</h2>
+          <h3>{{ library.lib_description }}</h3>
+        </ion-label>
+      </ion-col>
+      <!-- Crear columna para boton eliminar
+      <ion-col size="auto">
+        <ion-button color="danger" (click)="alertEliminar(library.lib_id)">
+          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+      <!-- Crear columna para boton de opciones -->
+      <ion-col size="auto">
+      <!-- Boton de opciones -->        
+        <ion-button id="click-trigger-{{library.lib_id}}" size="small">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+        <ion-popover
+          trigger="click-trigger-{{library.lib_id}}"
+          [dismissOnSelect]="true"
+          [keepContentsMounted]="true"
+          side="end">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <!-- Opcion de eliminar  -->
+                <ion-item 
+                  [button]="true" 
+                  [detail]="false"
+                  (click)="eliminar(library.lib_id)"> 
+                  <ion-icon name="trash"></ion-icon>
+                  Eliminar
+                </ion-item>
+                <!-- Opcion de modificar -->
+                <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  [routerLink]="['modificar', library.lib_id]"> <!-- Agregamos la opción de Modificar -->
+                  <ion-icon name="create"></ion-icon>
+                  Modificar
+                </ion-item>
+                <!-- Cierro mi lista  -->
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+    <!-- Cierro filas y grid -->
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>
 
+<!-- Boton flotante de agregar -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-fab-button (click)="new()">
     <ion-icon name="add"></ion-icon>

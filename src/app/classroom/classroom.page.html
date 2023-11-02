@@ -1,19 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar -->    
-      <ion-buttons slot="start">
+<!-- Boton para regresar -->    
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Salones</ion-title>
-  </ion-toolbar> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Ubicaciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-grid>
     <!-- Crear una fila por cada elemento --> 
@@ -24,16 +19,61 @@
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col>
-      <ion-label>
+        <ion-label>
           <h2>{{classroom.clas_name}}</h2>
           <h3>{{classroom.clas_description}}</h3>
         </ion-label>
       </ion-col>
+      <!-- Crear columna para boton eliminar
+      <ion-col size="auto">
+        <ion-button color="danger" (click)="alertEliminar(classroom.clas_id)">
+          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+      <!-- Crear columna para boton de opciones -->
+      <ion-col size="auto">
+        <!-- Boton de opciones -->        
+          <ion-button id="click-trigger-{{classroom.clas_id}}" size="small">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+          <ion-popover
+            trigger="click-trigger-{{classroom.clas_id}}"
+            [dismissOnSelect]="true"
+            [keepContentsMounted]="true"
+            side="end">
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <!-- Opcion de eliminar  -->
+                  <ion-item 
+                    [button]="true" 
+                    [detail]="false"
+                    (click)="eliminar(classroom.clas_id)"> 
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item>
+                  <!-- Opcion de modificar -->
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    [routerLink]="['modificar', classroom.clas_id]"> <!-- Agregamos la opción de Modificar -->
+                    <ion-icon name="create"></ion-icon>
+                    Modificar
+                  </ion-item>
+                  <!-- Cierro mi lista  -->
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-col>
+      <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
 
 </ion-content>
 
+<!-- Boton flotante de agregar -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-fab-button (click)="new()">
     <ion-icon name="add"></ion-icon>

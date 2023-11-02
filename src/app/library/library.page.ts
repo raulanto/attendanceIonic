@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { InfiniteScrollCustomEvent, LoadingController, Platform } from '@ionic/angular';
-import { ModalController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { InfiniteScrollCustomEvent,
+        LoadingController, 
+        ModalController, 
+        AlertController,
+        Platform } from '@ionic/angular';
+import { ActivatedRoute, 
+        Router } from '@angular/router';
 import axios from 'axios';
 import { NewlibraryPage } from '../newlibrary/newlibrary.page';
 
@@ -12,21 +15,24 @@ import { NewlibraryPage } from '../newlibrary/newlibrary.page';
   styleUrls: ['./library.page.scss'],
 })
 export class LibraryPage implements OnInit {
+  
   public grupoid: any;
-  public baseUrl: string = 'http://attendancedb.test/library';
+
+  public baseUrl: string = "http://attendancedb.test/library/librarys?id=";
+  public eliminarUrl: string = "http://attendancedb.test/library";
+
+  librarys: any = [];
 
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
-    private loading: LoadingController,
-    private platform: Platform,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
+    private platform: Platform,
     private router: Router,
   ) { 
     //mandamos a pedir el id del grupo desde route paramMap
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
-
   }
     // Una función que utiliza el valor de 'idperson'
     mostrar() {
@@ -34,11 +40,11 @@ export class LibraryPage implements OnInit {
     }
   
   ngOnInit() {
-    this.mostrar();
     this.cargarLibrarys();
+    this.mostrar();
   }
- 
-  librarys: any = [];
+
+  //CARGAR ARCHIVOS
 
   async cargarLibrarys(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -49,8 +55,7 @@ export class LibraryPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url
-      url: "http://attendancedb.test/library/librarys?id=" + this.grupoid,
-      //url: "http://attendancedb.test/library?expand=group",
+      url: this.baseUrl + this.grupoid,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -88,6 +93,8 @@ export class LibraryPage implements OnInit {
     }
   }
   
+  //CREAR NUEVO ARCHIVO
+
   async new() {
     // Crear una página modal utilizando el controlador de modales 
     const paginaModal = await this.modalCtrl.create({
@@ -100,73 +107,60 @@ export class LibraryPage implements OnInit {
     await paginaModal.present();
   }
 
-  //BORRAR
-  async alertEliminar(archivoid: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Archivo',
-      subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar el archivo ' + archivoid + '?',
-      cssClass: 'alert-center',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: () => {
-            this.eliminar(archivoid);
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-  async eliminar(archivoid: any) {
+  //BORRAR ARCHIVO
+
+  async eliminar(archivoid:any) {
     const response = await axios({
-      method: 'delete',
-      url: this.baseUrl + '/' + archivoid,
-      withCredentials: true,
-      headers: {
+    method: 'delete',
+    url: this.eliminarUrl + '/' + archivoid,
+    withCredentials: true,
+    headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 100-token'
-      }
+    }
     }).then((response) => {
-      if (response?.status == 204) {
-        this.alertEliminado(archivoid, 'El archivo con id ' + archivoid + ' ha sido eliminado');
-      }
-    }).catch(function (error) {
-      console.log(error);
+    if (response?.status == 204) {
+        this.alertEliminado(archivoid, ' El archivo ' + archivoid + ' ha sido eliminado');
+    }
+    }).catch((error) => {
+    if (error?.response?.status == 500) {
+        this.alertEliminado(archivoid, "No puedes eliminar porque existe informacion relacionada ");
+    }
     });
   }
 
   async alertEliminado(archivoid: any, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Archivo',
-      subHeader: 'Eliminado',
-      message: msg,
-      cssClass: 'alert-center',
-      buttons: [
+    header: 'Archivo',
+    subHeader: 'Eliminar',
+    message: msg,
+    cssClass: 'alert-center',
+    buttons: [
         {
-          text: 'Salir',
-          role: 'confirm',
-          handler: () => {
-            this.regresar();
-          },
+        text: 'Continuar',
+        role: 'cancel',
+        handler: () => {
+          this.regresar();
+      },
         },
-      ],
+        {
+        text: 'Salir',
+        role: 'confirm',
+        handler: () => {
+            this.regresar();
+        },
+        },
+    ],
     });
 
     await alert.present();
   }
+
+  //VOLVER A CARGAR
   private regresar() {
-    this.router.navigate(['/tabs/library', this.grupoid]).then(() => {
+    this.router.navigate(['library', this.grupoid]).then(() => {
       window.location.reload();
     });
   }
-
-
-  
 }
 

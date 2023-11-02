@@ -1,26 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 <!-- Boton para regresar -->    
-      <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Tus Grupos</ion-title>
-  </ion-toolbar> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tus Grupos</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-grid>
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let grupo of grupos" >
       <!-- Crear columna para el icono-->
       <ion-col size="1" [routerLink]="['/menu1', grupo.gro_id, grupo.subject, grupo.gro_code]">
-      <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
+        <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/menu1', grupo.gro_id, grupo.subject, grupo.gro_code]">
@@ -29,33 +24,73 @@
           <h3>Ubicación: {{grupo.classroom}} </h3>
         </ion-label>
       </ion-col>
+      <!-- Crear columna para boton eliminar
+      <ion-col size="auto">
+        <ion-button color="danger" (click)="alertEliminar(grupo.gro_id)">
+          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+      <!-- Crear columna para boton de opciones -->
+      <ion-col size="auto">
+        <!-- Boton de opciones -->        
+          <ion-button id="click-trigger-{{grupo.gro_id}}" size="small">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+          <ion-popover
+            trigger="click-trigger-{{grupo.gro_id}}"
+            [dismissOnSelect]="true"
+            [keepContentsMounted]="true"
+            side="end">
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <!-- Opcion de eliminar  -->
+                  <ion-item 
+                    [button]="true" 
+                    [detail]="false"
+                    (click)="eliminar(grupo.gro_id)"> 
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item>
+                  <!-- Opcion de modificar -->
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    [routerLink]="['modificar', grupo.gro_id]"> <!-- Agregamos la opción de Modificar -->
+                    <ion-icon name="create"></ion-icon>
+                    Modificar
+                  </ion-item>
+                  <!-- Cierro mi lista  -->
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-col>
+    <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
-  
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    
-    <!-- Boton principal -->
-    <ion-fab-button>
-      <ion-icon name="chevron-up-circle"></ion-icon>
-    </ion-fab-button>
-
-    <ion-fab-list side="top">
-      <!-- Botones secundarios -->
-
-      <!-- Unirse a un grupo -->
-      <ion-fab-button (click)="mostrarAlerta()">
-        <ion-icon name="person-add"></ion-icon>
-      </ion-fab-button >
-      <!-- Crear grupo -->
-      <ion-fab-button (click)="new()">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-fab-button>
-      <!-- Tabla classroom -->
-      <ion-fab-button [routerLink]="['/classroom']">
-        <ion-icon name="business-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-
 </ion-content>
+
+<!-- Boton flotante para acciones -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">    
+  <!-- Boton principal -->
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <!-- Botones secundarios -->
+  <ion-fab-list side="top">
+    <!-- Unirse a un grupo -->
+    <ion-fab-button (click)="mostrarAlerta()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button >
+    <!-- Crear grupo -->
+    <ion-fab-button (click)="new()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <!-- Tabla classroom -->
+    <ion-fab-button [routerLink]="['/classroom']">
+      <ion-icon name="business-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

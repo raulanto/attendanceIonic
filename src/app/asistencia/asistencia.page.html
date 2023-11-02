@@ -1,19 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 <!-- Boton para regresar -->    
-      <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Acciones disponibles</ion-title>
-  </ion-toolbar> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Acciones disponibles</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-grid>
     <!-- Crear una fila por cada elemento --> 
@@ -28,6 +23,7 @@
       <ion-col size = "6" class="ion-justify-content-end" [routerLink]="['/lista', grupoid]">
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </ion-col>
+    <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
   
@@ -44,6 +40,7 @@
       <ion-col size = "6" class="ion-justify-content-end">
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </ion-col>
+    <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
 
@@ -60,6 +57,7 @@
       <ion-col size = "6" class="ion-justify-content-end">
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </ion-col>
+    <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
 

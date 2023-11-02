@@ -1,34 +1,70 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 <!-- Boton para regresar -->    
-      <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Integrantes del equipo</ion-title>
-  </ion-toolbar> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Integrantes del equipo</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-list>
+    <!-- Crear un item por cada elemento --> 
     <ion-item button *ngFor="let lista of listas">
+      <!-- Crear una espacio para cada icono --> 
       <ion-avatar aria-hidden="true" slot="start">
         <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
+      <!-- Crear una espacio para texto --> 
       <ion-label>{{lista.list_fkperson}}</ion-label>
+      <!-- Crear columna para boton de opciones -->
+
+        <!-- Boton de opciones -->        
+          <ion-button id="click-trigger-{{lista.list_id}}" size="small">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+          <ion-popover
+            trigger="click-trigger-{{lista.list_id}}"
+            [dismissOnSelect]="true"
+            [keepContentsMounted]="true"
+            side="end">
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <!-- Opcion de eliminar  -->
+                  <ion-item 
+                    [button]="true" 
+                    [detail]="false"
+                    (click)="eliminar(lista.list_id)"> 
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item>
+                  <!-- Opcion de modificar -->
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    [routerLink]="['modificar', lista.list_id]"> <!-- Agregamos la opción de Modificar -->
+                    <ion-icon name="create"></ion-icon>
+                    Modificar
+                  </ion-item>
+                  <!-- Cierro mi lista  -->
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+
+    <!-- Cierro filas y grid -->      
     </ion-item>
   </ion-list>
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="new()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
   
 </ion-content>
+
+<!-- Boton flotante de agregar -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 

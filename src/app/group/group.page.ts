@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
-import { LoadingController } from '@ionic/angular';
-import { ModalController, AlertController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { InfiniteScrollCustomEvent,
+        LoadingController, 
+        ModalController, 
+        AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';        
 import axios from 'axios';
 import { NewgroupPage } from '../newgroup/newgroup.page';
 
@@ -11,19 +12,26 @@ import { NewgroupPage } from '../newgroup/newgroup.page';
   templateUrl: './group.page.html',
   styleUrls: ['./group.page.scss'],
 })
+
 export class GroupPage implements OnInit {
-  constructor(
-    private loadingCtrl: LoadingController,
-    private alertController: AlertController,
-    private route: ActivatedRoute,
-    public modalCtrl: ModalController,
-  ) { }
+
+  public baseUrl: string = "http://attendancedb.test/group?expand=subject,teacher,classroom";
+  public eliminarUrl: string = "http://attendancedb.test/group";
 
   grupos: any = [];
+
+  constructor(
+    private loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.cargarGrupos();
   }
+
+  //CARGAR GRUPOS
  
   async cargarGrupos(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -33,8 +41,7 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      // Url
-      url: "http://attendancedb.test/group?expand=subject,teacher,classroom",
+      url: this.baseUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -46,6 +53,75 @@ export class GroupPage implements OnInit {
       console.log(error);
     });
     loading.dismiss();
+  }
+
+  //CREAR NUEVO SALON
+
+  async new() {
+    // Crear una página modal utilizando el controlador de modales 
+    const paginaModal = await this.modalCtrl.create({
+      component: NewgroupPage, // El componente que se mostrará en el modal
+      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+    });
+    // Presentar la página modal en la interfaz de usuario
+    await paginaModal.present();
+  }
+
+  //BORRAR SALON
+  
+  async eliminar(groupid:any) {
+    const response = await axios({
+      method: 'delete',
+      url: this.eliminarUrl + '/' + groupid,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
+      }
+    }).then((response) => {
+      if (response?.status == 204) {
+        this.alertEliminado(groupid, 'El grupo ' + groupid + ' ha sido eliminado');
+      }
+    }).catch((error) => {
+    if (error?.response?.status == 500) {
+      this.alertEliminado(groupid, "No puedes eliminar porque existe informacion relacionada ");
+    }
+    });
+  }
+
+  async alertEliminado(groupid: any, msg = "") {
+    const alert = await this.alertCtrl.create({
+    header: 'Grupo',
+    subHeader: 'Eliminar',
+    message: msg,
+    cssClass: 'alert-center',
+    buttons: [
+        {
+        text: 'Continuar',
+        role: 'cancel',
+        handler: () => {
+          this.regresar();
+      },
+        },
+        {
+        text: 'Salir',
+        role: 'confirm',
+        handler: () => {
+            this.regresar();
+        },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+  
+  //VOLVER A CARGAR
+  private regresar() {
+    this.router.navigate(['/group']).then(() => {
+    window.location.reload();
+    });
   }
 
 
@@ -60,19 +136,8 @@ export class GroupPage implements OnInit {
     
   ];
 
-  async new() {
-    // Crear una página modal utilizando el controlador de modales 
-    const paginaModal = await this.modalCtrl.create({
-      component: NewgroupPage, // El componente que se mostrará en el modal
-      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
-      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
-    });
-    // Presentar la página modal en la interfaz de usuario
-    await paginaModal.present();
-  }
-  
   async mostrarAlerta() {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       header: 'Unirse a un equipo con un código',
       inputs: this.alertInputs,
       buttons: [
@@ -88,5 +153,5 @@ export class GroupPage implements OnInit {
 
     await alert.present();
   }
-
+  
 }
