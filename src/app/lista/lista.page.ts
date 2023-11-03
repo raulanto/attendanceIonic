@@ -3,37 +3,43 @@ import { InfiniteScrollCustomEvent,
         LoadingController, 
         ModalController, 
         AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';        
+import { ActivatedRoute, 
+        Router } from '@angular/router';
 import axios from 'axios';
-import { NewgroupPage } from '../newgroup/newgroup.page';
+import { NewlistaPage } from '../newlista/newlista.page';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.page.html',
-  styleUrls: ['./group.page.scss'],
+  selector: 'app-lista',
+  templateUrl: './lista.page.html',
+  styleUrls: ['./lista.page.scss'],
 })
+export class ListaPage implements OnInit {
 
-export class GroupPage implements OnInit {
+  public grupoid: any;
 
-  public baseUrl: string = "http://attendancedb.test/group?expand=subject,teacher,classroom";
-  public eliminarUrl: string = "http://attendancedb.test/group";
+  public baseUrl: string = 'http://attendancedb.test/listg/listas?id=';
+  public eliminarUrl: string = "http://attendancedb.test/listg";
 
-  grupos: any = [];
+  listas: any = [];
 
   constructor(
+    private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
-  ) { }
+  ) {
+    //mandamos a pedir el id del grupo desde route paramMap
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+   }
 
   ngOnInit() {
-    this.cargarGrupos();
+    this.cargarAsistencia()
   }
 
-  //CARGAR GRUPOS
- 
-  async cargarGrupos(event?: InfiniteScrollCustomEvent) {
+  //CARGAR INTEGRANTES/LISTA DE ASISTENCIA
+
+  async cargarAsistencia(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -41,26 +47,27 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl,
+      url: this.baseUrl+this.grupoid,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
       }
     }).then((response) => {
-      this.grupos = response.data;
+      this.listas = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
     });
     loading.dismiss();
   }
-
-  //CREAR NUEVO SALON
+  
+  //CREAR INTEGRANTES/LISTA DE ASISTENCIA
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
     const paginaModal = await this.modalCtrl.create({
-      component: NewgroupPage, // El componente que se mostrará en el modal
+      component: NewlistaPage, // El componente que se mostrará en el modal
+      componentProps: { groupID: this.grupoid }, // Pasar el ID del grupo como un parámetro
       breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
       initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
     });
@@ -68,31 +75,31 @@ export class GroupPage implements OnInit {
     await paginaModal.present();
   }
 
-  //BORRAR SALON
+  //BORRAR INTEGRANTE/LISTA DE ASISTENCIA
   
-  async eliminar(groupid:any) {
+  async eliminar(integranteid:any) {
     const response = await axios({
-      method: 'delete',
-      url: this.eliminarUrl + '/' + groupid,
-      withCredentials: true,
-      headers: {
+    method: 'delete',
+    url: this.eliminarUrl + '/' + integranteid,
+    withCredentials: true,
+    headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 100-token'
-      }
+    }
     }).then((response) => {
-      if (response?.status == 204) {
-        this.alertEliminado(groupid, 'El grupo ' + groupid + ' ha sido eliminado');
-      }
+    if (response?.status == 204) {
+        this.alertEliminado(integranteid, ' El alumno ' + integranteid + ' ha sido eliminado');
+    }
     }).catch((error) => {
     if (error?.response?.status == 500) {
-      this.alertEliminado(groupid, "No puedes eliminar porque existe informacion relacionada ");
+        this.alertEliminado(integranteid, "No puedes eliminar porque existe informacion relacionada ");
     }
     });
   }
 
-  async alertEliminado(groupid: any, msg = "") {
+  async alertEliminado(integranteid: any, msg = "") {
     const alert = await this.alertCtrl.create({
-    header: 'Grupo',
+    header: 'Alumno',
     subHeader: 'Eliminar',
     message: msg,
     cssClass: 'alert-center',
@@ -119,39 +126,8 @@ export class GroupPage implements OnInit {
   
   //VOLVER A CARGAR
   private regresar() {
-    this.router.navigate(['/group']).then(() => {
-    window.location.reload();
+    this.router.navigate(['lista', this.grupoid]).then(() => {
+      window.location.reload();
     });
   }
-
-
-  public alertButtons = ['Unirse'];
-  public alertInputs = [
-    {
-      placeholder: 'Ingresa el código',
-      attributes: {
-        maxlength: 15,
-      },
-    },
-    
-  ];
-
-  async mostrarAlerta() {
-    const alert = await this.alertCtrl.create({
-      header: 'Unirse a un equipo con un código',
-      inputs: this.alertInputs,
-      buttons: [
-        {
-          text: this.alertButtons[0],
-          handler: (data) => {
-            // Manejar los datos ingresados en el formulario aquí
-            console.log('Datos del formulario:', data);
-          },
-        }, 
-      ],
-    });
-
-    await alert.present();
-  }
-  
 }

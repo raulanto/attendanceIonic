@@ -1,49 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!--     Boton para regresar
- -->    <ion-buttons slot="start">
-  <ion-back-button></ion-back-button>
-</ion-buttons>
-<ion-title>{{ groupData.gro_subject }} {{ groupData.gro_code }}</ion-title>
+<!-- Boton para regresar -->    
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{gruposubject}} {{grupocode}}</ion-title>
   </ion-toolbar>
-</ion-header> 
+</ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-list>
-    <ion-item>
-      <ion-icon aria-hidden="true"  src="assets/icon/asistencia.svg" slot="start"></ion-icon>
-      <ion-label>Asistencia</ion-label>
-    </ion-item> 
-    <ion-item>
-      <ion-icon aria-hidden="true" src="assets/icon/Noti.svg" slot="start" ></ion-icon>
-      <ion-label>Notificaciones</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon aria-hidden="true" src="assets/icon/file.svg" slot="start" ></ion-icon>
-      <ion-button fill="clear" [routerLink]="['/library']">Archivos</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-icon aria-hidden="true" src="assets/icon/pregunta.svg" slot="start" ></ion-icon>
-      <ion-button fill="clear" [routerLink]="['/question']">Preguntas</ion-button>
-    </ion-item>
-  </ion-list>
-
-  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
-    
-    <!-- Boton principal -->
-    <ion-fab-button>
-      <ion-icon name="chevron-down-circle"></ion-icon>
-    </ion-fab-button> 
-
-    <ion-fab-list side="bottom">
-      <!-- Botones secundarios -->
-      <!-- Tabla classroom -->
-      <ion-fab-button [routerLink]="['/classroom']">
-        <ion-icon name="business-outline"></ion-icon>
-      </ion-fab-button>
-
-    </ion-fab-list>
-  </ion-fab>
-
+  <ion-grid>
+    <!-- Primera fila de elementos -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <!-- Botón para la página 'asistencia' -->
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear" [routerLink]="['/asistencia', grupoid]">
+          <ion-icon aria-hidden="true" src="assets/icon/asistencia.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Asistencia</ion-label>
+      </ion-col>
+      <!-- Botón para Notificaciones -->
+      <ion-col>
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear">
+          <ion-icon size="large" src="assets/icon/Noti.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Notificaciones</ion-label>
+      </ion-col>
+      <!-- Botón para la página 'library' -->      
+      <ion-col>
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear" [routerLink]="['/library', grupoid]">
+          <ion-icon size="large" src="assets/icon/file.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Archivos</ion-label>
+      </ion-col>
+    <!-- Cierro primera fila de elementos -->
+    </ion-row>
+    <!-- Segunda fila de elementos -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <!-- Botón para la página 'question' -->
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear" [routerLink]="['/question']">
+          <ion-icon size="large" src="assets/icon/pregunta.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Preguntas</ion-label>
+      </ion-col>
+    <!-- Cierro segunda fila de elementos -->
+    </ion-row>
+  <!-- Cierro grid -->
+  </ion-grid>
+  
 </ion-content>

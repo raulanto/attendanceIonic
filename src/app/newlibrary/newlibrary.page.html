@@ -8,9 +8,10 @@
 <form [formGroup]="libro" (ngSubmit)="guardarDatos()">
   <ion-grid> <!-- Cuadrícula de diseño -->
   <ion-row> <!-- Fila de la cuadrícula -->
-      <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
+     <!-- Escribir manualmente los tipos de archivos-->
+      <!-- <ion-col size="12"> 
       <ion-item>
-          <ion-label position="floating" color="primary">Tipo</ion-label>
+          <ion-label position="floating" color="primary">Tipo de Archivo</ion-label>
           <ion-input type="text" formControlName="lib_type"
           class="form-control"></ion-input>
       </ion-item>
@@ -20,50 +21,69 @@
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
           </ion-note>
       </div>
+    </ion-col>-->
+
+    <!-- Mostrar automaticamente los tipos de archivos-->
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating" color="primary">Tipo de Archivo</ion-label>
+          <ion-select formControlName="lib_type" class="form-control">
+            <ion-select-option *ngFor="let tipo of tiposArchivo" [value]="tipo.lib_type">
+              {{ tipo.typ_type }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.lib_type">
+          <ion-note color="danger" *ngIf="getError('lib_type')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </ion-note>
+        </div>
       </ion-col>
+
+      <!-- Valor 2 -->
       <ion-col size="12">
       <ion-item>
           <ion-label position="floating" color="primary">Título</ion-label>
           <ion-input type="text" formControlName="lib_title"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_title">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_title">
           <ion-note color="danger"
           *ngIf="getError('lib_title')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
           </ion-note>
       </div>
       </ion-col>
+    <!-- Valor 3 -->
       <ion-col size="12">
       <ion-item>
           <ion-label position="floating" color="primary">Descripción</ion-label>
           <ion-input type="text" formControlName="lib_description"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_description">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_description">
           <ion-note color="danger"
           *ngIf="getError('lib_description')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
           </ion-note>
       </div>
       </ion-col>
+     <!-- Valor 4 -->
       <ion-col size="12">
       <ion-item>
           <ion-label position="floating" color="primary">URL</ion-label>
           <ion-input type="text" formControlName="lib_file"
           class="form-control"></ion-input>
       </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.lib_file">
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_file">
           <ion-note color="danger"
           *ngIf="getError('lib_file')[(validation.type)]">
           <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
           </ion-note>
       </div>
       </ion-col>
-      <ion-col size="12">
+     <!-- Valor 5 (grupo) ya esta siendo recibido, no hace falta visualizarlo-->     
+<!-- <ion-col size="12">
         <ion-item>
             <ion-label position="floating" color="primary">Grupo</ion-label>
             <ion-input type="text" formControlName="lib_fkgroup"
@@ -75,7 +95,8 @@
             <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
             </ion-note>
         </div>
-      </ion-col>
+    </ion-col>-->
+        <!-- Boton de Guardar -->
       <ion-col size="12">
       <p class="ion-text-center">
           <ion-button type="submit" [disabled]="!libro.valid">Guardar</ion-button>

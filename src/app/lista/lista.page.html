@@ -4,41 +4,29 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Salones</ion-title>
+    <ion-title>Integrantes del equipo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-grid>
-    <!-- Crear una fila por cada elemento --> 
-    <ion-row *ngFor= "let classroom of classrooms" >
-      <!-- Crear columna para el icono-->
-      <ion-col size="1">
-        <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
-      </ion-col>
-      <!-- Crear columna para el texto-->
-      <ion-col>
-        <ion-label>
-          <h2>{{classroom.clas_name}}</h2>
-          <h3>{{classroom.clas_description}}</h3>
-        </ion-label>
-      </ion-col>
-      <!-- Crear columna para boton eliminar
-      <ion-col size="auto">
-        <ion-button color="danger" (click)="alertEliminar(classroom.clas_id)">
-          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
-        </ion-button>
-      </ion-col> -->
-
+  <ion-list>
+    <!-- Crear un item por cada elemento --> 
+    <ion-item button *ngFor="let lista of listas">
+      <!-- Crear una espacio para cada icono --> 
+      <ion-avatar aria-hidden="true" slot="start">
+        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <!-- Crear una espacio para texto --> 
+      <ion-label>{{lista.list_fkperson}}</ion-label>
       <!-- Crear columna para boton de opciones -->
-      <ion-col size="auto">
+
         <!-- Boton de opciones -->        
-          <ion-button id="click-trigger-{{classroom.clas_id}}" size="small">
+          <ion-button id="click-trigger-{{lista.list_id}}" size="small">
             <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>
           <ion-popover
-            trigger="click-trigger-{{classroom.clas_id}}"
+            trigger="click-trigger-{{lista.list_id}}"
             [dismissOnSelect]="true"
             [keepContentsMounted]="true"
             side="end">
@@ -49,7 +37,7 @@
                   <ion-item 
                     [button]="true" 
                     [detail]="false"
-                    (click)="eliminar(classroom.clas_id)"> 
+                    (click)="eliminar(lista.list_id)"> 
                     <ion-icon name="trash"></ion-icon>
                     Eliminar
                   </ion-item>
@@ -57,7 +45,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    [routerLink]="['modificar', classroom.clas_id]"> <!-- Agregamos la opción de Modificar -->
+                    [routerLink]="['modificar', lista.list_id]"> <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>
@@ -66,11 +54,11 @@
               </ion-content>
             </ng-template>
           </ion-popover>
-        </ion-col>
-      <!-- Cierro filas y grid -->
-    </ion-row>
-  </ion-grid>
 
+    <!-- Cierro filas y grid -->      
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
 
 <!-- Boton flotante de agregar -->
@@ -79,3 +67,4 @@
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
+

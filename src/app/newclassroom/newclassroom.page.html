@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+      <ion-title class="ion-text-center">Nuevo Salon</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="clase" (ngSubmit)="guardarDatos()">
+  <ion-grid> <!-- Cuadrícula de diseño -->
+  <ion-row> <!-- Fila de la cuadrícula -->
+     <!-- Valor 2 -->
+     <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
+      <ion-item>
+          <ion-label position="floating" color="primary">Nombre del salon</ion-label>
+          <ion-input type="text" formControlName="clas_name"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of mensajes_validacion.clas_name">
+          <ion-note color="danger"
+          *ngIf="getError('clas_name')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+     <!-- Valor 1 -->
+     <ion-col size="12"> 
+      <ion-item>
+          <ion-label position="floating" color="primary">Descripción del salon</ion-label>
+          <ion-input type="text" formControlName="clas_description"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of mensajes_validacion.clas_description">
+          <ion-note color="danger"
+          *ngIf="getError('clas_description')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+        <!-- Boton de Guardar -->
+        <ion-col size="12">
+            <p class="ion-text-center">
+                <ion-button type="submit" [disabled]="!clase.valid">Guardar</ion-button>
+            </p>
+            </ion-col>
+        </ion-row>
+        </ion-grid>
+      </form>
+      </ion-content>

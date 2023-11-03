@@ -1,37 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-newlibrary',
-  templateUrl: './newlibrary.page.html',
-  styleUrls: ['./newlibrary.page.scss'],
+  selector: 'app-newlista',
+  templateUrl: './newlista.page.html',
+  styleUrls: ['./newlista.page.scss'],
 })
-export class NewlibraryPage implements OnInit {
+export class NewlistaPage implements OnInit {
   groupID: any; // Recibir el ID del grupo como un parámetro
-  baseUrl: string = "http://attendancedb.test/library";
+  baseUrl: string = "http://attendancedb.test/listg";
+  alumnoUrl:string = "http://attendancedb.test/person/"
 
-  public libro!: FormGroup; //Sirve para ingresar datos de "libros"
+  public lista!: FormGroup; //Sirve para ingresar datos de "alumnos a un grupo"
 
-  archivos:any = [];
-
-  tiposArchivo = [
-    { 'lib_type': 'Libro', 'typ_type': 'Libro' },
-    { 'lib_type': 'Artículo', 'typ_type': 'Artículo' },
-    { 'lib_type': 'Video', 'typ_type': 'Video' },
-    { 'lib_type': 'Página web', 'typ_type': 'Página web' },
-  ];
-  
+  alumnos:any = [];
 
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
-    'lib_type': [{ type: 'required', message: 'Formato requerido.' }],
-    'lib_title': [{ type: 'required', message: 'Título requerido.' }],
-    'lib_description': [{ type: 'required', message: 'Descripción requerida.' }],
-    'lib_file': [{ type: 'required', message: 'Url requerida.' }],
-    'lib_fkgroup': [{ type: 'required', message: 'Grupo requerido.' }],
+    'list_fkgroup': [{ type: 'required', message: 'Grupo requerido' }],
+    'list_fkperson': [{ type: 'required', message: 'Alumno requerido.' }],
   };
 
   constructor(
@@ -41,42 +31,55 @@ export class NewlibraryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formulario();// Inicializar el formulario al cargar pagina
+    this.formulario();
+    this.cargarAlumnos();
     if (this.groupID) {
       // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
-      this.libro.patchValue({ lib_fkgroup: this.groupID });
+      this.lista.patchValue({ list_fkgroup: this.groupID });
     }
   }
 
+  async cargarAlumnos() {
+    const response = await axios({
+    method: 'get',
+    url : this.alumnoUrl,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then( (response) => {
+    this.alumnos = response.data;
+    }).catch(function (error) {
+    console.log(error);     
+    });
+}
+
   private formulario() {
     // Crear el formulario reactivo con campos y validaciones
-    this.libro = this.formBuilder.group({
-      lib_type: ['', [Validators.required]],
-      lib_title: ['', [Validators.required]],
-      lib_description: ['', [Validators.required]],
-      lib_file: ['', [Validators.required]],
-      lib_fkgroup: ['', [Validators.required]],
+    this.lista = this.formBuilder.group({
+      list_fkgroup: ['', [Validators.required]],
+      list_fkperson: ['', [Validators.required]],
     });
   }
 
   async guardarDatos() {
     try {
-      const libro = this.libro?.value; //Obtener los valores del formulario
+      const lista = this.lista?.value; //Obtener los valores del formulario
       const response = await axios({
         method: 'post',
         url: this.baseUrl,
-        data: libro, // Datos del libro para enviar al servidor
+        data: lista, // Datos del libro para enviar al servidor
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token',
         }
       }).then( (response) => {//Llama la alerta en caso de exito
         if(response?.status == 201) {
-        this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido registrado');
+        this.alertGuardado(response.data.list_fkperson, 'El alumno ' + response.data.list_fkperson + ' ha sido registrado');
         }
     }).catch( (error) => {
         if(error?.response?.status == 422) {
-        this.alertGuardado(libro.lib_title, error?.response?.data[0]?.message, "Error");
+        this.alertGuardado(lista.list_fkperson, error?.response?.data[0]?.message, "Error");
         }     
     });
     } catch(e){
@@ -86,7 +89,7 @@ export class NewlibraryPage implements OnInit {
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.libro.get(controlName);
+    const control = this.lista.get(controlName);
     if (control?.touched && control?.errors != null) {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
@@ -96,7 +99,7 @@ export class NewlibraryPage implements OnInit {
   //método para reutilizar un alert
   private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-      header: 'Archivo', //Titulo de nuestra alerta
+      header: 'Alumno', //Titulo de nuestra alerta
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-center',
@@ -117,5 +120,5 @@ export class NewlibraryPage implements OnInit {
 
     await alert.present();
   }
-}
 
+}
