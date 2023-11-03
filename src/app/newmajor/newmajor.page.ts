@@ -37,7 +37,7 @@ export class NewmajorPage {
   ) { }
 
   ngOnInit() {
-    this.loadMajors()
+    
     this.formulario();
   }
 

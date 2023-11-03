@@ -19,12 +19,13 @@ import { UpSubjectPage } from '../up-subject/up-subject.page';
 export class SubjectPage {
 
   items: any = [];
+  selectedSubject: any;
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private router: Router, private navCtrl: NavController,
     public modalCtrl: ModalController,
-    private alertCtrl: AlertController,
+    private alert: AlertController,
   ) { }
 
   public alertButtons = ['Crear'];
@@ -62,9 +63,9 @@ export class SubjectPage {
     });
 
     await alert.present();
-  }
+  } 
 
-  subject: any = [];
+  subjects: any = [];
   ngOnInit() {
     this.loadSubjects();
   }
@@ -86,7 +87,7 @@ export class SubjectPage {
         'Accept': 'application/json'
       }
     }).then((response) => {
-      this.subject = response.data;
+      this.subjects = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
@@ -112,13 +113,117 @@ async elimSubject() {
   await paginaModal.present();
 }
 
-async UpSubject() {
+async UpSubject(selectedSubject : any) {
   const paginaModal = await this.modalCtrl.create({
-  component: UpSubjectPage,
-  breakpoints : [0, 0.3, 0.5, 0.95],
-  initialBreakpoint: 0.95
-  });
-  await paginaModal.present();
+    component: NewSubjectPage,
+    componentProps: {
+        'selectedSubject ': this.selectedSubject 
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+  
+    paginaModal.onDidDismiss().then((data) => {
+        this.loadSubjects();
+    });
+  }
+
+  //Metodo Eliminar
+
+  seleccionarSubject(SubjectName: string) {
+    this.selectedSubject = SubjectName;
+    this.alertEliminar(SubjectName);
+  }
+  async alertEliminar(selectedSubject: any) {
+    const alert = await this.alert.create({
+      header: 'Alumno',
+      subHeader: 'Eliminar',
+      message: '¿Estás seguro de eliminar la carrera ' + selectedSubject + '?',
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.selectedSubject = selectedSubject;
+            this.guardarDatos();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async guardarDatos() {
+    try {
+      if (this.selectedSubject) {
+        const eliminar = { subject_id: this.selectedSubject }; // Crea un objeto con la carrera a eliminar
+        const response = await axios({
+          method: 'delete',
+          url: this.subjectUrl + "s/" + this.selectedSubject,
+          withCredentials: true,
+          data: eliminar,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token'
+          }
+        }).then((response) => {
+          if (response?.status == 201) {
+            this.alertEliminado(response.data.subject_id, 'La Carrera con el id ' + response.data.subject_id + ' ha sido eliminada');
+          }
+        }).catch((error) => {
+          if (error?.response?.status == 422) {
+            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message, "Error");
+          }
+          if (error?.response?.status == 500) {
+            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+          }
+          if (error?.response?.status == 404) {
+            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
+          }
+        });
+      } else {
+        // Mostrar un mensaje de error si no se ha seleccionado una carrera
+        this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async alertEliminado(selectedMajor: any, msg = "",  subMsg= "eliminado") {
+    const alert = await this.alert.create({
+    header: 'Carrera',
+    subHeader: subMsg,
+    message: msg,
+    cssClass: 'alert-center',
+    buttons: [
+        {
+        text: 'Continuar',
+        role: 'cancel',
+        },
+        {
+        text: 'Salir',
+        role: 'confirm',
+        handler: () => {
+            this.regresar();
+        },
+        },
+    ],
+    });
+
+    await alert.present();
+  }
+
+  private regresar() {
+    this.router.navigate(['./subject/subject.module']).then(() => {
+    window.location.reload();
+    });
+}
 }
 
-}

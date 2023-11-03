@@ -60,7 +60,7 @@ export class MajorPage {
           },
         }, 
       ],
-    });
+    }); 
 
     await alert.present();
   }
@@ -232,7 +232,7 @@ async UpMajor(selectedMajor:any) {
   const paginaModal = await this.modalCtrl.create({
   component: NewmajorPage,
   componentProps: {
-      'selectedMajor': selectedMajor 
+      'selectedMajor': this.selectedMajor 
   },
   breakpoints: [0, 0.3, 0.5, 0.95],
   initialBreakpoint: 0.95
