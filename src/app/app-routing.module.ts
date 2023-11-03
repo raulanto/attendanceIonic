@@ -46,6 +46,18 @@ const routes: Routes = [
     path: 'newlibrary',
     loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
   },
+  {
+    path: 'question-detail/:que_id',
+    loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
+  },
+  {
+    path: 'new-question',
+    loadChildren: () => import('./new-question/new-question.module').then( m => m.NewQuestionPageModule)
+  },  {
+    path: 'upd-question',
+    loadChildren: () => import('./upd-question/upd-question.module').then( m => m.UpdQuestionPageModule)
+  },
+
 
   
 ];
