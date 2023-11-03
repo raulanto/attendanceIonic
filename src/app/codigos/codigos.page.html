@@ -2,9 +2,9 @@
   <ion-toolbar>
     <!--     Boton para regresar
  -->
- <ion-buttons slot="start">
-  <ion-back-button></ion-back-button>
-</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Codigo</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,38 +12,17 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar class="custom"></ion-searchbar>
 
-
-
-  <!-- <ion-list>
-    <ion-item button *ngFor="let codigo of codigos" >
-      
-      <ion-label class="ion-text-wrap">
-        <h2>{{codigo.cod_code}}</h2>
-        <h3> {{codigo.tag}} </h3>
-        <p>{{codigo.cod_time}}</p>
-        <p>{{codigo.cod_date | date:'y-MM-dd'}}</p>
-      </ion-label>
-
-    </ion-item>
-  </ion-list> -->
-
-
-  <ion-list [inset]="true" >
+  <ion-list [inset]="true">
     <ion-item-sliding button *ngFor="let codigo of codigos">
-      <ion-item [button]="true">
-         
+      <ion-item>
         <ion-label class="ion-text-wrap">
           <h2>{{codigo.cod_code}}</h2>
-          <h3> {{codigo.tag}} </h3>
-          <p>{{codigo.cod_time}}</p>
-          <p>{{codigo.cod_date | date:'y-MM-dd'}}</p>
+          <!-- <p>{{codigo.cod_time}}</p>
+          <p>{{codigo.cod_date | date:'y-MM-dd'}}</p> -->
         </ion-label>
       </ion-item>
       <ion-item-options slot="end">
-        <ion-item-option color="warning">
-          <ion-icon slot="icon-only" name="pin"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="tertiary">
+        <ion-item-option color="tertiary" (click)="showDataAlert(codigo)">
           <ion-icon slot="icon-only" name="share"></ion-icon>
         </ion-item-option>
         <ion-item-option color="danger" expandable="true">
@@ -52,19 +31,15 @@
       </ion-item-options>
     </ion-item-sliding>
 
-
   </ion-list>
 
-
-<!--   Boton generar codigo 
-
-
-[routerLink]="['/lista-codigos']"
--->
+    <!-- Boton generar codigo  -->
 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
   <ion-fab-button (click)="new()">
   <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
-  
-</ion-content>
+
+<!-- [routerLink]="['/lista-codigos']" -->
+
+

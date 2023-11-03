@@ -14,16 +14,14 @@ export class GenerarCodigoPage implements OnInit {
 
   public grupoid: any;
   public nuevoCodigo: any;
+  public time:any;
   
-  baseUrl: string = "http://attendancedb.test/code";
+  baseUrl: string = "http://attendancedb.test/code/";
 
   public codigo!: FormGroup; //Sirve para ingresar datos de "codigos"
 
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
-    'cod_code': [{ type: 'required', message: 'Codigo' }],
-    'cod_fkgroup': [{ type: 'required', message: 'Grupo requerida.' }],
-    'cod_time': [{ type: 'required', message: 'Tiempo requerido.' }],
     'cod_date': [{ type: 'required', message: 'Fecha requerida.' }],
     'cod_duration': [{ type: 'required', message: 'Duracion requerida.' }],
   };
@@ -45,14 +43,24 @@ export class GenerarCodigoPage implements OnInit {
     this.mostrar();
     this.formulario();// Inicializar el formulario al cargar pagina
   }
+   obtenerHoraActual() {
+    const fechaActual = new Date();
+    const hora = fechaActual.getHours();
+    const minutos = fechaActual.getMinutes();
+    const segundos = fechaActual.getSeconds();
+    
+    // Formatea la hora, minutos y segundos como deseas
+    const horaActual = `${hora}:${minutos}:${segundos}`;
+    return horaActual;
+    
+  }
+
+  
 
 
   private formulario() {
     // Crear el formulario reactivo con campos y validaciones
     this.codigo = this.formBuilder.group({
-      cod_code: ['', [Validators.required]],
-      cod_fkgroup: ['', [Validators.required]],
-      cod_time: ['', [Validators.required]],
       cod_date: ['', [Validators.required]],
       cod_duration: ['', [Validators.required]],
     });
@@ -61,7 +69,9 @@ export class GenerarCodigoPage implements OnInit {
 
   async guardarDatos() {
     try {
-      const codigo = this.codigo?.value; //Obtener los valores del formulario
+      let codigo = this.codigo?.value; //Obtener los valores del formulario
+      codigo.cod_fkgroup=this.grupoid;
+      codigo.cod_time=this.obtenerHoraActual();
       const response = await axios({
         method: 'post',
         url: this.baseUrl,

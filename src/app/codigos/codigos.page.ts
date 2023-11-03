@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, LoadingController, AlertController } from '@ionic/angular';
 import axios from 'axios';
 import { ModalController } from '@ionic/angular';
 import { GenerarCodigoPage } from '../generar-codigo/generar-codigo.page';
@@ -12,12 +12,13 @@ import { GenerarCodigoPage } from '../generar-codigo/generar-codigo.page';
 })
 export class CodigosPage implements OnInit {
 	public grupoid: any;
-	
+
 	constructor(
 		private route: ActivatedRoute,
 		private loadingCtrl: LoadingController,
 		private loading: LoadingController,
 		public modalCtrl: ModalController,
+		private alertController: AlertController
 	) {
 		this.grupoid = this.route.snapshot.paramMap.get('grupoid');
 
@@ -27,6 +28,9 @@ export class CodigosPage implements OnInit {
 		this.cargarCodigo();
 		this.mostrar();
 	}
+
+
+
 	async cargarCodigo(event?: InfiniteScrollCustomEvent) {
 		const loading = await this.loadingCtrl.create({
 			message: 'Cargando',
@@ -35,7 +39,7 @@ export class CodigosPage implements OnInit {
 		await loading.present();
 		const response = await axios({
 			method: 'get',
-			url: "http://attendancedb.test/code/codigos?id="+this.grupoid,
+			url: "http://attendancedb.test/code/codigos?id=" + this.grupoid,
 			withCredentials: true,
 			headers: {
 				'Accept': 'application/json',
@@ -64,6 +68,23 @@ export class CodigosPage implements OnInit {
 		// Presentar la página modal en la interfaz de usuario
 		await paginaModal.present();
 	}
+
+
+	async showDataAlert(codigo: any) {
+		const alert = await this.alertController.create({
+			header: 'Datos',
+			subHeader: 'Código',
+			message: `
+			Hora: ${codigo.cod_time}<br>
+			Fecha: ${codigo.cod_date}<br>
+			Duración: ${codigo.cod_duration}`,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
+
+
 
 
 
