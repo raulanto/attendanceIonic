@@ -116,21 +116,23 @@ export class SubjectPage {
   //Metodo Actualizar
 
   async UpSubject(selectedSubject: any) {
-
+    console.log("Entrando en UpSubject con el siguiente valor de selectedSubject:", selectedSubject);
+  
     const paginaModal = await this.modalCtrl.create({
       component: UpSubjectPage,
       componentProps: {
-        'selectedSubject ': selectedSubject
+        'selectedSubject': selectedSubject
       },
       breakpoints: [0, 0.3, 0.5, 0.95],
       initialBreakpoint: 0.95
     });
     await paginaModal.present();
-
+  
     paginaModal.onDidDismiss().then((data) => {
       this.loadSubjects();
     });
   }
+  
 
   //Metodo Eliminar
 
