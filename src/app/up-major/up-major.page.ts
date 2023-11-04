@@ -29,7 +29,7 @@ export class UpMajorPage {
     private alert : AlertController,
   ) { }
 
-  majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
+  majorUrl: string = "http://attendanceproyect.atwebpages.com/majors"
   majors: any = [];
   private editarDatos = [];
   public editCarrera!: FormGroup;
@@ -48,9 +48,7 @@ export class UpMajorPage {
   ngOnInit() {
 
     this.loadMajor();
-    if (this.selectedMajor !== undefined) {
-      this.getDetalles();
-    }
+    this.getDetalles();
     this.formulario();
 
 
@@ -93,12 +91,12 @@ export class UpMajorPage {
 
   async guardarDatos() {
     try {
-      const editar = { maj_id: this.selectedMajor };
+      const editar = this.editCarrera?.value;
       if (this.selectedMajor === undefined) {
          // Crea un objeto con la carrera a editar
         const response = await axios({
           method: 'post',
-          url: this.majorUrl + "s/" + this.selectedMajor,
+          url: this.majorUrl + "/" + this.selectedMajor,
           withCredentials: true,
           data: editar,
           headers: {
@@ -107,14 +105,14 @@ export class UpMajorPage {
           }
         }).then((response) => {
           if (response?.status == 201) {
-            this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
+            this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido modificada');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
             this.alertGuardado(editar.maj_id, error?.response?.data[0]?.message, "Error");
           }
           if (error?.response?.status == 500) {
-            this.alertGuardado(editar.maj_id, error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+            this.alertGuardado(editar.maj_id, error?.response?.data[0]?.message,"Este elemento no puede ser editado porque entra en conflicto con un elemento externo");
           }
           if (error?.response?.status == 404) {
             this.alertGuardado(editar.maj_id, error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
@@ -123,7 +121,7 @@ export class UpMajorPage {
       } else {
         const response = await axios({
           method: 'put',
-          url: this.majorUrl + 's/' + this.selectedMajor,
+          url: this.majorUrl + '/' + this.selectedMajor,
           data: editar,
           headers: {
               'Content-Type': 'application/json',

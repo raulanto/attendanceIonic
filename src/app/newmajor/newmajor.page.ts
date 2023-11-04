@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import axios from 'axios';
 
 
@@ -14,10 +15,12 @@ import axios from 'axios';
 })
 export class NewmajorPage {
 
-  baseUrl: string = "http://attendanceproyect.atwebpages.com/majors"
+  majors: any = [];
+  majorUrl:string = "http://attendanceproyect.atwebpages.com/majors"
+  baseUrl:string = "http://attendanceproyect.atwebpages.com/major"
 
-  @Input() selectedMajor: any | undefined;
-  public libro!: FormGroup;
+
+  public CarreraForm!: FormGroup;
 
   mensajes_validacion: any = {
     'maj_name': [
@@ -33,16 +36,31 @@ export class NewmajorPage {
   constructor(
     private formBuilder: FormBuilder,
     private alert: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    
     this.formulario();
   }
 
+  async cargarMajors() {
+    const response = await axios({
+    method: 'get',
+    url : this.baseUrl,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then( (response) => {
+    this.baseUrl = response.data;
+    }).catch(function (error) {
+    console.log(error);     
+    });
+}
+
   public formulario() {
-    this.libro = this.formBuilder.group({
+    this.CarreraForm = this.formBuilder.group({
       maj_name: ['', [Validators.required]],
       maj_code: ['', [Validators.required]],
 
@@ -51,10 +69,10 @@ export class NewmajorPage {
 
   async guardarDatos() {
     try {
-      const agregar = this.libro?.value;
+      const agregar = this.CarreraForm?.value;
       const response = await axios({
         method: 'post',
-        url: this.baseUrl,
+        url: this.majorUrl,
         data: agregar,
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +94,7 @@ export class NewmajorPage {
 
   public getError(controlName: string) {
     let errors: any[] = [];
-    const control = this.libro.get(controlName);
+    const control = this.CarreraForm.get(controlName);
     if (control?.touched && control?.errors != null) {
       errors = JSON.parse(JSON.stringify(control?.errors));
     }
@@ -85,7 +103,7 @@ export class NewmajorPage {
 
   private async alertGuardado(matricula: String, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-      header: 'Recurso',
+      header: 'Carrera',
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-center',
@@ -99,12 +117,20 @@ export class NewmajorPage {
           role: 'confirm',
           handler: () => {
             this.modalCtrl.dismiss();
+            this.regresar();
+
           },
         },
       ],
     });
 
     await alert.present();
+  }
+
+  private regresar() {
+    this.router.navigate(['/major/major']).then(() => {
+    window.location.reload();
+    });
   }
 
 }

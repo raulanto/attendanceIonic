@@ -6,11 +6,9 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewmajorPage } from '../newmajor/newmajor.page';
 import { ElimMajorPage } from '../elim-major/elim-major.page';
 import { UpMajorPage } from '../up-major/up-major.page';
-
 @Component({
   selector: 'app-major',
   templateUrl: './major.page.html',
@@ -19,16 +17,19 @@ import { UpMajorPage } from '../up-major/up-major.page';
 export class MajorPage {
 
   items: any = [];
-  selectedMajor: any = [];
+  selectedMajor: any;
+
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
     private router: Router, private navCtrl: NavController,
     public modalCtrl: ModalController,
-    private alert : AlertController,
-    private alertCtrl: AlertController,
-    
+    private alert: AlertController,
   ) { }
+
+  majors: any = [];
+  majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
+  baseUrl: string = "http://attendancedb.test/major"
 
   public alertButtons = ['Crear'];
   public alertInputs = [
@@ -44,7 +45,7 @@ export class MajorPage {
         maxlength: 15,
       },
     },
-    
+
   ];
 
   async mostrarAlerta() {
@@ -58,22 +59,17 @@ export class MajorPage {
             // Manejar los datos ingresados en el formulario aquí
             console.log('Datos del formulario:', data);
           },
-        }, 
+        },
       ],
-    }); 
+    });
 
     await alert.present();
   }
 
-
-  majors: any = [];
-  majorUrl:string = "http://attendanceproyect.atwebpages.com/major"
-  baseUrl:string = "http://attendancedb.test/major"
-
   ngOnInit() {
     this.loadMajor();
   }
- 
+
   //Metodo GET comienza
 
   async loadMajor(event?: InfiniteScrollCustomEvent) {
@@ -98,16 +94,48 @@ export class MajorPage {
     loading.dismiss();
   }
 
-  //Metodo Eliminar comienza
-
-  seleccionarMajor(majorName: string) {
-    this.selectedMajor = majorName;
-    this.alertEliminar(majorName);
+  async newMajor() {
+    const paginaModal = await this.modalCtrl.create({
+      component: NewmajorPage,
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
   }
+
+  async elimMajor() {
+    const paginaModal = await this.modalCtrl.create({
+      component: ElimMajorPage,
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+  }
+
+  //Metodo Actualizar comienza
+
+  async UpMajor(selectedMajor: any) {
+
+    const paginaModal = await this.modalCtrl.create({
+      component: UpMajorPage,
+      componentProps: {
+        'selectedMajor': selectedMajor
+      },
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+      this.loadMajor();
+    });
+  }
+
+  //Metodo Eliminar comienza
 
   async alertEliminar(selectedMajor: any) {
     const alert = await this.alert.create({
-      header: 'Alumno',
+      header: 'Carrera',
       subHeader: 'Eliminar',
       message: '¿Estás seguro de eliminar la carrera ' + selectedMajor + '?',
       cssClass: 'alert-center',
@@ -120,129 +148,116 @@ export class MajorPage {
           text: 'Confirmar',
           role: 'confirm',
           handler: () => {
-            this.selectedMajor = selectedMajor;
-            this.guardarDatos();
+            this.guardarDatos(selectedMajor);
           }
         }
       ]
     });
     await alert.present();
   }
-  
-//link base de datos local
-//"http://attendancedb.test/major"
 
-//link base de datos en linea
-//"http://attendanceproyect.atwebpages.com/major"
-
-
-async guardarDatos() {
-  try {
-    if (this.selectedMajor) {
-      const eliminar = { maj_id: this.selectedMajor }; // Crea un objeto con la carrera a eliminar
+  async guardarDatos(selectedMajor: any) {
+    try {
+      const agregar = selectedMajor;
       const response = await axios({
         method: 'delete',
-        url: this.majorUrl + "s/" + this.selectedMajor,
-        withCredentials: true,
-        data: eliminar,
+        url: this.majorUrl + "s/" + selectedMajor,
+        data: agregar,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
         }
       }).then((response) => {
         if (response?.status == 201) {
-          this.alertEliminado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
+          this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido Eliminada');
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
+          this.alertGuardado(agregar.maj_id, error?.response?.data[0]?.message, "Error");
         }
         if (error?.response?.status == 500) {
-          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+          this.alertGuardado(selectedMajor, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
         }
         if (error?.response?.status == 404) {
-          this.alertEliminado(eliminar.maj_id, error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
+          this.alertGuardado(selectedMajor, error?.response?.data[0]?.message, "Este elemento no ha sido encontrado");
         }
       });
-    } else {
-      // Mostrar un mensaje de error si no se ha seleccionado una carrera
-      this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e);
   }
-}
 
-  async alertEliminado(selectedMajor: any, msg = "",  subMsg= "eliminado") {
+  private async alertGuardado(selectedMajor: any, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
-    header: 'Carrera',
-    subHeader: subMsg,
-    message: msg,
-    cssClass: 'alert-center',
-    buttons: [
+      header: 'Carrera',
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
         {
-        text: 'Continuar',
-        role: 'cancel',
+          text: 'Continuar',
+          role: 'cancel',
         },
         {
-        text: 'Salir',
-        role: 'confirm',
-        handler: () => {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
+            this.modalCtrl.dismiss();
             this.regresar();
+
+          },
         },
-        },
-    ],
+      ],
     });
 
     await alert.present();
   }
 
   private regresar() {
-    this.router.navigate(['/major/major']).then(() => {
-    window.location.reload();
+    // Navega a la página "subject.page"
+    this.router.navigate(['../major/major.page']).then(() => {
+      // Recarga la página "subject.page"
+      location.reload();
     });
-}
+  }
+
+  /*
+  async guardarDatos(selectedMajor: any) {
+    try {
+      if (selectedMajor) {
+        const response = await axios({
+          method: 'delete',
+          url: this.majorUrl + "s/" + selectedMajor,
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token'
+          }
+        }).then((response) => {
+          if (response?.status == 201) {
+            this.alertEliminado(selectedMajor, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
+          }
+        }).catch((error) => {
+          if (error?.response?.status == 422) {
+            this.alertEliminado(error?.response?.data[0]?.message, "Error");
+          }
+          if (error?.response?.status == 500) {
+            this.alertEliminado(error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+          }
+          if (error?.response?.status == 404) {
+            this.alertEliminado(error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
+          }
+        });
+      } else {
+        // Mostrar un mensaje de error si no se ha seleccionado una carrera
+        this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }*/
 
 
-
-  async newMajor() {
-    const paginaModal = await this.modalCtrl.create({
-    component: NewmajorPage,
-    breakpoints : [0, 0.3, 0.5, 0.95],
-    initialBreakpoint: 0.95
-    });
-    await paginaModal.present();
-}
-
-async elimMajor() {
-  const paginaModal = await this.modalCtrl.create({
-  component: ElimMajorPage,
-  breakpoints : [0, 0.3, 0.5, 0.95],
-  initialBreakpoint: 0.95
-  });
-  await paginaModal.present();
-}
-
-
-
-//Metodo Actualizar comienza
-
-async UpMajor(selectedMajor:any) {
-
-  const paginaModal = await this.modalCtrl.create({
-  component: NewmajorPage,
-  componentProps: {
-      'selectedMajor': this.selectedMajor 
-  },
-  breakpoints: [0, 0.3, 0.5, 0.95],
-  initialBreakpoint: 0.95
-  });
-  await paginaModal.present();
-
-  paginaModal.onDidDismiss().then((data) => {
-      this.loadMajor();
-  });
-}
 
 
 }

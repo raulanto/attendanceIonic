@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import axios from 'axios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-subject',
@@ -31,7 +32,8 @@ export class NewSubjectPage {
   constructor(
     private formBuilder : FormBuilder,
     private alert : AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private router: Router, private navCtrl: NavController,
   ) { }
 
   ngOnInit() {
@@ -96,7 +98,7 @@ export class NewSubjectPage {
         text: 'Salir',
         role: 'confirm',
         handler: () => {
-            this.modalCtrl.dismiss();
+            this.regresar();
         },
         },
     ],
@@ -104,5 +106,15 @@ export class NewSubjectPage {
 
     await alert.present();
   }
+
+  private regresar() {
+    // Navega a la página "subject.page"
+    this.router.navigate(['../subject/subject.page']).then(() => {
+      // Recarga la página "subject.page"
+      location.reload();
+    });
+  }
+
+  
 
 }

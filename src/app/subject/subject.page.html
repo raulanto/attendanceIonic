@@ -18,7 +18,7 @@
           <ion-img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Foto"></ion-img>
         </div>
       </ion-col>
- 
+
       <ion-col size="8">
         <ion-label class="ion-text-wrap">
           <h2>{{subject.sub_name}}</h2>
@@ -30,34 +30,22 @@
         <ion-button id="click-trigger-{{subject.sub_id}}">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
-        <ion-popover
-          trigger="click-trigger-{{subject.sub_id}}"
-          [dismissOnSelect]="true"
-          [keepContentsMounted]="true"
+        <ion-popover trigger="click-trigger-{{subject.sub_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"
           side="end">
           <ng-template>
             <ion-content>
               <ion-list>
-                <ion-item 
-                [button]="true" 
-                [detail]="false"
-                (click)="seleccionarSubject(subject.sub_id)"> 
-                <ion-icon name="trash"></ion-icon>
-                Eliminar
+                <ion-item [button]="true" [detail]="false" (click)="alertEliminar(subject.sub_id)">
+                  <ion-icon name="trash"></ion-icon>
+                  Eliminar
                 </ion-item>
-                <ion-item
-                  [button]="true"
-                  [detail]="false"
-                  (click)="UpSubject(subject.sub_id)"> 
+                <ion-item [button]="true" [detail]="false" (click)="UpSubject(subject.sub_name)">
                   <ion-icon name="create"></ion-icon>
-                  Modificar 
+                  Modificar
                 </ion-item>
-                <ion-item
-                  [button]="true"
-                  [detail]="false"
-                  [routerLink]="['extracurricular', subject.sub_id]"> 
+                <ion-item [button]="true" [detail]="false" [routerLink]="['extracurricular', subject.sub_id]">
                   <ion-icon name="eye"></ion-icon>
-                  Ver mas 
+                  Ver mas
                 </ion-item>
               </ion-list>
             </ion-content>
@@ -79,11 +67,11 @@
 
       <ion-icon name="chevron-down-circle"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="bottom">
-      <ion-fab-button color= var(--ion-color-primary) (click)="newSubject()">
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="newSubject()">
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="elimSubject()" >
+      <ion-fab-button (click)="elimSubject()">
         <ion-icon name="backspace-outline"></ion-icon>
       </ion-fab-button>
       <ion-fab-button>
@@ -92,8 +80,8 @@
     </ion-fab-list>
   </ion-fab>
 
-  
-<!--
+
+  <!--
   <ion-grid>
      Crear una fila por cada elemento  
     <ion-row *ngFor="let subjects of subject" >
@@ -121,7 +109,7 @@
   
   </ion-card>
 -->
-  
+
 
 
 

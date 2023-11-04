@@ -18,7 +18,7 @@
           <ion-img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Foto"></ion-img>
         </div>
       </ion-col>
- 
+
       <ion-col size="8">
         <ion-label class="ion-text-wrap">
           <h2>{{major.maj_name}}</h2>
@@ -30,34 +30,22 @@
         <ion-button id="click-trigger-{{major.maj_id}}">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
-        <ion-popover
-          trigger="click-trigger-{{major.maj_id}}"
-          [dismissOnSelect]="true"
-          [keepContentsMounted]="true"
+        <ion-popover trigger="click-trigger-{{major.maj_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"
           side="end">
           <ng-template>
             <ion-content>
               <ion-list>
-                <ion-item 
-                [button]="true" 
-                [detail]="false"
-                (click)="seleccionarMajor(major.maj_id)"> 
-                <ion-icon name="trash"></ion-icon>
-                Eliminar
+                <ion-item [button]="true" [detail]="false" (click)="alertEliminar(major.maj_id)">
+                  <ion-icon name="trash"></ion-icon>
+                  Eliminar
                 </ion-item>
-                <ion-item
-                  [button]="true"
-                  [detail]="false"
-                  (click)="UpMajor(major.maj_id)"> 
+                <ion-item [button]="true" [detail]="false" (click)="UpMajor(major.maj_id)">
                   <ion-icon name="create"></ion-icon>
-                  Modificar 
+                  Modificar
                 </ion-item>
-                <ion-item
-                  [button]="true"
-                  [detail]="false"
-                  [routerLink]="['extracurricular', major.maj_id]"> 
+                <ion-item [button]="true" [detail]="false" [routerLink]="['extracurricular', major.maj_id]">
                   <ion-icon name="eye"></ion-icon>
-                  Ver mas 
+                  Ver mas
                 </ion-item>
               </ion-list>
             </ion-content>
@@ -73,7 +61,7 @@
 
     </ion-row>
   </ion-grid>
-  
+
   <!--
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
@@ -89,8 +77,8 @@
     </ion-fab-list>
   </ion-fab>
   -->
-  
-  
+
+
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
@@ -99,11 +87,11 @@
     <ion-fab-list side="top">
       <ion-fab-button (click)="newMajor()">
         <ion-icon name="create-outline"></ion-icon>
-      </ion-fab-button >
+      </ion-fab-button>
       <ion-fab-button (click)="elimMajor()">
         <ion-icon name="backspace-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button >
+      <ion-fab-button>
         <ion-icon name="pencil-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
@@ -127,9 +115,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>-->
-  
 
-<!--
+
+  <!--
   <ion-item-sliding *ngFor="let major of majors">
     <ion-item>
       <ion-grid class="custom-grid">
@@ -152,8 +140,8 @@
 
   -->
 
-    
-    <!--<ion-item-options side="end">
+
+  <!--<ion-item-options side="end">
       <ion-item-option color="danger" expandable="true" (click)="seleccionarMajor(major.maj_id)">
         <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
       </ion-item-option>

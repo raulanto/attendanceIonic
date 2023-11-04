@@ -8,7 +8,7 @@
   </ion-header>
   
   <ion-content>
-    <form [formGroup]="libro" (ngSubmit)="guardarDatos()">
+    <form [formGroup]="CarreraForm" (ngSubmit)="guardarDatos()">
         <ion-grid>
             <ion-row>
                 <ion-col size="12">
@@ -41,7 +41,7 @@
                 
                 <ion-col size="12">
                     <p class="ion-text-center">
-                        <ion-button type="submit" [disabled]="!libro.valid">Guardar</ion-button>
+                        <ion-button type="submit" [disabled]="!CarreraForm.valid">Guardar</ion-button>
                     </p>
                 </ion-col>
             </ion-row>

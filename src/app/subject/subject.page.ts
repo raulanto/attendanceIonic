@@ -10,7 +10,6 @@ import { NewSubjectPage } from '../new-subject/new-subject.page';
 import { ElimSubjectPage } from '../elim-subject/elim-subject.page';
 import { UpSubjectPage } from '../up-subject/up-subject.page';
 
-
 @Component({
   selector: 'app-subject',
   templateUrl: 'subject.page.html',
@@ -20,6 +19,7 @@ export class SubjectPage {
 
   items: any = [];
   selectedSubject: any;
+
   constructor(
     private loadingCtrl: LoadingController,
     private alertController: AlertController,
@@ -27,6 +27,10 @@ export class SubjectPage {
     public modalCtrl: ModalController,
     private alert: AlertController,
   ) { }
+
+  subjects: any = [];
+  subjectUrl: string = "http://attendanceproyect.atwebpages.com/subject"
+
 
   public alertButtons = ['Crear'];
   public alertInputs = [
@@ -42,10 +46,8 @@ export class SubjectPage {
         maxlength: 15,
       },
     },
-    
+
   ];
-
-
 
   async mostrarAlerta() {
     const alert = await this.alertController.create({
@@ -63,15 +65,13 @@ export class SubjectPage {
     });
 
     await alert.present();
-  } 
+  }
 
-  subjects: any = [];
   ngOnInit() {
     this.loadSubjects();
   }
-  subjectUrl:string = "http://attendanceproyect.atwebpages.com/subject"
-  baseUrl:string = "http://attendancedb.test/subject"
 
+  //Metodo Get
 
   async loadSubjects(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -81,7 +81,7 @@ export class SubjectPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/subject",
+      url: "http://attendanceproyect.atwebpages.com/subject?per-page=50",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -97,44 +97,43 @@ export class SubjectPage {
 
   async newSubject() {
     const paginaModal = await this.modalCtrl.create({
-    component: NewSubjectPage,
-    breakpoints : [0, 0.3, 0.5, 0.95],
-    initialBreakpoint: 0.95
+      component: NewSubjectPage,
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
     });
     await paginaModal.present();
-}
+  }
 
-async elimSubject() {
-  const paginaModal = await this.modalCtrl.create({
-  component: ElimSubjectPage,
-  breakpoints : [0, 0.3, 0.5, 0.95],
-  initialBreakpoint: 0.95
-  });
-  await paginaModal.present();
-}
-
-async UpSubject(selectedSubject : any) {
-  const paginaModal = await this.modalCtrl.create({
-    component: NewSubjectPage,
-    componentProps: {
-        'selectedSubject ': this.selectedSubject 
-    },
-    breakpoints: [0, 0.3, 0.5, 0.95],
-    initialBreakpoint: 0.95
+  async elimSubject() {
+    const paginaModal = await this.modalCtrl.create({
+      component: ElimSubjectPage,
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
     });
     await paginaModal.present();
-  
+  }
+
+  //Metodo Actualizar
+
+  async UpSubject(selectedSubject: any) {
+
+    const paginaModal = await this.modalCtrl.create({
+      component: UpSubjectPage,
+      componentProps: {
+        'selectedSubject ': selectedSubject
+      },
+      breakpoints: [0, 0.3, 0.5, 0.95],
+      initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
     paginaModal.onDidDismiss().then((data) => {
-        this.loadSubjects();
+      this.loadSubjects();
     });
   }
 
   //Metodo Eliminar
 
-  seleccionarSubject(SubjectName: string) {
-    this.selectedSubject = SubjectName;
-    this.alertEliminar(SubjectName);
-  }
   async alertEliminar(selectedSubject: any) {
     const alert = await this.alert.create({
       header: 'Alumno',
@@ -150,8 +149,8 @@ async UpSubject(selectedSubject : any) {
           text: 'Confirmar',
           role: 'confirm',
           handler: () => {
-            this.selectedSubject = selectedSubject;
-            this.guardarDatos();
+
+            this.guardarDatos(selectedSubject);
           }
         }
       ]
@@ -159,36 +158,35 @@ async UpSubject(selectedSubject : any) {
     await alert.present();
   }
 
-  async guardarDatos() {
+  async guardarDatos(selectedSubject: any) {
     try {
-      if (this.selectedSubject) {
-        const eliminar = { subject_id: this.selectedSubject }; // Crea un objeto con la carrera a eliminar
+      if (selectedSubject) {
+        // La condición verifica si selectedMajor tiene un valor.
         const response = await axios({
           method: 'delete',
-          url: this.subjectUrl + "s/" + this.selectedSubject,
+          url: this.subjectUrl + "s/" + selectedSubject,
           withCredentials: true,
-          data: eliminar,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
           }
         }).then((response) => {
           if (response?.status == 201) {
-            this.alertEliminado(response.data.subject_id, 'La Carrera con el id ' + response.data.subject_id + ' ha sido eliminada');
+            this.alertEliminado(selectedSubject, response.data.sub_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
-            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message, "Error");
+            this.alertEliminado(selectedSubject, error?.response?.data[0]?.message, "Error");
           }
           if (error?.response?.status == 500) {
-            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
+            this.alertEliminado(selectedSubject, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
           }
           if (error?.response?.status == 404) {
-            this.alertEliminado(eliminar.subject_id, error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
+            this.alertEliminado(selectedSubject, error?.response?.data[0]?.message, "Este elemento no ha sido encontrado");
           }
         });
       } else {
-        // Mostrar un mensaje de error si no se ha seleccionado una carrera
+        // Si selectedMajor no tiene valor, muestra un mensaje de error.
         this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
       }
     } catch (e) {
@@ -196,34 +194,36 @@ async UpSubject(selectedSubject : any) {
     }
   }
 
-  async alertEliminado(selectedMajor: any, msg = "",  subMsg= "eliminado") {
+  async alertEliminado(selectedSubject: String, msg = "", subMsg = "eliminado") {
     const alert = await this.alert.create({
-    header: 'Carrera',
-    subHeader: subMsg,
-    message: msg,
-    cssClass: 'alert-center',
-    buttons: [
+      header: 'Carrera',
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
         {
-        text: 'Continuar',
-        role: 'cancel',
+          text: 'Continuar',
+          role: 'cancel',
         },
         {
-        text: 'Salir',
-        role: 'confirm',
-        handler: () => {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
             this.regresar();
+          },
         },
-        },
-    ],
+      ],
     });
 
     await alert.present();
   }
 
   private regresar() {
-    this.router.navigate(['./subject/subject.module']).then(() => {
-    window.location.reload();
+    // Navega a la página "subject.page"
+    this.router.navigate(['../subject/subject.page']).then(() => {
+      // Recarga la página "subject.page"
+      location.reload();
     });
-}
+  }
 }
 
