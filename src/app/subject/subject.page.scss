@@ -42,7 +42,11 @@ ion-card {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 */
-
+.subject-text {
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
 
 i0on-grid:hover {
   transform: scale(1.05);

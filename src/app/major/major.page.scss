@@ -21,14 +21,14 @@ ion-grid {
           }
           &:nth-child(2) {
               flex-grow: 1;
-              color: var(--ion-color-text12);
+              color: var(--ion-color-text1);
           }
           &:nth-child(3) {
               justify-content: right;
           }
       }
   }
-} 
+}
 
 .icon-large {
   font-size: 30px; /* Tamaño de los iconos de los archivos */
@@ -43,7 +43,11 @@ ion-card {
 }
 */
 
-
+.major-text {
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
 i0on-grid:hover {
   transform: scale(1.05);
   box-shadow: var(--ion-color-secondary-shade);
