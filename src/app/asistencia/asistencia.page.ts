@@ -15,6 +15,7 @@ export class AsistenciaPage implements OnInit {
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
+  
   ngOnInit() {
     this.mostrar();
   }
@@ -23,5 +24,6 @@ export class AsistenciaPage implements OnInit {
   mostrar() {
     console.log('Valor de grupoid en asistencia:', this.grupoid);
   }
+
 
 }

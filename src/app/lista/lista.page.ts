@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent,
-        LoadingController, 
-        ModalController, 
-        AlertController } from '@ionic/angular';
-import { ActivatedRoute, 
-        Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import axios from 'axios';
 import { NewlistaPage } from '../newlista/newlista.page';
 
@@ -14,17 +12,13 @@ import { NewlistaPage } from '../newlista/newlista.page';
   styleUrls: ['./lista.page.scss'],
 })
 export class ListaPage implements OnInit {
-
   public grupoid: any;
-
-  public baseUrl: string = 'http://attendancedb.test/listg/listas?id=';
-  public eliminarUrl: string = "http://attendancedb.test/listg";
-
-  listas: any = [];
+  public baseUrl: string = 'http://attendancedb.test/classroom';
 
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
+    private loading: LoadingController,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
@@ -32,13 +26,10 @@ export class ListaPage implements OnInit {
     //mandamos a pedir el id del grupo desde route paramMap
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
    }
-
+  listas: any = [];
   ngOnInit() {
     this.cargarAsistencia()
   }
-
-  //CARGAR INTEGRANTES/LISTA DE ASISTENCIA
-
   async cargarAsistencia(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
@@ -47,7 +38,7 @@ export class ListaPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl+this.grupoid,
+      url: "http://attendancedb.test/listg/listas?id="+this.grupoid,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
@@ -60,8 +51,6 @@ export class ListaPage implements OnInit {
     });
     loading.dismiss();
   }
-  
-  //CREAR INTEGRANTES/LISTA DE ASISTENCIA
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
@@ -75,59 +64,4 @@ export class ListaPage implements OnInit {
     await paginaModal.present();
   }
 
-  //BORRAR INTEGRANTE/LISTA DE ASISTENCIA
-  
-  async eliminar(integranteid:any) {
-    const response = await axios({
-    method: 'delete',
-    url: this.eliminarUrl + '/' + integranteid,
-    withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-    }
-    }).then((response) => {
-    if (response?.status == 204) {
-        this.alertEliminado(integranteid, ' El alumno ' + integranteid + ' ha sido eliminado');
-    }
-    }).catch((error) => {
-    if (error?.response?.status == 500) {
-        this.alertEliminado(integranteid, "No puedes eliminar porque existe informacion relacionada ");
-    }
-    });
-  }
-
-  async alertEliminado(integranteid: any, msg = "") {
-    const alert = await this.alertCtrl.create({
-    header: 'Alumno',
-    subHeader: 'Eliminar',
-    message: msg,
-    cssClass: 'alert-center',
-    buttons: [
-        {
-        text: 'Continuar',
-        role: 'cancel',
-        handler: () => {
-          this.regresar();
-      },
-        },
-        {
-        text: 'Salir',
-        role: 'confirm',
-        handler: () => {
-            this.regresar();
-        },
-        },
-    ],
-    });
-
-    await alert.present();
-  }
-  
-  //VOLVER A CARGAR
-  private regresar() {
-    this.router.navigate(['lista', this.grupoid]).then(() => {
-      window.location.reload();
-    });
-  }
 }
