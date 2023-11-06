@@ -123,6 +123,22 @@ export class ListaPage implements OnInit {
 
     await alert.present();
   }
+
+  async editar(listgid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewlistaPage,
+    componentProps: {
+        'listgid': listgid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarAsistencia();
+    });
+  }
   
   //VOLVER A CARGAR
   private regresar() {

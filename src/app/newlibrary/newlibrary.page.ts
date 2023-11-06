@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -10,6 +10,12 @@ import axios from 'axios';
   styleUrls: ['./newlibrary.page.scss'],
 })
 export class NewlibraryPage implements OnInit {
+
+  //PARA EL PUT
+  @Input() libraryid: any | undefined;
+  private editarDatos = []; // Arreglo para almacenar datos de edición si es necesario
+  //
+  
   groupID: any; // Recibir el ID del grupo como un parámetro
   baseUrl: string = "http://attendancedb.test/library";
 
@@ -24,7 +30,6 @@ export class NewlibraryPage implements OnInit {
     { 'lib_type': 'Página web', 'typ_type': 'Página web' },
   ];
   
-
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
     'lib_type': [{ type: 'required', message: 'Formato requerido.' }],
@@ -41,13 +46,16 @@ export class NewlibraryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formulario();// Inicializar el formulario al cargar pagina
+    this.formulario(); // Inicializar el formulario al cargar la página
+    if (this.libraryid !== undefined) {
+      this.getDetalles();
+    }
     if (this.groupID) {
       // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
       this.libro.patchValue({ lib_fkgroup: this.groupID });
-    }
+    } 
   }
-
+  
   private formulario() {
     // Crear el formulario reactivo con campos y validaciones
     this.libro = this.formBuilder.group({
@@ -62,23 +70,43 @@ export class NewlibraryPage implements OnInit {
   async guardarDatos() {
     try {
       const libro = this.libro?.value; //Obtener los valores del formulario
+      if (this.libraryid === undefined) {
+        const response = await axios({
+          method: 'post',
+          url: this.baseUrl,
+          data: libro, // Datos del libro para enviar al servidor
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token',
+          }
+        }).then( (response) => {//Llama la alerta en caso de exito
+          if(response?.status == 201) {
+          this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido registrado');
+          }
+      }).catch( (error) => {
+          if(error?.response?.status == 422) {
+          this.alertGuardado(libro.lib_title, error?.response?.data[0]?.message, "Error");
+          }     
+      });
+    } else {
       const response = await axios({
-        method: 'post',
-        url: this.baseUrl,
-        data: libro, // Datos del libro para enviar al servidor
+        method: 'put',
+        url: this.baseUrl + '/' + this.libraryid,
+        data: libro,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 100-token',
-        }
-      }).then( (response) => {//Llama la alerta en caso de exito
-        if(response?.status == 201) {
-        this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido registrado');
-        }
-    }).catch( (error) => {
-        if(error?.response?.status == 422) {
-        this.alertGuardado(libro.lib_title, error?.response?.data[0]?.message, "Error");
-        }     
-    });
+          'Authorization': 'Bearer 100-token'
+      }
+      }).then((response) => {
+          if (response?.status == 200) {
+              this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido actualizado');
+          }
+          }).catch((error) => {
+          if (error?.response?.status == 422) {
+              this.alertGuardado(libro.lib_title, error?.response?.data[0]?.message, "Error");
+          }
+      });
+  }
     } catch(e){
     console.log(e);
     }
@@ -116,6 +144,28 @@ export class NewlibraryPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async getDetalles() {
+    const response = await axios({
+    method: 'get',
+    url: this.baseUrl + "/" + this.libraryid,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then((response) => {
+        this.editarDatos = response.data;
+        Object.keys(this.editarDatos).forEach((key: any) => {
+            const control = this.libro.get(String(key));
+            if (control !== null) {
+                control.markAsTouched();
+                control.patchValue(this.editarDatos[key]);
+            }
+        })
+    }).catch(function (error) {
+        console.log(error);
+    });
   }
 }
 

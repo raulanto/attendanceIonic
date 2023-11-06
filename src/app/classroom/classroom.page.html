@@ -57,7 +57,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    [routerLink]="['modificar', classroom.clas_id]"> <!-- Agregamos la opción de Modificar -->
+                    (click)="editar(classroom.clas_id)"> <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>

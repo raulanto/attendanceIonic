@@ -10,6 +10,12 @@ import axios from 'axios';
   styleUrls: ['./newlista.page.scss'],
 })
 export class NewlistaPage implements OnInit {
+  
+  //PARA EL PUT
+  @Input() listgid: any | undefined;
+  private editarDatos = []; // Arreglo para almacenar datos de edición si es necesario
+  //
+
   groupID: any; // Recibir el ID del grupo como un parámetro
   baseUrl: string = "http://attendancedb.test/listg";
   alumnoUrl:string = "http://attendancedb.test/person/"
@@ -31,12 +37,15 @@ export class NewlistaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formulario();
-    this.cargarAlumnos();
+    this.formulario(); // Inicializar el formulario al cargar la página
+    this.cargarAlumnos(); 
+    if (this.listgid !== undefined) {
+      this.getDetalles();
+    }
     if (this.groupID) {
       // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
-      this.lista.patchValue({ list_fkgroup: this.groupID });
-    }
+      this.lista.patchValue({ lib_fkgroup: this.groupID });
+    } 
   }
 
   async cargarAlumnos() {
@@ -65,6 +74,7 @@ export class NewlistaPage implements OnInit {
   async guardarDatos() {
     try {
       const lista = this.lista?.value; //Obtener los valores del formulario
+      if (this.listgid === undefined) {
       const response = await axios({
         method: 'post',
         url: this.baseUrl,
@@ -81,7 +91,26 @@ export class NewlistaPage implements OnInit {
         if(error?.response?.status == 422) {
         this.alertGuardado(lista.list_fkperson, error?.response?.data[0]?.message, "Error");
         }     
-    });
+      });
+    } else {
+      const response = await axios({
+        method: 'put',
+        url: this.baseUrl + '/' + this.listgid,
+        data: lista,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+      }
+      }).then((response) => {
+          if (response?.status == 200) {
+              this.alertGuardado(response.data.list_fkperson, 'El alumno ' + response.data.list_fkperson + ' ha sido actualizado');
+          }
+          }).catch((error) => {
+          if (error?.response?.status == 422) {
+              this.alertGuardado(lista.list_fkperson, error?.response?.data[0]?.message, "Error");
+          }
+      });
+  }
     } catch(e){
     console.log(e);
     }
@@ -120,5 +149,27 @@ export class NewlistaPage implements OnInit {
 
     await alert.present();
   }
+
+  async getDetalles() {
+    const response = await axios({
+    method: 'get',
+    url: this.baseUrl + "/" + this.listgid,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then((response) => {
+        this.editarDatos = response.data;
+        Object.keys(this.editarDatos).forEach((key: any) => {
+            const control = this.lista.get(String(key));
+            if (control !== null) {
+                control.markAsTouched();
+                control.patchValue(this.editarDatos[key]);
+            }
+        })
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
 
 }
