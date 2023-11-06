@@ -156,6 +156,22 @@ export class LibraryPage implements OnInit {
     await alert.present();
   }
 
+  async editar(libraryid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewlibraryPage,
+    componentProps: {
+        'libraryid': libraryid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarLibrarys();
+    });
+  }
+
   //VOLVER A CARGAR
   private regresar() {
     this.router.navigate(['library', this.grupoid]).then(() => {
@@ -163,4 +179,3 @@ export class LibraryPage implements OnInit {
     });
   }
 }
-

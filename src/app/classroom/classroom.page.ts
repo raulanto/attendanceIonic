@@ -65,6 +65,9 @@ export class ClassroomPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarClassrooms();
+    });
   }
 
   //BORRAR SALON
@@ -114,6 +117,22 @@ export class ClassroomPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async editar(classroomid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewclassroomPage,
+    componentProps: {
+        'classroomid': classroomid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarClassrooms();
+    });
   }
   
   //VOLVER A CARGAR

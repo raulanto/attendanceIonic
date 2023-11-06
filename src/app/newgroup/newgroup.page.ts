@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -10,6 +10,11 @@ import axios from 'axios';
   styleUrls: ['./newgroup.page.scss'],
 })
 export class NewgroupPage implements OnInit {
+
+  //PARA EL PUT
+  @Input() groupid: any | undefined;
+  private editarDatos = []; // Arreglo para almacenar datos de edición si es necesario
+  //
 
   baseUrl: string = "http://attendancedb.test/group";
   materiaUrl:string = "http://attendancedb.test/subject/"
@@ -43,6 +48,9 @@ export class NewgroupPage implements OnInit {
     this.cargarMaterias();
     this.cargarDocentes();
     this.cargarSalones();
+    if (this.groupid !== undefined) {
+      this.getDetalles();
+    }
   }
 
   async cargarMaterias() {
@@ -73,7 +81,7 @@ export class NewgroupPage implements OnInit {
     }).catch(function (error) {
     console.log(error);     
     });
-}
+  }
 
   async cargarSalones() {
       const response = await axios({
@@ -90,7 +98,6 @@ export class NewgroupPage implements OnInit {
       });
   }
   
-
   private formulario() {
     // Expresión regular para verificar el formato "yyyy-MM-dd"
     const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -114,10 +121,10 @@ export class NewgroupPage implements OnInit {
     });
   }
   
-
   async guardarDatos() {
     try {
       const grupo = this.grupo?.value; //Obtener los valores del formulario
+    if (this.groupid === undefined) {
       const response = await axios({
         method: 'post',
         url: this.baseUrl,
@@ -135,10 +142,29 @@ export class NewgroupPage implements OnInit {
         this.alertGuardado(grupo.gro_code, error?.response?.data[0]?.message, "Error");
         }     
     });
-    } catch(e){
-    console.log(e);
+  } else {
+    const response = await axios({
+      method: 'put',
+      url: this.baseUrl + '/' + this.groupid,
+      data: grupo,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
     }
+    }).then((response) => {
+        if (response?.status == 200) {
+            this.alertGuardado(response.data.gro_code, 'El grupo ' + response.data.gro_code + ' ha sido actualizado');
+        }
+        }).catch((error) => {
+        if (error?.response?.status == 422) {
+            this.alertGuardado(grupo.gro_code, error?.response?.data[0]?.message, "Error");
+        }
+    });
+}
+  } catch(e){
+  console.log(e);
   }
+}
 
   public getError(controlName: string) {
     let errors: any[] = [];
@@ -172,5 +198,27 @@ export class NewgroupPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async getDetalles() {
+    const response = await axios({
+    method: 'get',
+    url: this.baseUrl + "/" + this.groupid,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then((response) => {
+        this.editarDatos = response.data;
+        Object.keys(this.editarDatos).forEach((key: any) => {
+            const control = this.grupo.get(String(key));
+            if (control !== null) {
+                control.markAsTouched();
+                control.patchValue(this.editarDatos[key]);
+            }
+        })
+    }).catch(function (error) {
+        console.log(error);
+    });
   }
 }
