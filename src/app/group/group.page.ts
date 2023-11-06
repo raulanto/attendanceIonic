@@ -15,7 +15,8 @@ import { NewgroupPage } from '../newgroup/newgroup.page';
 
 export class GroupPage implements OnInit {
 
-  public baseUrl: string = "http://attendancedb.test/group";
+  public baseUrl: string = "http://attendancedb.test/group?expand=subject,teacher,classroom";
+  public eliminarUrl: string = "http://attendancedb.test/group";
 
   grupos: any = [];
 
@@ -40,7 +41,7 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl + "?expand=subject,teacher,classroom",
+      url: this.baseUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -65,9 +66,6 @@ export class GroupPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
-    paginaModal.onDidDismiss().then((data) => {
-      this.cargarGrupos();
-  });
   }
 
   //BORRAR SALON
@@ -75,7 +73,7 @@ export class GroupPage implements OnInit {
   async eliminar(groupid:any) {
     const response = await axios({
       method: 'delete',
-      url: this.baseUrl + '/' + groupid,
+      url: this.eliminarUrl + '/' + groupid,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -110,7 +108,7 @@ export class GroupPage implements OnInit {
         text: 'Salir',
         role: 'confirm',
         handler: () => {
-          this.regresar();
+            this.regresar();
         },
         },
     ],
@@ -118,29 +116,14 @@ export class GroupPage implements OnInit {
 
     await alert.present();
   }
-
-  async editar(groupid: string) {
-    const paginaModal = await this.modalCtrl.create({
-    component: NewgroupPage,
-    componentProps: {
-        'groupid': groupid
-    },
-    breakpoints: [0, 0.3, 0.5, 0.95],
-    initialBreakpoint: 0.95
-    });
-    await paginaModal.present();
-
-    paginaModal.onDidDismiss().then((data) => {
-        this.cargarGrupos;
-    });
-  }
   
   //VOLVER A CARGAR
   private regresar() {
     this.router.navigate(['/group']).then(() => {
-      window.location.reload();
+    window.location.reload();
     });
   }
+
 
   public alertButtons = ['Unirse'];
   public alertInputs = [

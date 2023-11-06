@@ -57,7 +57,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    (click)="editar(grupo.gro_id)">  <!-- Agregamos la opción de Modificar -->
+                    [routerLink]="['modificar', grupo.gro_id]"> <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>
@@ -86,11 +86,11 @@
     </ion-fab-button >
     <!-- Crear grupo -->
     <ion-fab-button (click)="new()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="add-circle-outline"></ion-icon>
     </ion-fab-button>
     <!-- Tabla classroom -->
     <ion-fab-button [routerLink]="['/classroom']">
-      <ion-icon name="business"></ion-icon>
+      <ion-icon name="business-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>
 </ion-fab>

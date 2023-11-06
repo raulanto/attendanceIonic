@@ -57,7 +57,7 @@
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  (click)="editar(library.lib_id)">  <!-- Agregamos la opción de Modificar -->
+                  [routerLink]="['modificar', library.lib_id]"> <!-- Agregamos la opción de Modificar -->
                   <ion-icon name="create"></ion-icon>
                   Modificar
                 </ion-item>

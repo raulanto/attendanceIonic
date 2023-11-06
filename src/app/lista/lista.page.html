@@ -45,7 +45,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    (click)="editar(lista.list_id)">  <!-- Agregamos la opción de Modificar -->
+                    [routerLink]="['modificar', lista.list_id]"> <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>
