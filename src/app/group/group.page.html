@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tus Grupos</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tus Grupos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor="let group of groups" >
+      <!-- Crear columna para el icono-->
+      <ion-col size="1" [routerLink]="['/menu1', group.gro_id, group.subject, group.gro_code]">
+      <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col [routerLink]="['/menu1', group.gro_id, group.subject, group.gro_code]">
+        <ion-label>
+          <h2>{{group.subject}} {{group.gro_code}}</h2>
+          <h3>Docente: {{group.teacher}} </h3>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    
+    <!-- Boton principal -->
+    <ion-fab-button>
+      <ion-icon name="chevron-down-circle"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+      <!-- Botones secundarios -->
+      <ion-fab-button (click)="mostrarAlerta()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-fab-button >
+      <!-- Tabla classroom -->
+      <ion-fab-button [routerLink]="['/classroom']">
+        <ion-icon name="business-outline"></ion-icon>
+      </ion-fab-button>
+      <!-- Tabla major -->
+      <ion-fab-button [routerLink]="['/major']">
+        <ion-icon name="briefcase-outline"></ion-icon>
+      </ion-fab-button>
+      <!-- Tabla subject -->
+      <ion-fab-button [routerLink]="['/subject']">
+        <ion-icon name="book-outline"></ion-icon>
+      </ion-fab-button>      
+
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+      <ion-title class="ion-text-center">Nuevo Archivo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="libro" (ngSubmit)="guardarDatos()">
+  <ion-grid> <!-- Cuadrícula de diseño -->
+  <ion-row> <!-- Fila de la cuadrícula -->
+      <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
+      <ion-item>
+          <ion-label position="floating" color="primary">Tipo</ion-label>
+          <ion-input type="text" formControlName="lib_type"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of mensajes_validacion.lib_type">
+          <ion-note color="danger"
+          *ngIf="getError('lib_type')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+      <ion-item>
+          <ion-label position="floating" color="primary">Título</ion-label>
+          <ion-input type="text" formControlName="lib_title"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of
+          mensajes_validacion.lib_title">
+          <ion-note color="danger"
+          *ngIf="getError('lib_title')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+      <ion-item>
+          <ion-label position="floating" color="primary">Descripción</ion-label>
+          <ion-input type="text" formControlName="lib_description"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of
+          mensajes_validacion.lib_description">
+          <ion-note color="danger"
+          *ngIf="getError('lib_description')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+      <ion-item>
+          <ion-label position="floating" color="primary">URL</ion-label>
+          <ion-input type="text" formControlName="lib_file"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of
+          mensajes_validacion.lib_file">
+          <ion-note color="danger"
+          *ngIf="getError('lib_file')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item>
+            <ion-label position="floating" color="primary">Grupo</ion-label>
+            <ion-input type="text" formControlName="lib_fkgroup"
+            class="form-control"></ion-input>
+        </ion-item>
+        <div id="note" *ngFor="let validation of mensajes_validacion.lib_fkgroup">
+            <ion-note color="danger"
+            *ngIf="getError('lib_fkgroup')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+      <p class="ion-text-center">
+          <ion-button type="submit" [disabled]="!libro.valid">Guardar</ion-button>
+      </p>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

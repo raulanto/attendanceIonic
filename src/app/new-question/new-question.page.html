@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>NewQuestion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="question" (ngSubmit)="guardarDatos()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Tema</ion-label>
+            <ion-select formControlName="que_fktag" class="form-control">
+              <ion-select-option *ngFor="let tag of tags" value="{{tag.tag_id}}">
+                {{tag.tag_name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+              mensajes_validacion.que_fktag">
+            <ion-note color="danger" *ngIf="getError('que_fktag')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Titulo</ion-label>
+            <ion-input type="text" formControlName="que_title" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+              mensajes_validacion.que_title">
+            <ion-note color="danger" *ngIf="getError('que_title')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">Descripcion</ion-label>
+            <ion-input type="text" formControlName="que_description" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+              mensajes_validacion.que_description">
+            <ion-note color="danger" *ngIf="getError('que_description')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">que fkperson</ion-label>
+            <ion-input type="text" formControlName="que_fkperson" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+              mensajes_validacion.que_description">
+            <ion-note color="danger" *ngIf="getError('que_fkperson')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" color="primary">que fkteacher</ion-label>
+            <ion-input type="text" formControlName="que_fkteacher" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+              mensajes_validacion.que_description">
+            <ion-note color="danger" *ngIf="getError('que_fkteacher')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!question.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -12,20 +12,25 @@
   <ion-card *ngFor="let question of questions" class="ic">
     <ion-img [src]="imagenPath" class="imagecard"></ion-img>
     <ion-card-header>
-      <ion-card-title class ="ictittle">{{ question.que_title }}</ion-card-title>
+      <ion-card-title class="ictittle">{{ question.que_title }}</ion-card-title>
       <ion-card-subtitle class="icdesc">{{ question.que_description }}</ion-card-subtitle>
       <p class="icnameteacher">{{ question.teacher }}</p>
       <p class="icfecha">{{ question.que_create }}</p>
       <ion-button class="bottom-right" fill="clear" [routerLink]="['/question-detail', question.que_id]">
         Ver mas
-        <ion-icon class ="flecha" name="arrow-forward-outline"></ion-icon>
+        <ion-icon class="flecha" name="arrow-forward-outline"></ion-icon>
       </ion-button>
-        
-      
+      <ion-button (click)="alertEliminar(question.que_id)" expand="block" fill="clear" shape="round" class="delete">
+        Eliminar
+        <ion-icon class="trashh" name="trash"></ion-icon>
+      </ion-button>
+      <ion-button (click)="editar(question.que_id)" expand="block" fill="clear" shape="round" class="update">
+        Actualizar
+        <ion-icon class="pencil" name="pencil"></ion-icon>
+      </ion-button>
 
     </ion-card-header>
   </ion-card>
-
   <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
     <!-- Boton principal -->
     <ion-fab-button>
@@ -33,18 +38,11 @@
     </ion-fab-button>
 
     <ion-fab-list side="bottom">
-
       <!-- Eliminar question -->
-      <ion-fab-button (click)="mostrarAlerta()">
+      <ion-fab-button (click)="new()">
         <ion-icon name="chatbox-ellipses-outline"></ion-icon>
       </ion-fab-button>
-      <!-- agregar question -->
-      <ion-fab-button>
-        <ion-icon name="close-outline"></ion-icon>
-        <ion-action-sheet trigger="open-action-sheet" header="Example header" subHeader="Example subheader"></ion-action-sheet>
-      </ion-fab-button>
-    
-
     </ion-fab-list>
   </ion-fab>
+
 </ion-content>
