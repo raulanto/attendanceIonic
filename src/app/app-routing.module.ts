@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'newgrade',
     loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
+  },
+  {
+    path: 'modgrade',
+    loadChildren: () => import('./modgrade/modgrade.module').then( m => m.ModgradePageModule)
   }
 
 ];

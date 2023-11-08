@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NotextracurricularPage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/extracurricular";
+  baseUrl: string = "http://attendancedb.test/extra-group";
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -46,6 +46,7 @@ export class NotextracurricularPage implements OnInit {
       }
     }).then((response) => {
       this.extra = response.data;
+      console.log(this.extra)
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
@@ -64,11 +65,11 @@ export class NotextracurricularPage implements OnInit {
     await paginaModal.present();
   }
 
-  async alertEliminar(idextra: any) {
+  async alertEliminar(idextra: any, name: any, code: any) {
     const alert = await this.alertCtrl.create({
-      header: 'Evento',
-      subHeader: 'Eliminar',
-      message: '¿Estás seguro de eliminar el evento ' + idextra + '?',
+      header: 'Eliminar evento',
+      subHeader: name,
+      message: '¿Estás seguro de eliminar el evento ' + code + '?',
       cssClass: 'alert-center',
       buttons: [
         {
@@ -79,7 +80,7 @@ export class NotextracurricularPage implements OnInit {
           text: 'Confirmar',
           role: 'confirm',
           handler: () => {
-            this.eliminar(idextra);
+            this.eliminar(idextra, code);
           }
         }
       ]
@@ -87,7 +88,7 @@ export class NotextracurricularPage implements OnInit {
     await alert.present();
   }
 
-  async eliminar(idextra: any) {
+  async eliminar(idextra: any, code: any) {
     const response = await axios({
       method: 'delete',
       url: this.baseUrl + '/' + idextra,
@@ -98,7 +99,7 @@ export class NotextracurricularPage implements OnInit {
       }
     }).then((response) => {
       if (response?.status == 204) {
-        this.alertEliminado(idextra, 'El evento con ' + idextra + ' ha sido eliminado');
+        this.alertEliminado(code, 'El evento con ' + code + ' ha sido eliminado');
       }
     }).catch(function (error) {
       console.log(error);
@@ -134,5 +135,22 @@ export class NotextracurricularPage implements OnInit {
       window.location.reload();
     });
   }
+
+  async editar(idextra: any) {
+
+    const paginaModal = await this.modalCtrl.create({
+    component: NewextracurricularPage,
+    componentProps: {
+        'idextra': idextra
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+        this.loadExtra();
+    });
+}
 
 }

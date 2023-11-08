@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <form [formGroup]="grad" (ngSubmit)="guardarDatos()">
-    <ion-grid> <!-- Cuadrícula de diseño -->
+    <ion-grid class="first-grid"> <!-- Cuadrícula de diseño -->
     <ion-row> <!-- Fila de la cuadrícula -->
         <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
         <ion-item>
@@ -52,16 +52,20 @@
             </ion-note>
         </div>
         </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
 
+    <ion-grid class="second-grid"> <!-- Cuadrícula de diseño -->
+      <ion-row> <!-- Fila de la cuadrícula -->
         <ion-col size="12">
 
           <table class="table">
 
             <tr>
               <th>Grupo</th>
-              <th>Persona</th>
+              <th>Alumno</th>
               <th>Calificación</th>
               <th>Comentario</th>
             </tr>
@@ -83,7 +87,7 @@
               <td>
                 <ion-select formControlName="gra_fkperson" class="form-control">
                   <ion-select-option *ngFor="let person of personas"
-                      value="{{person.per_id}}">
+                      [value]="person.per_id">
                       {{ person.per_name }}
                   </ion-select-option>
                   </ion-select>
@@ -124,9 +128,12 @@
 
           </table>
           </ion-col>
+        </ion-row>
+      </ion-grid>
 
 
-
+    <ion-grid>
+      <ion-row>
         <ion-col size="12">
         <p class="ion-text-center">
             <ion-button type="submit" [disabled]="!grad.valid">Guardar</ion-button>

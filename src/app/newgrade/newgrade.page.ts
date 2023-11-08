@@ -30,10 +30,10 @@ export class NewgradePage implements OnInit {
         { type: 'pattern', message: 'Hora en formato HH-MM-SS.' },
       ],
 
-      'gra_score': [{ type: 'required', message: 'Tipo requerido.' }],
-      'gra_commit': [{ type: 'required', message: 'Tipo requerido.' }],
-      'gra_fkgroup': [{ type: 'required', message: 'Tipo requerido.' }],
-      'gra_fkperson': [{ type: 'required', message: 'Tipo requerido.' }],
+      'gra_score': [{ type: 'required', message: 'Calificación requerida.' }],
+      'gra_commit': [{ type: 'required', message: 'Comentario requerido.' }],
+      'gra_fkgroup': [{ type: 'required', message: 'Grupo requerido.' }],
+      'gra_fkperson': [{ type: 'required', message: 'Alumno requerido.' }],
     };
 
   constructor(
@@ -97,7 +97,7 @@ export class NewgradePage implements OnInit {
         }
       }).then( (response) => {//Llama la alerta en caso de exito
         if(response?.status == 201) {
-        this.alertGuardado('El evento ' + response.data.ext_code + ' ha sido registrado');
+        this.alertGuardado('La calificación ha sido registrada');
 
         this.grad.reset(); // Reiniciar los valores del formulario
         this.grad.patchValue({ // Volver a asignar los valores guardados de Tipo, Fecha y Hora
@@ -129,7 +129,7 @@ export class NewgradePage implements OnInit {
     //método para reutilizar un alert
     private async alertGuardado(msg = "", subMsg = "Guardado") {
       const alert = await this.alert.create({
-        header: 'Evento', //Titulo de nuestra alerta
+        header: 'Calificación', //Titulo de nuestra alerta
         subHeader: subMsg,
         message: msg,
         cssClass: 'alert-center',

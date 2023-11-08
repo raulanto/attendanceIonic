@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -10,11 +10,15 @@ import axios from 'axios';
   styleUrls: ['./newextracurricular.page.scss'],
 })
 export class NewextracurricularPage implements OnInit {
-  
+
   baseUrl: string = "http://attendancedb.test/extracurricular";
-  
+
+  @Input() idextra: any | undefined;
+
+  private editarDatos = [];
+
   public extracur!: FormGroup; //Sirve para ingresar datos de "libros"
-  
+
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
     'ext_name': [{ type: 'required', message: 'Nombre requerido.' }],
@@ -34,7 +38,7 @@ export class NewextracurricularPage implements OnInit {
     'ext_place': [{ type: 'required', message: 'Lugar requerido.' }],
     'ext_code': [
       { type: 'required', message: 'Codigo requerido.' },
-      { type : 'maxLength', message : 'Codigo de no más de 10 caracteres.'},
+      { type: 'maxLength', message: 'Codigo de no más de 10 caracteres.' },
     ],
   };
 
@@ -46,6 +50,9 @@ export class NewextracurricularPage implements OnInit {
 
   ngOnInit() {
     this.formulario();
+    if (this.idextra !== undefined) {
+      this.getDetalles();
+    }
   }
 
   private formulario() {
@@ -76,27 +83,49 @@ export class NewextracurricularPage implements OnInit {
   async guardarDatos() {
     try {
       const extracur = this.extracur?.value; //Obtener los valores del formulario
-      const response = await axios({
-        method: 'post',
-        url: this.baseUrl,
-        data: extracur, // Datos del libro para enviar al servidor
+
+
+      if (this.idextra === undefined) {
+        const response = await axios({
+          method: 'post',
+          url: this.baseUrl,
+          data: extracur, // Datos del libro para enviar al servidor
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token',
+          }
+        }).then((response) => {//Llama la alerta en caso de exito
+          if (response?.status == 201) {
+            this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido registrado');
+          }
+        }).catch((error) => {
+          if (error?.response?.status == 422) {
+            this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+          }
+        });
+      } else {
+        const response = await axios({
+        method: 'put',
+        url: this.baseUrl + '/' + this.idextra,
+        data: extracur,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 100-token',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token'
         }
-      }).then( (response) => {//Llama la alerta en caso de exito
-        if(response?.status == 201) {
-        this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido registrado');
-        }
-    }).catch( (error) => {
-        if(error?.response?.status == 422) {
-        this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
-        }     
-    });
-    } catch(e){
-    console.log(e);
+        }).then((response) => {
+            if (response?.status == 200) {
+                this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido actualizado');
+            }
+            }).catch((error) => {
+            if (error?.response?.status == 422) {
+                this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+            }
+        });
     }
-  }
+} catch (e) {
+    console.log(e);
+}
+}
 
   public getError(controlName: string) {
     let errors: any[] = [];
@@ -107,29 +136,51 @@ export class NewextracurricularPage implements OnInit {
     return errors;
   }
 
-    //método para reutilizar un alert
-    private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
-      const alert = await this.alert.create({
-        header: 'Evento', //Titulo de nuestra alerta
-        subHeader: subMsg,
-        message: msg,
-        cssClass: 'alert-center',
-        buttons: [
-          {
-            text: 'Continuar',
-            role: 'cancel',
+  //método para reutilizar un alert
+  private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
+    const alert = await this.alert.create({
+      header: 'Evento', //Titulo de nuestra alerta
+      subHeader: subMsg,
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Continuar',
+          role: 'cancel',
+        },
+        {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
+            this.modalCtrl.dismiss();
           },
-          {
-            text: 'Salir',
-            role: 'confirm',
-            handler: () => {
-              this.modalCtrl.dismiss();
-            },
-          },
-        ],
-      });
-  
-      await alert.present();
-    }
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async getDetalles() {
+    const response = await axios({
+      method: 'get',
+      url: this.baseUrl + "/" + this.idextra,
+      withCredentials: true,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then((response) => {
+      this.editarDatos = response.data;
+      Object.keys(this.editarDatos).forEach((key: any) => {
+        const control = this.extracur.get(String(key));
+        if (control !== null) {
+          control.markAsTouched();
+          control.patchValue(this.editarDatos[key]);
+        }
+      })
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
 
 }

@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
       },
       {
+        path: 'grade',
+        loadChildren: () => import('../grade/grade.module').then( m => m.GradePageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

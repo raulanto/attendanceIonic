@@ -43,14 +43,14 @@
                 <ion-item 
                 [button]="true" 
                 [detail]="false"
-                (click)="alertEliminar(extras.extgro_id)"> 
+                (click)="alertEliminar(extras.extgro_id, extras.extracurricular, extras.code)"> 
                 <ion-icon name="trash"></ion-icon>
                 Eliminar
                 </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['modextra', extras.extgro_id]"> 
+                  (click)="editar(extras.extgro_fkextracurricular)"> 
                   <ion-icon name="create"></ion-icon>
                   Modificar 
                 </ion-item>

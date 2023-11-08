@@ -46,13 +46,14 @@
             <ion-item 
             [button]="true" 
             [detail]="false"
-            > 
+            (click)="alertEliminar(grades.gra_id)"> 
             <ion-icon name="trash"></ion-icon>
             Eliminar
             </ion-item>
             <ion-item
               [button]="true"
-              [detail]="false"> 
+              [detail]="false"
+              (click)="editar(grades.gra_id)"> 
               <ion-icon name="create"></ion-icon>
               Modificar 
             </ion-item>
