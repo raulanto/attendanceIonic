@@ -30,6 +30,7 @@ export class MajorPage {
   busqueda:string = '';
   page:number = 1;
   totalMajors:number = 0;
+  
   majors: any = [];
   majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
   baseUrl: string = "http://attendancedb.test/major"
@@ -71,6 +72,7 @@ export class MajorPage {
 
   ngOnInit() {
     this.loadMajor();
+    this.contarMajors();
   }
 
   //Metodo GET comienza
@@ -84,7 +86,7 @@ export class MajorPage {
     
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/major?per-page=50",
+      url: "http://attendancedb.test/major?per-page=50",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -98,12 +100,12 @@ export class MajorPage {
     loading.dismiss();
   }
 
-  async contarAlumnos() {
+  async contarMajors() {
     let urlApi:string = '';
-    if(busqueda === '') {
+    if(this.busqueda === '') {
         urlApi = 'http://attendancedb.test/major';
     } else {
-        urlApi = 'http://attendancedb.test/major/total/'+busqueda;
+        urlApi = 'http://attendancedb.test/major/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',

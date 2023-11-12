@@ -29,7 +29,7 @@ export class UpMajorPage {
     private alert : AlertController,
   ) { }
 
-  majorUrl: string = "http://attendanceproyect.atwebpages.com/majors"
+  majorUrl: string = "http://attendancedb.test/major"
   majors: any = [];
   private editarDatos = [];
   public editCarrera!: FormGroup;
@@ -62,7 +62,7 @@ export class UpMajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/major",
+      url: "http://attendancedb.test/major",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

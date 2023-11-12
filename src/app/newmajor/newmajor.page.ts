@@ -16,8 +16,8 @@ import axios from 'axios';
 export class NewmajorPage {
 
   majors: any = [];
-  majorUrl:string = "http://attendanceproyect.atwebpages.com/majors"
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/major"
+  majorUrl:string = "http://attendancedb.test/major"
+  baseUrl:string = "http://attendancedb.test/major"
 
 
   public CarreraForm!: FormGroup;
