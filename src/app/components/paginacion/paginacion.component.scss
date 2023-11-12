@@ -1,0 +1,30 @@
+.swiper-container {
+    background-color: transparent;
+    color: white;
+    border: none;
+    margin: 0 5px;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.swiper-slide {
+    background-color: var(--ion-color-personalizado);
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    margin: 0 5px;
+}
+
+.active {
+    background-color: var(--ion-color-success);
+}
+
+.swiper-slide:active {
+    transform: scale(1.2);
+}

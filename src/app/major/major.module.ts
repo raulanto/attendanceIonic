@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MajorPageRoutingModule } from './major-routing.module';
 
 import { MajorPage } from './major.page';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MajorPageRoutingModule
+    MajorPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [MajorPage]
 })

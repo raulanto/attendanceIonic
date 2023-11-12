@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { NewmajorPage } from '../newmajor/newmajor.page';
 import { ElimMajorPage } from '../elim-major/elim-major.page';
 import { UpMajorPage } from '../up-major/up-major.page';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 @Component({
   selector: 'app-major',
   templateUrl: './major.page.html',
@@ -26,7 +27,9 @@ export class MajorPage {
     public modalCtrl: ModalController,
     private alert: AlertController,
   ) { }
-
+  busqueda:string = '';
+  page:number = 1;
+  totalMajors:number = 0;
   majors: any = [];
   majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
   baseUrl: string = "http://attendancedb.test/major"
@@ -78,6 +81,7 @@ export class MajorPage {
       spinner: 'bubbles',
     });
     await loading.present();
+    
     const response = await axios({
       method: 'get',
       url: "http://attendanceproyect.atwebpages.com/major?per-page=50",
@@ -93,6 +97,37 @@ export class MajorPage {
     });
     loading.dismiss();
   }
+
+  async contarAlumnos() {
+    let urlApi:string = '';
+    if(busqueda === '') {
+        urlApi = 'http://attendancedb.test/major';
+    } else {
+        urlApi = 'http://attendancedb.test/major/total/'+busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then( (response) => {
+        this.majors = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+}
+
+pagina(event:any) {
+  this.page = event.target.innerText;
+  this.loadMajor();
+}
+
+handleInput(event:any) {
+  this.busqueda = event.target.value.toLowerCase();
+  this.loadMajor();
+}
 
   async newMajor() {
     const paginaModal = await this.modalCtrl.create({
