@@ -8,12 +8,15 @@ import { NotextracurricularPageRoutingModule } from './notextracurricular-routin
 
 import { NotextracurricularPage } from './notextracurricular.page';
 
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NotextracurricularPageRoutingModule
+    NotextracurricularPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [NotextracurricularPage]
 })

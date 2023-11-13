@@ -16,6 +16,10 @@ export class NotextracurricularPage implements OnInit {
 
   baseUrl: string = "http://attendancedb.test/extra-group";
 
+  busqueda:string = '';
+  page:number = 1;
+  totalEventos:number = 0;
+
   constructor(
     private loadingCtrl: LoadingController,
     private platform: Platform,
@@ -151,6 +155,19 @@ export class NotextracurricularPage implements OnInit {
     paginaModal.onDidDismiss().then((data) => {
         this.loadExtra();
     });
+}
+
+
+
+
+pagina(event:any) {
+  this.page = event.target.innerText;
+  this.loadExtra();
+}
+
+handleInput(event:any) {
+  this.busqueda = event.target.value.toLowerCase();
+  this.loadExtra();
 }
 
 }

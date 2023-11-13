@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Información </ion-title>
+    <ion-title> Información del evento</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
@@ -38,35 +38,35 @@
           <ion-item>
             <ion-label>
               <ion-icon slot="start" name="people"></ion-icon>
-              <p class="info-label">Grupo</p>
+              <p class="info-label">GRUPO:</p>
               <h2 class="info-value">{{extra.group}}</h2>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-label>
               <ion-icon slot="start" name="clipboard"></ion-icon>
-              <p class="info-label">Descripcion</p>
+              <p class="info-label">DESCRIPCIÓN:</p>
               <h2 class="info-value">{{extra.description}}</h2>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-label>
               <ion-icon name="calendar"></ion-icon>
-              <p class="info-label">Fecha</p>
+              <p class="info-label">FECHA:</p>
               <h2 class="info-value">{{extra.date | date: 'dd/MM/y'}}</h2>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-label>
               <ion-icon slot="start" name="time"></ion-icon>
-              <p class="info-label">Hora</p>
+              <p class="info-label">HORA:</p>
               <h2 class="info-value">{{extra.time}}</h2>
             </ion-label>
           </ion-item>
           <ion-item>
             <ion-label>
               <ion-icon slot="start" name="location"></ion-icon>
-              <p class="info-label">Lugar</p>
+              <p class="info-label">LUGAR:</p>
               <h2 class="info-value">{{extra.place}}</h2>
             </ion-label>
           </ion-item>
