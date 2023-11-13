@@ -9,7 +9,7 @@
 }
 
 .swiper-slide {
-    background-color: var(--ion-color-personalizado);
+    background-color: var(--ion-color-primary);
     width: 40px !important;
     height: 40px !important;
     border-radius: 50%;
@@ -22,7 +22,7 @@
 }
 
 .active {
-    background-color: var(--ion-color-success);
+    background-color: var(--ion-color-primary);
 }
 
 .swiper-slide:active {

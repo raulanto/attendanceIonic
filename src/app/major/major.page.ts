@@ -83,13 +83,20 @@ export class MajorPage {
       spinner: 'bubbles',
     });
     await loading.present();
-    
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/major';
+    } else {
+      urlApi = 'http://attendancedb.test/major/buscar/'+this.busqueda;
+    }
     const response = await axios({
+      
       method: 'get',
-      url: "http://attendancedb.test/major?per-page=50",
+      url: urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.majors = response.data;
@@ -97,13 +104,14 @@ export class MajorPage {
     }).catch(function (error) {
       console.log(error);
     });
+    this.contarMajors();
     loading.dismiss();
   }
 
   async contarMajors() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/major';
+        urlApi = 'http://attendancedb.test/major/total';
     } else {
         urlApi = 'http://attendancedb.test/major/total/'+ this.busqueda;
     }
@@ -112,10 +120,11 @@ export class MajorPage {
         url : urlApi,
         withCredentials: true,
         headers: {
-            'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
         }
     }).then( (response) => {
-        this.majors = response.data;
+        this.totalMajors = response.data;
     }).catch(function (error) {
         console.log(error);     
     });
