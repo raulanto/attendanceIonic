@@ -47,25 +47,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'question',
-    loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
-  },
-  {
-    path: 'subject',
-    loadChildren: () => import('./subject/subject.module').then( m => m.SubjectPageModule)
-  },
-  {
-    path: 'major',
-    loadChildren: () => import('./major/major.module').then( m => m.MajorPageModule)
-  },
-  {
-    path: 'elim-major',
-    loadChildren: () => import('./elim-major/elim-major.module').then( m => m.ElimMajorPageModule)
-  },
-  {
-    path: 'elim-subject',
-    loadChildren: () => import('./elim-subject/elim-subject.module').then( m => m.ElimSubjectPageModule)
-  },   {
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
   },

@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 <!-- Boton para regresar -->    
-    <ion-buttons slot="start">
+      <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Salones</ion-title>
-  </ion-toolbar>
+  </ion-toolbar> 
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -24,6 +24,7 @@
           <h3>{{classroom.clas_description}}</h3>
         </ion-label>
       </ion-col>
+
       <!-- Crear columna para boton eliminar
       <ion-col size="auto">
         <ion-button color="danger" (click)="alertEliminar(classroom.clas_id)">
@@ -57,7 +58,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    [routerLink]="['modificar', classroom.clas_id]"> <!-- Agregamos la opción de Modificar -->
+                    (click)="editar(classroom.clas_id)"> <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>

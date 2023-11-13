@@ -24,6 +24,7 @@
           <h3>{{ library.lib_description }}</h3>
         </ion-label>
       </ion-col>
+
       <!-- Crear columna para boton eliminar
       <ion-col size="auto">
         <ion-button color="danger" (click)="alertEliminar(library.lib_id)">
@@ -57,7 +58,7 @@
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['modificar', library.lib_id]"> <!-- Agregamos la opción de Modificar -->
+                  (click)="editar(library.lib_id)">  <!-- Agregamos la opción de Modificar -->
                   <ion-icon name="create"></ion-icon>
                   Modificar
                 </ion-item>
@@ -79,4 +80,5 @@
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
+
 

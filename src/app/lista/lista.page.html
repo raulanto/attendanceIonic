@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  
   <ion-list>
     <!-- Crear un item por cada elemento --> 
     <ion-item button *ngFor="let lista of listas">
@@ -19,8 +19,8 @@
       </ion-avatar>
       <!-- Crear una espacio para texto --> 
       <ion-label>{{lista.list_fkperson}}</ion-label>
-      <!-- Crear columna para boton de opciones -->
 
+      <!-- Crear columna para boton de opciones -->
         <!-- Boton de opciones -->        
           <ion-button id="click-trigger-{{lista.list_id}}" size="small">
             <ion-icon name="ellipsis-vertical"></ion-icon>
@@ -45,7 +45,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-                    [routerLink]="['modificar', lista.list_id]"> <!-- Agregamos la opción de Modificar -->
+                    (click)="editar(lista.list_id)">  <!-- Agregamos la opción de Modificar -->
                     <ion-icon name="create"></ion-icon>
                     Modificar
                   </ion-item>
@@ -54,7 +54,6 @@
               </ion-content>
             </ng-template>
           </ion-popover>
-
     <!-- Cierro filas y grid -->      
     </ion-item>
   </ion-list>
@@ -67,4 +66,3 @@
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
-

@@ -14,6 +14,7 @@ import { NewlibraryPage } from '../newlibrary/newlibrary.page';
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
 })
+
 export class LibraryPage implements OnInit {
   
   public grupoid: any;
@@ -108,7 +109,7 @@ export class LibraryPage implements OnInit {
   }
 
   //BORRAR ARCHIVO
-
+  
   async eliminar(archivoid:any) {
     const response = await axios({
     method: 'delete',
@@ -152,8 +153,22 @@ export class LibraryPage implements OnInit {
         },
     ],
     });
-
     await alert.present();
+  }
+
+  async editar(libraryid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewlibraryPage,
+    componentProps: {
+        'libraryid': libraryid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarLibrarys();
+    });
   }
 
   //VOLVER A CARGAR
@@ -162,5 +177,5 @@ export class LibraryPage implements OnInit {
       window.location.reload();
     });
   }
-}
 
+}

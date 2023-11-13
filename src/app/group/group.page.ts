@@ -14,12 +14,8 @@ import { NewgroupPage } from '../newgroup/newgroup.page';
 })
 
 export class GroupPage implements OnInit {
-
-  public baseUrl: string = "http://attendancedb.test/group?expand=subject,teacher,classroom";
-  public eliminarUrl: string = "http://attendancedb.test/group";
-
+  public baseUrl: string = "http://attendancedb.test/group";
   grupos: any = [];
-
   constructor(
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
@@ -41,7 +37,7 @@ export class GroupPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl,
+      url: this.baseUrl + "?expand=subject,teacher,classroom",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -55,7 +51,7 @@ export class GroupPage implements OnInit {
     loading.dismiss();
   }
 
-  //CREAR NUEVO SALON
+  //CREAR NUEVO GRUPO
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
@@ -66,6 +62,9 @@ export class GroupPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarGrupos();
+  });
   }
 
   //BORRAR SALON
@@ -73,7 +72,7 @@ export class GroupPage implements OnInit {
   async eliminar(groupid:any) {
     const response = await axios({
       method: 'delete',
-      url: this.eliminarUrl + '/' + groupid,
+      url: this.baseUrl + '/' + groupid,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -84,9 +83,9 @@ export class GroupPage implements OnInit {
         this.alertEliminado(groupid, 'El grupo ' + groupid + ' ha sido eliminado');
       }
     }).catch((error) => {
-    if (error?.response?.status == 500) {
-      this.alertEliminado(groupid, "No puedes eliminar porque existe informacion relacionada ");
-    }
+      if (error?.response?.status == 500) {
+        this.alertEliminado(groupid, "No puedes eliminar porque existe informacion relacionada ");
+      }
     });
   }
 
@@ -108,22 +107,35 @@ export class GroupPage implements OnInit {
         text: 'Salir',
         role: 'confirm',
         handler: () => {
-            this.regresar();
+          this.regresar();
         },
         },
     ],
     });
-
     await alert.present();
+  }
+
+  async editar(groupid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewgroupPage,
+    componentProps: {
+        'groupid': groupid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarGrupos;
+    });
   }
   
   //VOLVER A CARGAR
   private regresar() {
     this.router.navigate(['/group']).then(() => {
-    window.location.reload();
+      window.location.reload();
     });
   }
-
 
   public alertButtons = ['Unirse'];
   public alertInputs = [
@@ -135,7 +147,7 @@ export class GroupPage implements OnInit {
     },
     
   ];
-
+  
   async mostrarAlerta() {
     const alert = await this.alertCtrl.create({
       header: 'Unirse a un equipo con un código',
@@ -150,7 +162,6 @@ export class GroupPage implements OnInit {
         }, 
       ],
     });
-
     await alert.present();
   }
   

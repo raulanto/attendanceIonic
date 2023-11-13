@@ -65,27 +65,30 @@ export class ClassroomPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarClassrooms();
+    });
   }
 
   //BORRAR SALON
   
   async eliminar(classroomid:any) {
     const response = await axios({
-    method: 'delete',
-    url: this.baseUrl + '/' + classroomid,
-    withCredentials: true,
-    headers: {
+      method: 'delete',
+      url: this.baseUrl + '/' + classroomid,
+      withCredentials: true,
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 100-token'
-    }
+      }
     }).then((response) => {
-    if (response?.status == 204) {
+      if (response?.status == 204) {
         this.alertEliminado(classroomid, 'La clase ' + classroomid + ' ha sido eliminado');
-    }
+      }
     }).catch((error) => {
-    if (error?.response?.status == 500) {
+      if (error?.response?.status == 500) {
         this.alertEliminado(classroomid, "No puedes eliminar porque existe informacion relacionada ");
-    }
+      }
     });
   }
 
@@ -112,8 +115,22 @@ export class ClassroomPage implements OnInit {
         },
     ],
     });
-
     await alert.present();
+  }
+
+  async editar(classroomid: string) {
+    const paginaModal = await this.modalCtrl.create({
+    component: NewclassroomPage,
+    componentProps: {
+        'classroomid': classroomid
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95],
+    initialBreakpoint: 0.95
+    });
+    await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+        this.cargarClassrooms();
+    });
   }
   
   //VOLVER A CARGAR
@@ -122,5 +139,6 @@ export class ClassroomPage implements OnInit {
     window.location.reload();
     });
   }
-
+  
 }
+
