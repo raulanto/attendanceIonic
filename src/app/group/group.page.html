@@ -9,7 +9,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+ 
   <ion-grid>
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let grupo of grupos" >
@@ -72,6 +73,8 @@
     </ion-row>
   </ion-grid>
 
+  <app-paginacion [total]="totalGrupos" (click)="pagina($event)"></app-paginacion>
+  
 </ion-content>
 
 <!-- Boton flotante para acciones -->

@@ -14,8 +14,11 @@ import { NewgroupPage } from '../newgroup/newgroup.page';
 })
 
 export class GroupPage implements OnInit {
+
   public baseUrl: string = "http://attendancedb.test/group";
+
   grupos: any = [];
+
   constructor(
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
@@ -23,8 +26,13 @@ export class GroupPage implements OnInit {
     private router: Router,
   ) { }
 
+  busqueda:string = '';
+  page:number = 1;
+  totalGrupos:number = 0;
+
   ngOnInit() {
     this.cargarGrupos();
+    this.contarGrupos();
   }
 
   //CARGAR GRUPOS
@@ -35,12 +43,21 @@ export class GroupPage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
+
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = "http://attendancedb.test/group?expand=subject,teacher,classroom&page=" + this.page;
+    } else {
+      urlApi = "http://attendancedb.test/group/buscar/" + this.busqueda+"?expand=subject,teacher,classroom&page=" + this.page;
+    }
+
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl + "?expand=subject,teacher,classroom",
+      url: urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.grupos = response.data;
@@ -49,7 +66,42 @@ export class GroupPage implements OnInit {
       console.log(error);
     });
     loading.dismiss();
+    this.contarGrupos();
   }
+
+  async contarGrupos() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/group/total';
+    } else {
+      urlApi = 'http://attendancedb.test/group/total/' + this.busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        console.log(response);  
+        this.totalGrupos = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+  }
+
+  pagina(event:any) {
+    this.page = event.target.innerText;
+    this.cargarGrupos();
+  }
+  
+  handleInput(event:any) {
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarGrupos();
+  }
+  
 
   //CREAR NUEVO GRUPO
 

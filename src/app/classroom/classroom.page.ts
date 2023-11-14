@@ -26,8 +26,13 @@ export class ClassroomPage implements OnInit {
     private router: Router,
   ) { }
 
+  busqueda:string = '';
+  page:number = 1;
+  totalClassrooms:number = 0;
+
   ngOnInit() {
     this.cargarClassrooms();
+    this.contarClassrooms();
   }
   
   //CARGAR SALONES
@@ -38,12 +43,21 @@ export class ClassroomPage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
+
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = "http://attendancedb.test/classroom?page=" + this.page;
+    } else {
+      urlApi = "http://attendancedb.test/classroom/buscar/" + this.busqueda;
+    }
+
     const response = await axios({
       method: 'GET',
-      url: this.baseUrl,
+      url: urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.classrooms = response.data;
@@ -52,6 +66,40 @@ export class ClassroomPage implements OnInit {
       console.log(error);
     });
     loading.dismiss();
+    this.contarClassrooms();
+  }
+
+  async contarClassrooms() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/classroom/total';
+    } else {
+      urlApi = 'http://attendancedb.test/classroom/total/' + this.busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        console.log(response);  
+        this.totalClassrooms = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+  }
+
+  pagina(event:any) {
+    this.page = event.target.innerText;
+    this.cargarClassrooms();
+  }
+  
+  handleInput(event:any) {
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarClassrooms();
   }
 
   //CREAR NUEVO SALON
