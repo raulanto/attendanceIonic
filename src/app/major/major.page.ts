@@ -87,7 +87,7 @@ export class MajorPage {
     if(this.busqueda === '') {
       urlApi = 'http://attendancedb.test/major?page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb.test/major/buscar/'+this.busqueda;
+      urlApi = 'http://attendancedb.test/major/buscar/'+this.busqueda + '?page=' + this.page ;
     }
     const response = await axios({
       
