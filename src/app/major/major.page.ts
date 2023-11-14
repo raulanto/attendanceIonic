@@ -85,7 +85,7 @@ export class MajorPage {
     await loading.present();
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/major';
+      urlApi = 'http://attendancedb.test/major?page=' + this.page;
     } else {
       urlApi = 'http://attendancedb.test/major/buscar/'+this.busqueda;
     }
