@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent, LoadingController, ModalController} from '@ionic/angular';
+import { InfiniteScrollCustomEvent, LoadingController, ModalController, AlertController } from '@ionic/angular';
 import axios from 'axios';
-import { AlertController } from '@ionic/angular';
 import { NewQuestionPage } from '../new-question/new-question.page';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-question',

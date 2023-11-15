@@ -16,4 +16,5 @@ import { PaginacionQuestionModule } from '../components/paginacion-question/pagi
   ],
   declarations: [QuestionPage]
 })
+
 export class QuestionPageModule {}

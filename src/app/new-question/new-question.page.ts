@@ -56,8 +56,7 @@ export class NewQuestionPage implements OnInit {
       url: this.tagUrl,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json',
-        
+        'Accept': 'application/json'
       }
     }).then((response) => {
       this.tags = response.data;
@@ -103,8 +102,9 @@ export class NewQuestionPage implements OnInit {
         });
      } else {
         const response = await axios({
+          
           method: 'put',
-          url: this.questionUrl + '/' + this.id,
+          url: this.questionUrl + '/' + this.question,
           data: que,
           headers: {
             'Content-Type': 'application/json',
@@ -165,7 +165,6 @@ export class NewQuestionPage implements OnInit {
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
-        
       }
     }).then((response) => {
       this.editarDatos = response.data;
@@ -187,7 +186,6 @@ export class NewQuestionPage implements OnInit {
 
 
 }
-
 
 
 
