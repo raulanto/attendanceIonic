@@ -104,7 +104,7 @@ export class NewQuestionPage implements OnInit {
         const response = await axios({
           
           method: 'put',
-          url: this.questionUrl + '/' + this.question,
+          url: this.questionUrl + '/' + this.id,
           data: que,
           headers: {
             'Content-Type': 'application/json',
