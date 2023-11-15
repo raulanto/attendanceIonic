@@ -10,7 +10,7 @@ import { AlertController, IonicModule, ModalController } from '@ionic/angular';
 })
 
 export class NewQuestionPage implements OnInit {
-  questionUrl: string = "http://attendancedb1.test/questions" //pendiente lac correccion de la url
+  questionUrl: string = "http://attendancedb1.test/question" 
   tagUrl: string = "http://attendancedb1.test/tag/"
   @Input() id: number | undefined; //id traido desde el otro ts
   public question!: FormGroup; //aqui 
