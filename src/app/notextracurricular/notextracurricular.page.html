@@ -10,8 +10,6 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
-
   <ion-grid>
     <ion-row *ngFor="let extras of extra">
       <ion-col size="6">
@@ -93,7 +91,5 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-
-  <app-paginacion [total]="100" (click)="pagina($event)"></app-paginacion>
 
 </ion-content>

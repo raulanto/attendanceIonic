@@ -16,10 +16,6 @@ export class NotextracurricularPage implements OnInit {
 
   baseUrl: string = "http://attendancedb.test/extra-group";
 
-  busqueda:string = '';
-  page:number = 1;
-  totalEventos:number = 0;
-
   constructor(
     private loadingCtrl: LoadingController,
     private platform: Platform,
@@ -35,9 +31,6 @@ export class NotextracurricularPage implements OnInit {
   }
 
   async loadExtra(event?: InfiniteScrollCustomEvent) {
-    
-
-
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -47,7 +40,6 @@ export class NotextracurricularPage implements OnInit {
       method: 'get',
       //url : "http://attendancedb.test/extracurricular",
       url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
-      //url : urlApi,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -160,38 +152,4 @@ export class NotextracurricularPage implements OnInit {
         this.loadExtra();
     });
 }
-
-
-async contarEventos() {
-  let urlApi:string = '';
-  if(this.busqueda === '') {
-      urlApi = 'http://clases.test/extra-group/total';
-  } else {
-      urlApi = 'http://clases.test/extra-group/total/'+this.busqueda;
-  }
-  const response = await axios({
-      method: 'get',
-      url : urlApi,
-      withCredentials: true,
-      headers: {
-          'Accept': 'application/json'
-      }
-  }).then( (response) => {
-      this.totalEventos = response.data;
-  }).catch(function (error) {
-      console.log(error);     
-  });
-}
-
-
-pagina(event:any) {
-  this.page = event.target.innerText;
-  this.loadExtra();
-}
-
-handleInput(event:any) {
-  this.busqueda = event.target.value.toLowerCase();
-  this.loadExtra();
-}
-
 }

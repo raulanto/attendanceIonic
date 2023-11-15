@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
   <ion-accordion-group [multiple]="true" expand="inset">
     <ion-accordion *ngFor="let grades of grade">
       
@@ -28,4 +31,7 @@
       
     </ion-accordion>
   </ion-accordion-group>
+
+  <app-paginacion [total]="totalCalificaciones" (click)="pagina($event)"></app-paginacion>
+
 </ion-content>
