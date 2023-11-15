@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  
   <ion-grid>
     <ion-row *ngFor="let major of majors">
       <ion-col size="1">

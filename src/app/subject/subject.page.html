@@ -11,6 +11,8 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
   <ion-grid>
     <ion-row *ngFor="let subject of subjects">
       <ion-col size="1">
@@ -105,6 +107,6 @@
 -->
 
 
-
+<app-paginacion [total]="totalSubjects" (click)="pagina($event)"></app-paginacion>
 
 </ion-content>

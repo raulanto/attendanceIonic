@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NewSubjectPage {
 
-  baseUrl:string = "http://attendanceproyect.atwebpages.com/subjects"
+  baseUrl:string = "http://attendancedb.test/subject"
 
   public materia!: FormGroup;
 

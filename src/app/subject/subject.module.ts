@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SubjectPageRoutingModule } from './subject-routing.module';
 
 import { SubjectPage } from './subject.page';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SubjectPageRoutingModule
+    SubjectPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [SubjectPage]
 })

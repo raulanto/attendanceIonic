@@ -49,6 +49,10 @@ export class SubjectPage {
 
   ];
 
+  busqueda:string = '';
+  page:number = 1;
+  totalSubjects:number = 0;
+
   async mostrarAlerta() {
     const alert = await this.alertController.create({
       header: 'Registro Nueva Materia',
@@ -69,6 +73,7 @@ export class SubjectPage {
 
   ngOnInit() {
     this.loadSubjects();
+    this.contarSubjects();
   }
 
   //Metodo Get
@@ -79,12 +84,20 @@ export class SubjectPage {
       spinner: 'bubbles',
     });
     await loading.present();
+
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/subject?page=' + this.page;
+    } else {
+      urlApi = 'http://attendancedb.test/subject/buscar/'+this.busqueda + '?page=' + this.page ;
+    }
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/subject?per-page=50",
+      url: urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.subjects = response.data;
@@ -93,7 +106,40 @@ export class SubjectPage {
       console.log(error);
     });
     loading.dismiss();
+    this.contarSubjects();
   }
+
+  async contarSubjects() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+        urlApi = 'http://attendancedb.test/subject/total';
+    } else {
+        urlApi = 'http://attendancedb.test/subject/total/'+ this.busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        this.totalSubjects = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+}
+
+pagina(event:any) {
+  this.page = event.target.innerText;
+  this.loadSubjects();
+}
+
+handleInput(event:any) {
+  this.busqueda = event.target.value.toLowerCase();
+  this.loadSubjects();
+}
 
   async newSubject() {
     const paginaModal = await this.modalCtrl.create({
