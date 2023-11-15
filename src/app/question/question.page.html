@@ -9,42 +9,65 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let question of questions" class="ic">
-    <ion-img [src]="imagenPath" class="imagecard"></ion-img>
-    <ion-card-header>
-      <ion-card-title class ="ictittle">{{ question.que_title }}</ion-card-title>
-      <ion-card-subtitle class="icdesc">{{ question.que_description }}</ion-card-subtitle>
-      <p class="icnameteacher">{{ question.teacher }}</p>
-      <p class="icfecha">{{ question.que_create }}</p>
-      <ion-button class="bottom-right" fill="clear" [routerLink]="['/question-detail', question.que_id]">
-        Ver mas
-        <ion-icon class ="flecha" name="arrow-forward-outline"></ion-icon>
-      </ion-button>
-        
-      
-
-    </ion-card-header>
-  </ion-card>
-
-  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
-    <!-- Boton principal -->
-    <ion-fab-button>
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-
-    <ion-fab-list side="bottom">
-
-      <!-- Eliminar question -->
-      <ion-fab-button (click)="mostrarAlerta()">
-        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-      </ion-fab-button>
-      <!-- agregar question -->
-      <ion-fab-button>
-        <ion-icon name="close-outline"></ion-icon>
-        <ion-action-sheet trigger="open-action-sheet" header="Example header" subHeader="Example subheader"></ion-action-sheet>
-      </ion-fab-button>
-    
-
-    </ion-fab-list>
-  </ion-fab>
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  <ion-grid> <!-- pendiente de cerrar -->
+    <ion-row *ngFor="let question of questions" class="ic">
+      <ion-col size="1" [routerLink]="['/question-detail', question.que_id]">
+        <img [src]="imagenPath" class="imagecard">
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col [routerLink]="['/question-detail', question.que_id]">
+        <ion-label>
+          <h3 class="ictittle">{{ question.que_title }}</h3>
+          <h4 class="icdesc">{{ question.que_description }}</h4>
+          <p class="icnameteacher">{{ question.teacher }}</p>
+          <p class="icfecha">{{ question.que_create }}</p>
+        </ion-label>
+      </ion-col>
+      <!-- Crear columna para boton de opciones -->
+      <ion-col size="auto">
+        <!-- Boton de opciones -->
+        <ion-button id="click-trigger-{{question.que_id}}" size="small">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+        <ion-popover trigger="click-trigger-{{question.que_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"
+          side="end">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <!-- Opcion de eliminar  -->
+                <ion-item [button]="true" [detail]="false" (click)="alertEliminar(question.que_id)">
+                  <ion-icon name="trash"></ion-icon>
+                  Eliminar
+                </ion-item>
+                <!-- Opcion de modificar -->
+                <ion-item [button]="true" [detail]="false" (click)="editar(question.que_id)">
+                  <!-- Agregamos la opción de Modificar -->
+                  <ion-icon name="create"></ion-icon>
+                  Modificar
+                </ion-item>
+                <!-- Cierro mi lista  -->
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+      <!-- Cierro filas y grid -->
+    </ion-row>
+  </ion-grid>
+  <!-- Componente de paginación en la parte inferior -->
+  <app-paginacion-question [total]="totalQuestions" (click)="pagina($event)"></app-paginacion-question>
 </ion-content>
+
+<ion-fab class="botonM" slot="fixed" vertical="top" horizontal="end" [edge]="true">
+  <!-- Boton principal -->
+  <ion-fab-button>
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="bottom">
+    <!-- Agregar question -->
+    <ion-fab-button (click)="new()">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

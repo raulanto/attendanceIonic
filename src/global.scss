@@ -11,7 +11,8 @@
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
+//Agregamos al archivo global.scss
+@import "../node_modules/swiper/swiper-bundle.min.css";
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
@@ -24,3 +25,41 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+<<<<<<< Updated upstream
+=======
+
+.alert-wrapper.sc-ion-alert-md {
+    border-radius: 14px;
+    -webkit-box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.alert-wrapper.sc-ion-alert-md {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 350px;
+    /* min-width: var(--min-width); */
+    /* max-width: var(--max-width); */
+    height: 600px;
+    min-height: var(--min-height);
+    max-height: var(--max-height);
+    background: var(--background);
+    contain: content;
+    opacity: 0;
+    z-index: 10;
+} 
+
+.alert-input-wrapper sc-ion-alert-md{
+    display: flex;
+    width: 200px;
+    height: 400px;
+    padding: 20px;
+    min-height: var(--min-height);
+    max-height: var(--max-height);
+
+}
+
+
+>>>>>>> Stashed changes
