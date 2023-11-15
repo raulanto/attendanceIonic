@@ -24,10 +24,15 @@ export class NotextracurricularPage implements OnInit {
     private router: Router,
   ) { }
 
+  busqueda:string = '';
+  page:number = 1;
+  totalEventos:number = 0;
+
   extra: any = [];
 
   ngOnInit() {
     this.loadExtra();
+    this.contarEventos();
   }
 
   async loadExtra(event?: InfiniteScrollCustomEvent) {
@@ -36,13 +41,22 @@ export class NotextracurricularPage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
+
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place&page=' + this.page;
+    } else {
+      urlApi = 'http://attendancedb.test/extra-group/buscar/'+this.busqueda + '?expand=extracurricular,group,date,time,code,place'+ this.page;
+    }
+
     const response = await axios({
       method: 'get',
       //url : "http://attendancedb.test/extracurricular",
-      url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
+      //url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
+      url : urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
       }
     }).then((response) => {
       this.extra = response.data;
@@ -51,8 +65,44 @@ export class NotextracurricularPage implements OnInit {
     }).catch(function (error) {
       console.log(error);
     });
+    this.contarEventos();
     loading.dismiss();
   }
+
+
+
+  async contarEventos() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+        urlApi = 'http://attendancedb.test/extra-group/total';
+    } else {
+        urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        this.totalEventos = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+  }
+  
+  pagina(event:any) {
+  this.page = event.target.innerText;
+  this.loadExtra();
+  }
+  
+  handleInput(event:any) {
+  this.busqueda = event.target.value.toLowerCase();
+  this.loadExtra();
+  }
+
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
