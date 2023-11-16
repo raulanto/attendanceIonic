@@ -18,7 +18,7 @@ export class PaginacionComponent implements OnInit {
   @Input() total: number = 0;
   @Input() slidesPerView: number = 6;
   @Input() loop: boolean = false;
-  @Input() porPagina: number = 2;
+  @Input() porPagina: number = 20;
 
   inicializarSwiper() {
     const mySwiper = new Swiper('.swiper-container', {

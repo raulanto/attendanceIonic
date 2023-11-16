@@ -35,7 +35,7 @@ export class ListaAsistenciaPage implements OnInit {
 		let urlApi: string = '';
 
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/listg/listas/?id=${this.grupoid}&page=${this.page}`;
+			urlApi = `http://attendancedb.test/listg/listas?id=${this.grupoid}&page=${this.page}`;
 		} else {
 			urlApi = `http://attendancedb.test/listg/buscar/?text=${this.busqueda}&id=${this.grupoid}&expand=person&page=${this.page}`;
 		}
@@ -51,6 +51,8 @@ export class ListaAsistenciaPage implements OnInit {
 			}
 		}).then((response) => {
 			this.listas = response.data;
+			console.log(this.listas);
+			
 			event?.target.complete();
 		}).catch(function (error) {
 			console.log(error);
