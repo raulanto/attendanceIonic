@@ -16,13 +16,16 @@
          
         <ion-label class="ion-text-wrap">
           <h2>{{asistencia.att_commit}}</h2>
-          <h3> {{asistencia.att_fkcode}} </h3>
+          <!-- <!-- <h3> {{asistencia.att_fkcode}} </h3> -->
           <p>{{asistencia.att_time}}</p>
-          <p>{{asistencia.att_date | date:'y-MM-dd'}}</p>
+          <!-- <p>{{asistencia.att_date | date:'y-MM-dd'}}</p>  -->
         </ion-label>
       </ion-item>
       <ion-item-options slot="end">
-        <ion-item-option color="tertiary">
+        <ion-item-option color="primary" >
+          <ion-icon name="color-wand-outline"  size="large"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="tertiary"  (click)="showDataAlert(asistencia)">
           <ion-icon slot="icon-only" name="share"></ion-icon>
         </ion-item-option>
         <ion-item-option color="danger" expandable="true">

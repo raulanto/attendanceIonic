@@ -16,12 +16,14 @@ export class GenerarCodigoPage implements OnInit {
   public nuevoCodigo: any;
   public time:any;
   
-  baseUrl: string = "http://attendancedb.test/code/";
+  baseUrl: string = "http://attendancedb.test/codes/";
 
   public codigo!: FormGroup; //Sirve para ingresar datos de "codigos"
 
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
+    'cod_code': [{ type: 'required', message: 'Codigo' }],
+    'cod_time': [{ type: 'required', message: 'Tiempo requerido.' }],
     'cod_date': [{ type: 'required', message: 'Fecha requerida.' }],
     'cod_duration': [{ type: 'required', message: 'Duracion requerida.' }],
   };
@@ -40,7 +42,7 @@ export class GenerarCodigoPage implements OnInit {
 
   
   ngOnInit() {
-    this.mostrar();
+    // this.mostrar();
     this.formulario();// Inicializar el formulario al cargar pagina
   }
    obtenerHoraActual() {
@@ -54,13 +56,15 @@ export class GenerarCodigoPage implements OnInit {
     return horaActual;
     
   }
-
+  obtenerFechaActual(): Date {
+    return new Date();
+  }
   
-
-
   private formulario() {
     // Crear el formulario reactivo con campos y validaciones
     this.codigo = this.formBuilder.group({
+      cod_code: ['', [Validators.required]],
+      cod_time: ['', [Validators.required]],
       cod_date: ['', [Validators.required]],
       cod_duration: ['', [Validators.required]],
     });
@@ -69,13 +73,12 @@ export class GenerarCodigoPage implements OnInit {
 
   async guardarDatos() {
     try {
-      let codigo = this.codigo?.value; //Obtener los valores del formulario
-      codigo.cod_fkgroup=this.grupoid;
-      codigo.cod_time=this.obtenerHoraActual();
+      let codigos = this.codigo?.value; //Obtener los valores del formulario
+      codigos.cod_fkgroup=this.route.snapshot.paramMap.get('grupoid');
       const response = await axios({
         method: 'post',
         url: this.baseUrl,
-        data: codigo, // Datos del codigo para enviar al servidor
+        data: codigos, // Datos del codigo para enviar al servidor
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token',
@@ -86,19 +89,19 @@ export class GenerarCodigoPage implements OnInit {
         }
     }).catch( (error) => {
         if(error?.response?.status == 422) {
-        this.alertGuardado(codigo.cod_code, error?.response?.data[0]?.message, "Error");
+        this.alertGuardado(codigos.cod_code, error?.response?.data[0]?.message, "Error");
         }     
     });
     } catch(e){
     console.log(e);
     }
   }
-  // Una función que utiliza el valor de 'grupoid'
-  mostrar() {
-    console.log('Valor de grupoid en generar codigo:', this.grupoid);
-    console.log(this.nuevoCodigo);
+  // // Una función que utiliza el valor de 'grupoid'
+  // mostrar() {
+  //   console.log('Valor de grupoid en generar codigo:', this.grupoid.value);
+  //   console.log(this.nuevoCodigo);
     
-  }
+  // }
 
   public getError(controlName: string) {
     let errors: any[] = [];

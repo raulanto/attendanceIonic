@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InfiniteScrollCustomEvent, LoadingController, AlertController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, LoadingController, AlertController,ModalController } from '@ionic/angular';
 import axios from 'axios';
-import { ModalController } from '@ionic/angular';
 import { GenerarCodigoPage } from '../generar-codigo/generar-codigo.page';
 
 @Component({
@@ -16,7 +15,6 @@ export class CodigosPage implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private loadingCtrl: LoadingController,
-		private loading: LoadingController,
 		public modalCtrl: ModalController,
 		private alertController: AlertController
 	) {
@@ -83,6 +81,7 @@ export class CodigosPage implements OnInit {
 
 		await alert.present();
 	}
+
 
 
 

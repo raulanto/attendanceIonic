@@ -11,15 +11,16 @@ import axios from 'axios';
   styleUrls: ['./detalle-asistencia.page.scss'],
 })
 export class DetalleAsistenciaPage implements OnInit {
+  [x: string]: any;
   public idperson: any;
   public baseUrl: string = 'http://attendancedb.test/attendance';
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
-    private loading: LoadingController,
     private router: Router,
     private alertCtrl: AlertController,
-    private toastController:ToastController
+    private toastController:ToastController,
+    private alertController: AlertController
   ) {
     //mandamos a pedir el id del grupo desde route paramMap
     this.idperson = this.route.snapshot.paramMap.get('idperson');
@@ -120,5 +121,21 @@ export class DetalleAsistenciaPage implements OnInit {
       window.location.reload();
     });
   }
+
+
+  // cambiar los tipos any por los modelos
+  async showDataAlert(asistencia: any) {
+		const alert = await this.alertController.create({
+			header: 'Datos',
+			subHeader: 'Asistencia',
+			message: `
+			Code: ${asistencia.att_fkcode}<br>
+			Fecha: ${asistencia.att_date}<br>`,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
+
 
 }
