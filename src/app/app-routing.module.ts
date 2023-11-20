@@ -64,7 +64,11 @@ const routes: Routes = [
   {
     path: 'detalle-asistencia/:idperson',
     loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+  },  {
+    path: 'carrusel',
+    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
+
 
 
 
