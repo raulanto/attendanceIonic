@@ -31,17 +31,23 @@ export class LibraryPage implements OnInit {
     private alertCtrl: AlertController,
     private platform: Platform,
     private router: Router,
-  ) { 
+    ) { 
     //mandamos a pedir el id del grupo desde route paramMap
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
-    // Una función que utiliza el valor de 'idperson'
-    mostrar() {
-      console.log('Valor grupoid en library:', this.grupoid);
-    }
-  
+
+  // Una función que utiliza el valor de 'idperson'
+  mostrar() {
+    console.log('Valor grupoid en library:', this.grupoid);
+  }
+
+  busqueda:string = '';
+  page:number = 1;
+  totalLibrarys:number = 0;
+
   ngOnInit() {
     this.cargarLibrarys();
+    this.contarLibrarys();
     this.mostrar();
   }
 
@@ -53,13 +59,23 @@ export class LibraryPage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
+
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = "http://attendancedb.test/library/librarys?id=" + this.grupoid + "&page=" + this.page;
+              //http://attendancedb.test/library/librarys?id=1&page=1
+    } else {
+      urlApi = "http://attendancedb.test/library/buscar/" + this.busqueda;
+    }
+
     const response = await axios({
       method: 'GET',
       // Url
-      url: this.baseUrl + this.grupoid,
+      url: urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.librarys = response.data;
@@ -68,7 +84,42 @@ export class LibraryPage implements OnInit {
       console.log(error);
     });
     loading.dismiss();
+    this.contarLibrarys();
   }
+
+  async contarLibrarys() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+      urlApi = 'http://attendancedb.test/library/total';
+    } else {
+      urlApi = 'http://attendancedb.test/library/total/' + this.busqueda;
+    }
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        console.log(response);  
+        this.totalLibrarys = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+  }
+
+  pagina(event:any) {
+    this.page = event.target.innerText;
+    this.cargarLibrarys();
+  }
+  
+  handleInput(event:any) {
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarLibrarys();
+  }
+
 
   getIconName(libType: string): string {
     // Define los nombres de iconos para cada tipo de archivo

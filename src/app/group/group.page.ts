@@ -48,7 +48,7 @@ export class GroupPage implements OnInit {
     if(this.busqueda === '') {
       urlApi = "http://attendancedb.test/group?expand=subject,teacher,classroom&page=" + this.page;
     } else {
-      urlApi = "http://attendancedb.test/group/buscar/" + this.busqueda+"?expand=subject,teacher,classroom&page=" + this.page;
+      urlApi = "http://attendancedb.test/group/buscar/" + this.busqueda+ "?expand=subject,teacher,classroom&page=" + this.page;
     }
 
     const response = await axios({
@@ -101,7 +101,6 @@ export class GroupPage implements OnInit {
     this.busqueda = event.target.value.toLowerCase();
     this.cargarGrupos();
   }
-  
 
   //CREAR NUEVO GRUPO
 

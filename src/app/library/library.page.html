@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
   <ion-grid>
     <!-- Crear una fila por cada elemento --> 
@@ -71,6 +72,8 @@
     <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
+
+  <app-paginacion [total]="totalLibrarys" (click)="pagina($event)"></app-paginacion>
   
 </ion-content>
 
