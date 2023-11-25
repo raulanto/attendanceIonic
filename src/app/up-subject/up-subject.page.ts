@@ -25,7 +25,7 @@ export class UpSubjectPage  {
     public formBuilder: FormBuilder,
     private alert : AlertController,) { }
 
-  subjectUrl: string = "http://attendanceproyect.atwebpages.com/subjects"
+  subjectUrl: string = "http://attendancedb.test/subject"
   subjects: any = [];
   private editarDatos = [];
   public editMateria!: FormGroup;
@@ -56,7 +56,7 @@ export class UpSubjectPage  {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendanceproyect.atwebpages.com/subject",
+      url: "http://attendancedb.test/subject",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

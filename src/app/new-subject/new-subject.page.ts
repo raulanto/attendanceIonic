@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NewSubjectPage {
 
-  baseUrl:string = "http://attendancedb.test/subject"
+  baseUrl:string = 'http://attendancedb.test/subject'
 
   public materia!: FormGroup;
 
@@ -98,6 +98,7 @@ export class NewSubjectPage {
         text: 'Salir',
         role: 'confirm',
         handler: () => {
+          this.modalCtrl.dismiss();
             this.regresar();
         },
         },
@@ -107,7 +108,7 @@ export class NewSubjectPage {
     await alert.present();
   }
 
-  private regresar() {
+  public regresar() {
     // Navega a la página "subject.page"
     this.router.navigate(['../subject/subject.page']).then(() => {
       // Recarga la página "subject.page"

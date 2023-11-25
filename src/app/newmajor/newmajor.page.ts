@@ -128,11 +128,12 @@ export class NewmajorPage {
   }
 
   private regresar() {
-    // Navega a la página "subject.page"
+    // Navega a la página "major.page"
     this.router.navigate(['../major/major.page']).then(() => {
-      // Recarga la página "subject.page"
+      // Recarga la página "major.page"
       location.reload();
     });
   }
+
 
 }

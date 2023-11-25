@@ -22,10 +22,10 @@ export class MajorPage {
 
   constructor(
     private loadingCtrl: LoadingController,
-    private alertController: AlertController,
+    public alertController: AlertController,
     private router: Router, private navCtrl: NavController,
     public modalCtrl: ModalController,
-    private alert: AlertController,
+    public alert: AlertController,
   ) { }
   busqueda:string = '';
   page:number = 1;
@@ -204,22 +204,22 @@ handleInput(event:any) {
 
   async guardarDatos(selectedMajor: any) {
     try {
-      const agregar = selectedMajor;
+      const eliminar = selectedMajor;
       const response = await axios({
         method: 'delete',
-        url: this.majorUrl + "s/" + selectedMajor,
-        data: agregar,
+        url: "http://attendancedb.test/major" + "/" + selectedMajor,
+        data: eliminar,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
         }
       }).then((response) => {
         if (response?.status == 201) {
-          this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido Eliminada');
+          this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertGuardado(agregar.maj_id, error?.response?.data[0]?.message, "Error");
+          this.alertGuardado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
         }
         if (error?.response?.status == 500) {
           this.alertGuardado(selectedMajor, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
@@ -233,7 +233,7 @@ handleInput(event:any) {
     }
   }
 
-  private async alertGuardado(selectedMajor: any, msg = "", subMsg = "Guardado") {
+  public async alertGuardado(selectedMajor: any, msg = "", subMsg = "Guardado") {
     const alert = await this.alert.create({
       header: 'Carrera',
       subHeader: subMsg,
@@ -267,43 +267,7 @@ handleInput(event:any) {
     });
   }
 
-  /*
-  async guardarDatos(selectedMajor: any) {
-    try {
-      if (selectedMajor) {
-        const response = await axios({
-          method: 'delete',
-          url: this.majorUrl + "s/" + selectedMajor,
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 100-token'
-          }
-        }).then((response) => {
-          if (response?.status == 201) {
-            this.alertEliminado(selectedMajor, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
-          }
-        }).catch((error) => {
-          if (error?.response?.status == 422) {
-            this.alertEliminado(error?.response?.data[0]?.message, "Error");
-          }
-          if (error?.response?.status == 500) {
-            this.alertEliminado(error?.response?.data[0]?.message,"Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
-          }
-          if (error?.response?.status == 404) {
-            this.alertEliminado(error?.response?.data[0]?.message,"Este elemento no ha sido encontrado");
-          }
-        });
-      } else {
-        // Mostrar un mensaje de error si no se ha seleccionado una carrera
-        this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }*/
-
-
+  
 
 
 }

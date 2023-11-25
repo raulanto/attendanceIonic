@@ -157,7 +157,9 @@ export class UpMajorPage {
         text: 'Salir',
         role: 'confirm',
         handler: () => {
-            this.modalCtrl.dismiss();
+          this.modalCtrl.dismiss();
+          this.regresar();
+
         },
         },
     ],
@@ -195,6 +197,14 @@ public getError(controlName: string) {
   errors = JSON.parse(JSON.stringify(control?.errors));
   }
   return errors;
+}
+
+private regresar() {
+  // Navega a la página "subject.page"
+  this.router.navigate(['../major/major.page']).then(() => {
+    // Recarga la página "subject.page"
+    location.reload();
+  });
 }
 
 

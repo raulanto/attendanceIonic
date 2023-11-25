@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NewSubjectPage } from '../new-subject/new-subject.page';
-import { ElimSubjectPage } from '../elim-subject/elim-subject.page';
+
 import { UpSubjectPage } from '../up-subject/up-subject.page';
 
 @Component({
@@ -150,14 +150,7 @@ handleInput(event:any) {
     await paginaModal.present();
   }
 
-  async elimSubject() {
-    const paginaModal = await this.modalCtrl.create({
-      component: ElimSubjectPage,
-      breakpoints: [0, 0.3, 0.5, 0.95],
-      initialBreakpoint: 0.95
-    });
-    await paginaModal.present();
-  }
+
 
   //Metodo Actualizar
 
@@ -212,7 +205,7 @@ handleInput(event:any) {
         // La condición verifica si selectedMajor tiene un valor.
         const response = await axios({
           method: 'delete',
-          url: this.subjectUrl + "s/" + selectedSubject,
+          url: 'http://attendancedb.test/subject' + "/" + selectedSubject,
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
@@ -266,7 +259,7 @@ handleInput(event:any) {
     await alert.present();
   }
 
-  private regresar() {
+  public regresar() {
     // Navega a la página "subject.page"
     this.router.navigate(['../subject/subject.page']).then(() => {
       // Recarga la página "subject.page"
