@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+    <!-- Tu contenido del encabezado aquí -->
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-centered">
+
+    <div class=" ion-align-items-center ">
+        
+        <ion-grid [fixed]="true" size="pushXl">
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+                <ion-thumbnail size="">
+                    <img alt="multicheck" src="assets/icon/LOGO.png" size="base"/>
+                </ion-thumbnail>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+                <ion-col size="9">
+                    <ion-input label="Usuario" label-placement="floating" fill="outline"
+                        placeholder="Usuario"></ion-input>
+                </ion-col>
+                <ion-col size="9">
+                    <ion-input label="Contraseña" label-placement="floating" fill="outline"
+                        placeholder="Contraseña"></ion-input>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+                <ion-col size="8">
+                    <ion-button fill="outline">Iniciar</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+</ion-content>
+<ion-footer class="ion-no-border" [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button>Regresar</ion-button>
+        </ion-buttons>
+
+      </ion-toolbar>
+</ion-footer>

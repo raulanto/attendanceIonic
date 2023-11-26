@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
   {
     path: 'question',
@@ -64,10 +64,16 @@ const routes: Routes = [
   {
     path: 'detalle-asistencia/:idperson',
     loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
-  },  {
-    path: 'carrusel',
-    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
+
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
+
 
 
 

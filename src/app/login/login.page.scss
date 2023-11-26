@@ -1,0 +1,40 @@
+ion-content {
+    --background: url("../../assets/fondo.svg");
+    --background-position: center;
+    --background-clip: content-box;
+    --background-size: contain;
+    --background-repeat: no-repeat; /* Evitar que el fondo se repita */
+}
+ion-footer {
+    --ion-background-color: transparent;
+  }
+  
+
+.content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Opcional: ajusta la altura según tus necesidades */
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+img{
+    --height: 100px;
+}
+
+ion-thumbnail {
+    --size: 10rem;
+    --border-radius: 14px;
+}
+
+ion-toolbar{
+    --color: 
+    ;
+}

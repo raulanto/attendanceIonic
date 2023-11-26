@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CarruselPageRoutingModule } from './carrusel-routing.module';
+import { RegistroPageRoutingModule } from './registro-routing.module';
 
-import { CarruselPage } from './carrusel.page';
+import { RegistroPage } from './registro.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CarruselPageRoutingModule
+    RegistroPageRoutingModule
   ],
-  
-
-
+  declarations: [RegistroPage]
 })
-export class CarruselPageModule {}
+export class RegistroPageModule {}

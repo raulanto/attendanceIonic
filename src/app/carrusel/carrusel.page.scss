@@ -10,3 +10,13 @@
 ion-button{
     margin-top: 1rem;
 }
+
+ion-content{
+    --background: url('../../assets/fondo.svg');
+    --background-position: center;
+    --background-repeat: no-repeat;
+    --background-size: contain;
+    display: flex;
+    justify-content: center;
+}
+

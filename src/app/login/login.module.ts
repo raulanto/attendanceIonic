@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CarruselPageRoutingModule } from './carrusel-routing.module';
+import { LoginPageRoutingModule } from './login-routing.module';
 
-import { CarruselPage } from './carrusel.page';
+import { LoginPage } from './login.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CarruselPageRoutingModule
+    LoginPageRoutingModule
   ],
-  
-
-
+  declarations: [LoginPage]
 })
-export class CarruselPageModule {}
+export class LoginPageModule {}
