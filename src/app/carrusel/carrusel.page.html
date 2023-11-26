@@ -1,10 +1,25 @@
+<ion-content class="content-centered">
 
-
-<ion-content class="">
-
-  <app-banner [slides]="slides"></app-banner>
-  <div class="wrapper">
-    <ion-button shape="round">Iniciar Seccion</ion-button>
-    <ion-button shape="round">Crear cuenta</ion-button>
+  <div class="ion-align-items-center">
+    <ion-grid [fixed]="true" size="pushXl">
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col>
+          <ion-text >
+            <h1>Multicheck</h1>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <app-banner [slides]="slides"></app-banner>
+      
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="8">
+          <ion-button shape="round" fill="outline" routerLink="/login">Inicar</ion-button>
+        </ion-col>
+        <ion-col size="8">
+          <ion-button shape="round" fill="outline" routerLink="/registro">Registrar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
+  
 </ion-content>

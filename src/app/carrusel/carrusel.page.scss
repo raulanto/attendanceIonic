@@ -1,15 +1,10 @@
-.wrapper {
-    margin-top: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-
-    align-items: center;
-    justify-content: center;
+h1{
+    
+    color: white;
+    font-size: xx-large;
+    font-weight: bolder;
 }
 
-ion-button{
-    margin-top: 1rem;
-}
 
 ion-content{
     --background: url('../../assets/fondo.svg');
