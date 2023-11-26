@@ -61,12 +61,11 @@ export class LibraryPage implements OnInit {
     await loading.present();
 
     let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = "http://attendancedb.test/library/librarys?id=" + this.grupoid + "&page=" + this.page;
-              //http://attendancedb.test/library/librarys?id=1&page=1
-    } else {
-      urlApi = "http://attendancedb.test/library/buscar/" + this.busqueda;
-    }
+		if (this.busqueda === '') {
+			urlApi = `http://attendancedb.test/library/librarys?id=${this.grupoid}&page=${this.page}`;
+		} else {
+			urlApi = `http://attendancedb.test/library/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
+		}
 
     const response = await axios({
       method: 'GET',
@@ -89,11 +88,11 @@ export class LibraryPage implements OnInit {
 
   async contarLibrarys() {
     let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/library/total';
-    } else {
-      urlApi = 'http://attendancedb.test/library/total/' + this.busqueda;
-    }
+		if (this.busqueda === '') {
+			urlApi = `http://attendancedb.test/library/total/?id=${this.grupoid}`;
+		} else {
+			urlApi = `http://attendancedb.test/library/total/?text=${this.busqueda}&id=${this.grupoid}`;
+		}
     const response = await axios({
         method: 'get',
         url : urlApi,
