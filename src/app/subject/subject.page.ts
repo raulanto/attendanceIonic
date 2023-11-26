@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NewSubjectPage } from '../new-subject/new-subject.page';
-
 import { UpSubjectPage } from '../up-subject/up-subject.page';
 
 @Component({
