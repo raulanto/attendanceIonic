@@ -3,38 +3,42 @@ ion-content {
     --background-position: center;
     --background-clip: content-box;
     --background-size: contain;
-    --background-repeat: no-repeat; /* Evitar que el fondo se repita */
+    --background-repeat: no-repeat;
+    /* Evitar que el fondo se repita */
 }
-ion-footer {
+
+ion-header {
     --ion-background-color: transparent;
-  }
-  
+}
+
 
 .content-centered {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Opcional: ajusta la altura según tus necesidades */
+    // height: 100vh;
+    /* Opcional: ajusta la altura según tus necesidades */
 }
 
-div{
+div {
+    margin-top: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    // height: 100vh;
 }
 
-img{
-    --height: 100px;
+img {
+    --ion-height: 190px;
 }
 
 ion-thumbnail {
-    --size: 10rem;
+    --size: 12rem;
     --border-radius: 14px;
 }
 
-ion-toolbar{
-    --color: 
-    ;
+
+ion-input {
+    --height: 3rem;
 }

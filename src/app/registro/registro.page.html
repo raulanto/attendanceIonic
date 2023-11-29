@@ -1,13 +1,84 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border  ">
   <ion-toolbar>
-    <ion-title>registro</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+      <ion-title class="dark">Regresar</ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content [fullscreen]="true" class="content-centered ion-padding">
+  <!-- <form [formGroup]="codigo" (ngSubmit)="guardarDatos()"> -->
+  <ion-title>Bienvenido a la Aplicacion</ion-title>
+  <main class="">
+    <ion-grid class="">
+      <ion-row class="">
+        <ion-col size="12">
+          <!-- Selecionador de tipo de persona -->
+          <ion-text>Que tipo de persona eres?</ion-text>
+          <ion-item>
+            <ion-select interface="action-sheet" placeholder="Opciones" [(ngModel)]="tipoPersona">
+              <ion-select-option value="1" >Maestro</ion-select-option>
+              <ion-select-option value="2">Estudiante</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <!-- Mostrar la parte del maestro si la opción seleccionada es 1 -->
+        <ion-col *ngIf="tipoPersona === '1'">
+          <ion-text>Datos Maestros</ion-text>
+          <ion-col size="12">
+            <ion-input label="Nombres" label-placement="floating" fill="outline" placeholder="Nombres"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Apellido Paterno" label-placement="floating" fill="outline"
+              placeholder="Apellido Paterno"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Apellido Materno" label-placement="floating" fill="outline"
+              placeholder="Apellido Materno"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Teléfono" label-placement="floating" fill="outline" placeholder="Teléfono"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Email" label-placement="floating" fill="outline" placeholder="Email"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-text>Grados de Estudios</ion-text>
+            <ion-item>
+              <ion-select interface="action-sheet" placeholder="Opciones" [interfaceOptions]="customActionSheetOptions">
+                <ion-select-option *ngFor="let degree of degrees"
+                  [value]="degree.deg_id">{{degree.deg_name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-col>
+
+        <!-- Alumno-->
+        <ion-col *ngIf="tipoPersona === '2'">
+          <ion-text>Datos Alumno</ion-text>
+          <ion-col size="12">
+            <ion-input label="Nombres" label-placement="floating" fill="outline" placeholder="Nombres"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Apellido Paterno" label-placement="floating" fill="outline"
+              placeholder="Apellido Paterno"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Apellido Materno" label-placement="floating" fill="outline"
+              placeholder="Apellido Materno"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Teléfono" label-placement="floating" fill="outline" placeholder="Teléfono"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Email" label-placement="floating" fill="outline" placeholder="Email"></ion-input>
+          </ion-col>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </main>
+
+  <!-- </form> -->
 </ion-content>

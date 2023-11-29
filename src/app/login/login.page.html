@@ -1,10 +1,14 @@
-<ion-header [translucent]="true">
-    <!-- Tu contenido del encabezado aquí -->
+<ion-header [translucent]="true" class="ion-no-border ion-padding">
+    <ion-buttons slot="start">
+        <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+        <ion-title>Regresar</ion-title>
+    </ion-buttons>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content-centered">
-    <div class="ion-align-items-center">
-        <ion-grid [fixed]="true" size="pushXl">
+
+    <div class="ion-align-items-center ion-padding">
+        <ion-grid [fixed]="true" size="">
             <ion-row class="ion-justify-content-center ion-align-items-center">
                 <ion-thumbnail size="">
                     <img alt="multicheck" src="assets/icon/LOGO.png" size="base" />
@@ -28,10 +32,3 @@
         </ion-grid>
     </div>
 </ion-content>
-<ion-footer class="ion-no-border" [translucent]="true">
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-button routerLink="/">Regresar</ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-footer>
