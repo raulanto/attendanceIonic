@@ -12,16 +12,6 @@
   <main class="">
     <ion-grid class="">
       <ion-row class="">
-        <ion-col size="12">
-          <!-- Selecionador de tipo de persona -->
-          <ion-text>Que tipo de persona eres?</ion-text>
-          <ion-item>
-            <ion-select interface="action-sheet" placeholder="Opciones" [(ngModel)]="tipoPersona">
-              <ion-select-option value="1" >Maestro</ion-select-option>
-              <ion-select-option value="2">Estudiante</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
 
         <!-- Mostrar la parte del maestro si la opción seleccionada es 1 -->
         <ion-col *ngIf="tipoPersona === '1'">
@@ -52,6 +42,14 @@
               </ion-select>
             </ion-item>
           </ion-col>
+          <ion-text class="ion-margin">Datos de inicio</ion-text>
+          <ion-col size="12">
+            <ion-input label="Username" label-placement="floating" fill="outline" placeholder="Username"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Password" label-placement="floating" fill="outline" placeholder="Password"></ion-input>
+          </ion-col>
+          <ion-button expand="block">Registrarse</ion-button>
         </ion-col>
 
         <!-- Alumno-->
@@ -74,6 +72,7 @@
           <ion-col size="12">
             <ion-input label="Email" label-placement="floating" fill="outline" placeholder="Email"></ion-input>
           </ion-col>
+          <ion-button expand="block">Registrarse</ion-button>
         </ion-col>
 
       </ion-row>

@@ -69,9 +69,22 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },  {
-    path: 'registro',
+  },
+  {
+    path: 'registro/:selecion',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'maestro-form',
+    loadChildren: () => import('./maestro-form/maestro-form.module').then( m => m.MaestroFormPageModule)
+  },
+  {
+    path: 'alumno-form',
+    loadChildren: () => import('./alumno-form/alumno-form.module').then( m => m.AlumnoFormPageModule)
+  },
+  {
+    path: 'selecion-ma',
+    loadChildren: () => import('./selecion-ma/selecion-ma.module').then( m => m.SelecionMAPageModule)
   },
 
 
