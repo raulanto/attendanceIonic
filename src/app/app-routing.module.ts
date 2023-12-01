@@ -71,10 +71,6 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'registro/:selecion',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
-  },
-  {
     path: 'maestro-form',
     loadChildren: () => import('./maestro-form/maestro-form.module').then( m => m.MaestroFormPageModule)
   },

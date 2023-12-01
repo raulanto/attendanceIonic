@@ -42,3 +42,12 @@ ion-thumbnail {
 ion-input {
     --height: 3rem;
 }
+
+ion-input.custom {
+    --background: #f1f1f1;
+    --color: #050505;
+    --placeholder-color: rgb(128, 62, 204);
+    --placeholder-opacity: 0.8;
+
+}
+
