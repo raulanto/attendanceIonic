@@ -7,9 +7,7 @@ ion-content {
     /* Evitar que el fondo se repita */
 }
 
-ion-header {
-    --ion-background-color: transparent;
-}
+
 
 
 .content-centered {
@@ -21,13 +19,7 @@ ion-header {
     /* Opcional: ajusta la altura según tus necesidades */
 }
 
-div {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // height: 100vh;
-}
+
 
 img {
     --ion-height: 190px;

@@ -11,12 +11,16 @@ ion-header {
     --background: white;
 }
 
-ion-header >ion-title {
+.titulo {
     color: white;
-    font-size: x-large;
+    font-size: 1.5rem;
     font-weight: bolder;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 .content-centered {
@@ -41,14 +45,7 @@ main {
 
 }
 
-img {
-    --height: 100px;
-}
 
-ion-thumbnail {
-    --size: 10rem;
-    --border-radius: 14px;
-}
 
 div {
     margin-top: 0.5rem;
@@ -60,12 +57,11 @@ ion-select {
     justify-content: center;
 }
 
-h1 {
-    --color: white;
-    --font: bolder;
-    --margin-top: 1rem;
+.fuente {
+    margin-top: 0.2rem;
+    font-weight: bolder;
 }
 
-ion-icon{
+ion-icon {
     background: white;
 }

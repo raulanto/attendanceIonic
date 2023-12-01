@@ -6,9 +6,9 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="content-centered ion-padding">
+<ion-content [fullscreen]="true" class="content-centered ">
+  <ion-title class="titulo">Bienvenido a la Aplicacion</ion-title>
   <form [formGroup]="registro" (ngSubmit)="submitRegistrar()" >
-    <ion-title>Bienvenido a la Aplicacion</ion-title>
     <main class="">
       <ion-grid class="">
         <ion-row class="">
@@ -16,7 +16,7 @@
           <!-- Mostrar la parte del maestro si la opción seleccionada es 1 -->
           
             <ion-text>
-              <h1>Datos Maestros</h1>
+              <h1 class="fuente">Datos Maestros</h1>
             </ion-text>
             <ion-col size="12">
               <ion-input type="text" formControlName="tea_name" label="Nombres" label-placement="floating"
@@ -92,21 +92,21 @@
             </ion-col>
             <ion-text class="ion-margin">Datos de inicio</ion-text>
             <ion-col size="12">
-              <ion-input label="Username" label-placement="floating" fill="outline" placeholder="Username"
-                formControlName="username"></ion-input>
-              <div id="note" *ngFor="let validation of
-              validation_messages.username">
+              <ion-item counter="true">
+                <ion-label position="floating" color="primary">Usuario</ion-label>
+                <ion-input type="text" formControlName="username" class="form-control" [maxlength]="10"></ion-input>
+              </ion-item>
+              <div id="note" *ngFor="let validation of validation_messages.username">
                 <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
-                  <ion-icon name="information-circle-outline"></ion-icon> {{
-                  validation.message }}
+                  <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
               </div>
             </ion-col>
             <ion-col size="12">
-              <ion-item>
+              <ion-item counter="true">
                 <ion-label position="floating" color="primary">Contraseña</ion-label>
                 <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password"
-                  clearOnEdit="false" class="form-control">
+                  clearOnEdit="false" class="form-control" [maxlength]="15">
                 </ion-input>
                 <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
                   <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'" color="primary"></ion-icon>
@@ -150,42 +150,6 @@
     </main>
   </form>
 
-  <!-- <form [formGroup]="registro" (ngSubmit)="submitRegistrar()" >
 
-    <ion-title>Bienvenido a la Aplicacion</ion-title>
-    <main class="">
-      <ion-grid class="">
-        <ion-row class="">
-          <h1>Datos Alumnos</h1>
-      <ion-col *ngIf="tipoPersona === '2'">
-        <ion-text>Datos Alumno</ion-text>
-        <ion-col size="12">
-          <ion-input label="Nombres" label-placement="floating" fill="outline" placeholder="Nombres"></ion-input>
-        </ion-col>
-        <ion-col size="12">
-          <ion-input label="Apellido Paterno" label-placement="floating" fill="outline"
-            placeholder="Apellido Paterno"></ion-input>
-        </ion-col>
-        <ion-col size="12">
-          <ion-input label="Apellido Materno" label-placement="floating" fill="outline"
-            placeholder="Apellido Materno"></ion-input>
-        </ion-col>
-        <ion-col size="12">
-          <ion-input label="Teléfono" label-placement="floating" fill="outline" placeholder="Teléfono"></ion-input>
-        </ion-col>
-        <ion-col size="12">
-          <ion-input label="Email" label-placement="floating" fill="outline" placeholder="Email"></ion-input>
-        </ion-col>
-        <ion-button expand="block">Registrarse</ion-button>
-      </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      
-      
-    </main>
-
-
-  </form> -->
 
 </ion-content>

@@ -1,9 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import axios from 'axios';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginPersonService } from '../services/login-person.service';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { LoginPersonService } from '../services/login-person.service';
 
 @Component({
   selector: 'app-alumno-form',
@@ -17,51 +16,51 @@ export class AlumnoFormPage implements OnInit {
 
 
   @ViewChild('passwordEyeRegister', { read: ElementRef }) passwordEye!: ElementRef;
-  
+
   passwordTypeInput = 'password';
-  validation_messages:any ={
-    'username':[
-      {type:'required',message:"Nombre de usuario requerido."},
-      {type:'minLength',message:"El nombre de usuario debe contener al menos 8 caracteres."},
-      {type:'required',message:"El usario no puede contener mas de 10 caracteres"},
-      {type:'required',message:"Digita una matricula valida"},
+  validation_messages: any = {
+    'username': [
+      { type: 'required', message: "Nombre de usuario requerido." },
+      { type: 'minLength', message: "El nombre de usuario debe contener al menos 8 caracteres." },
+      { type: 'maxlength', message: "El usario no puede contener mas de 10 caracteres" },
+      { type: 'pattern', message: "Digita una matricula valida" },
     ],
-    'password':[
+    'password': [
       { type: 'required', message: 'Contraseña requerida.' },
       { type: 'minlength', message: 'Contraseña debe contener al menos 8 caracteres.' },
       { type: 'maxlength', message: 'Contraseña no puede contener más de 15 caracteres.' },
       { type: 'pattern', message: 'Dígita una contraseña valida' },
     ],
-    'password_confirm':[
+    'password_confirm': [
       { type: 'required', message: 'Contraseña requerida.' },
       { type: 'minlength', message: 'Contraseña debe contener al menos 8 caracteres.' },
       { type: 'maxlength', message: 'Contraseña no puede contener más de 15 caracteres.' },
       { type: 'pattern', message: 'Dígita una contraseña valida' },
       { type: 'notEquivalent', message: 'No coinciden las contraseñas' },
     ],
-    'per_name':[
-      {type:'required',message:"Nombre(s) requerido(s)"},
+    'per_name': [
+      { type: 'required', message: "Nombre(s) requerido(s)" },
     ],
-    'per_paternal':[
-      {type:'required',message:"Apellido requerido"},
+    'per_paternal': [
+      { type: 'required', message: "Apellido requerido" },
     ],
-    'per_maternal':[
-      {type:'required',message:"Apellido requerido"},
+    'per_maternal': [
+      { type: 'required', message: "Apellido requerido" },
     ],
-    'per_mail':[
-      {type:'required',message:"Correo requerido"},
-      {type:'pattern',message:'Tiene que llevar @gamil.com'},
+    'per_mail': [
+      { type: 'required', message: "Correo requerido" },
+      { type: 'pattern', message: 'Tiene que llevar @gamil.com' },
     ],
-    'per_phone':[
-      {type:'required',message:'Numero requerido'},
-      {type:'minLength',message:"Debe contener al menos 10 numeros"},
-      {type:'pattern',message:'Ingrese numeros'},
+    'per_phone': [
+      { type: 'required', message: 'Numero requerido' },
+      { type: 'minLength', message: "Debe contener al menos 10 numeros" },
+      { type: 'pattern', message: 'Ingrese numeros' },
 
     ]
-    
+
   }
 
-  
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,12 +68,12 @@ export class AlumnoFormPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
   ) {
-    
+
   }
   //Cargar tipo de estudio
-  degrees:any=[];
+  degrees: any = [];
   //base de degree
-  baseDegre:string='http://attendancedb.test/degree';
+  baseDegre: string = 'http://attendancedb.test/degree';
   ngOnInit() {
 
     this.buildForm();
@@ -140,7 +139,7 @@ export class AlumnoFormPage implements OnInit {
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', registrarData.username);
             this.router.navigate(['/tabs/tab1']);
-          } else if( response?.data === '') {
+          } else if (response?.data === '') {
             this.alertError();
           }
         },
@@ -203,7 +202,5 @@ export class AlumnoFormPage implements OnInit {
     }, 1);
 
   }
-
-
 
 }

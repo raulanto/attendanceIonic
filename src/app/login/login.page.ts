@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
       username: ['', Validators.compose([
         Validators.maxLength(10),
         Validators.minLength(8),
-        Validators.pattern("^[0|1|2][0-9]{7,9}$"),
+        Validators.pattern("^(?=.*[0-9]).{8,15}$"),
         Validators.required
       ])],
       password: ['', Validators.compose([

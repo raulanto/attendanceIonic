@@ -21,10 +21,10 @@ export class MaestroFormPage implements OnInit {
   passwordTypeInput = 'password';
   validation_messages: any = {
     'username': [
-      { type: 'required', message: "Nombre de usuario requerido." },
-      { type: 'minLength', message: "El nombre de usuario debe contener al menos 8 caracteres." },
-      { type: 'required', message: "El usario no puede contener mas de 10 caracteres" },
-      { type: 'required', message: "Digita una matricula valida" },
+      { type: 'required', message: 'Matrícula requerida.' },
+      { type: 'minlength', message: 'Matrícula debe contener al menos 8 caracteres.' },
+      { type: 'maxlength', message: 'Matrícula no puede contener más de 10 caracteres.' },
+      { type: 'pattern', message: 'Dígita un usuario valida' },
     ],
     'password': [
       { type: 'required', message: 'Contraseña requerida.' },
@@ -73,7 +73,7 @@ export class MaestroFormPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router
   ) {
-    
+
   }
   //Cargar tipo de estudio
   degrees: any = [];
@@ -88,7 +88,7 @@ export class MaestroFormPage implements OnInit {
       username: ['', Validators.compose([
         Validators.maxLength(10),
         Validators.minLength(8),
-        Validators.pattern("^[0|1|2][0-9]{7,9}$"),
+        Validators.pattern("^(?=.*[0-9]).{8,15}$"),
         Validators.required
       ])],
       password: ['', Validators.compose([
