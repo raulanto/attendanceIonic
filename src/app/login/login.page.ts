@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoginService } from '../services/login.service';
+import { LoginPersonService } from '../services/login-person.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private loginPersonService:LoginPersonService
   ) { }
 
 
@@ -65,6 +67,21 @@ export class LoginPage implements OnInit {
     const loginData = this.login?.value;
     try {
       await this.loginService.login(loginData).subscribe(
+        async response => {
+          if (response?.status == 200 && response?.data !== '') {
+            await localStorage.setItem('token', response?.data);
+            localStorage.setItem('sesion', 'login');
+            localStorage.setItem('username', loginData.username);
+            this.router.navigate(['/tabs']);
+          } else if( response?.data === '') {
+            this.alertError();
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      await this.loginPersonService.login(loginData).subscribe(
         async response => {
           if (response?.status == 200 && response?.data !== '') {
             await localStorage.setItem('token', response?.data);

@@ -1,47 +1,60 @@
-<ion-header [translucent]="true" class="ion-no-border ion-padding">
-    <ion-buttons slot="start">
-        <ion-back-button default-href="#" routerLink="/"></ion-back-button>
-        <ion-title>Regresar</ion-title>
-    </ion-buttons>
+<ion-header class="ion-no-border  ">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+            <ion-title class="dark">Regresar</ion-title>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" class="content-centered">
-    <form [formGroup]="login" (ngSubmit)="submitLogin()">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="12">
-              <ion-item>
-                <ion-label position="floating" color="primary">Matrícula</ion-label>
-                <ion-input type="text" formControlName="username" class="form-control"></ion-input>
-              </ion-item>
-              <div id="note" *ngFor="let validation of validation_messages.username">
-                <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
-                  <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-                </ion-note>
-              </div>
-            </ion-col>
-            <ion-col size="12">
-              <ion-item>
-                <ion-label position="floating" color="primary">Contraseña</ion-label>
-                <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password" clearOnEdit="false" class="form-control">
-                </ion-input>
-                <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
-                  <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"></ion-icon>
-                </button>
-              </ion-item>
-              <div id="note" *ngFor="let validation of validation_messages.password">
-                <ion-note color="danger"
-                  *ngIf="getError('password')[(validation.type)]">
-                  <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-                </ion-note>
-              </div>
-            </ion-col>
-            <ion-col size="12">
-              <p class="ion-text-center">
-                <ion-button type="submit" [disabled]="!login.valid">Enviar</ion-button>
-              </p>
-            </ion-col>
-          </ion-row>
+
+    <form class="ion-align-items-center ion-padding" [formGroup]="login" (ngSubmit)="submitLogin()">
+        <ion-grid [fixed]="true" size="">
+            <ion-row class="ion-justify-content-center ion-align-items-center">
+                <ion-thumbnail size="">
+                    <img alt="multicheck" src="assets/icon/LOGO.png" size="base" />
+                </ion-thumbnail>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ">
+                <ion-col size="9">
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Usuario</ion-label>
+                        <ion-input type="text" formControlName="username" class="form-control"></ion-input>
+                      </ion-item>
+                      <div id="note" *ngFor="let validation of validation_messages.username">
+                        <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
+                          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+                        </ion-note>
+                      </div>
+                </ion-col>
+
+
+                
+                <ion-col size="9">
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Contraseña</ion-label>
+                        <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password"
+                            clearOnEdit="false" class="form-control">
+                        </ion-input>
+                        <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+                            <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"
+                                color="primary"></ion-icon>
+                        </button>
+                    </ion-item>
+                    <div id="note" *ngFor="let validation of
+                        validation_messages.password">
+                        <ion-note color="danger" *ngIf="getError('password')[(validation.type)]">
+                            <ion-icon name="information-circle-outline"></ion-icon> {{
+                            validation.message }}
+                        </ion-note>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+                <ion-col size="8">
+                    <ion-button fill="outline">Iniciar</ion-button>
+                </ion-col>
+            </ion-row>
         </ion-grid>
-      </form>
+    </form>
 </ion-content>
