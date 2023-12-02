@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Mis eventos </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
+  <ion-grid>
+    <ion-row *ngFor="let extras of extra">
+      <ion-col size="6">
+        <div class="rectangle-avatar">
+          <ion-img src="assets/img/extra.png" alt="Foto"></ion-img>
+        </div>
+      </ion-col>
+
+      <ion-col size="8">
+        <ion-label class="ion-text-wrap">
+          <h2 class="extracurricular-text">{{extras.extracurricular}}</h2>
+          <h2 class="extracurricular-code">{{extras.code}}</h2>
+          <h2 class="extracurricular-info">
+            {{extras.date | date: 'dd/MM/y'}}
+          </h2>
+          <h2 class="extracurricular-info">{{extras.time}}</h2>
+          <h2 class="extracurricular-info">{{extras.place}}</h2>
+        </ion-label>
+      </ion-col>
+
+      <ion-col>
+        <ion-button id="click-trigger-{{extras.extgro_id}}">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+        <ion-popover
+          trigger="click-trigger-{{extras.extgro_id}}"
+          [dismissOnSelect]="true"
+          [keepContentsMounted]="true"
+          side="end">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <ion-item 
+                [button]="true" 
+                [detail]="false"
+                (click)="alertEliminar(extras.extgro_id, extras.extracurricular, extras.code)"> 
+                <ion-icon name="trash"></ion-icon>
+                Eliminar
+                </ion-item>
+                <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  (click)="editar(extras.extgro_fkextracurricular)"> 
+                  <ion-icon name="create"></ion-icon>
+                  Modificar 
+                </ion-item>
+                <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  [routerLink]="['extracurricular', extras.extgro_id]"> 
+                  <ion-icon name="eye"></ion-icon>
+                  Ver mas 
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+
+      <!-- <ion-col>
+        <ion-button (click)="alertEliminar(extras.extgro_id)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+    </ion-row>
+  </ion-grid>
+  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="new()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <app-paginacion [total]="totalEventos" (click)="pagina($event)"></app-paginacion>
+
+</ion-content>

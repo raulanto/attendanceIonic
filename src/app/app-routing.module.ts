@@ -22,11 +22,13 @@ const routes: Routes = [
     path: 'newclassroom',
     loadChildren: () => import('./newclassroom/newclassroom.module').then( m => m.NewclassroomPageModule)
   },
-    //Agrego la nueva ruta donde llevara el id del grupo, materia y codigo
+  
+    //Agrego la nueva ruta donde llevara el id del grupo, materia y codigo a un menu
   {
     path: 'menu1/:gro_id/:gro_subject/:gro_code',
     loadChildren: () => import('./menu1/menu1.module').then( m => m.Menu1PageModule)
   },
+
   //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'asistencia/:grupoid',
@@ -36,6 +38,41 @@ const routes: Routes = [
     path: 'lista/:grupoid',
     loadChildren: () => import('./lista/lista.module').then( m => m.ListaPageModule)
   },
+
+  //Agrego la nueva ruta donde llevara el id del grupo a un menu
+  {
+    path: 'menunoti/:grupoid',
+    loadChildren: () => import('./menunoti/menunoti.module').then( m => m.MenunotiPageModule)
+  },
+
+  //Agrego la nueva ruta donde llevara el id del grupo
+  {
+    path: 'notextracurricular/:grupoid',
+    loadChildren: () => import('./notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
+  },
+  {
+    path: 'extracurricular/:grupoid',
+    loadChildren: () => import('./extracurricular/extracurricular.module').then( m => m.ExtracurricularPageModule)
+  },
+  {
+    path: 'grade/:grupoid',
+    loadChildren: () => import('./grade/grade.module').then( m => m.GradePageModule)
+  },
+  
+
+  {
+    path: 'modgrade',
+    loadChildren: () => import('./modgrade/modgrade.module').then( m => m.ModgradePageModule)
+  },
+  {
+    path: 'newextracurricular',
+    loadChildren: () => import('./newextracurricular/newextracurricular.module').then( m => m.NewextracurricularPageModule)
+  },
+  {
+    path: 'newgrade',
+    loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
+  },
+
     //Agrego la nueva ruta donde llevara el id del grupo
   {
     path: 'library/:grupoid',
@@ -50,6 +87,9 @@ const routes: Routes = [
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
   },
+
+
+
   
 
 
