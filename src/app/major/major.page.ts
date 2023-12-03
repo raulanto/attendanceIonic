@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NewmajorPage } from '../newmajor/newmajor.page';
+
 import { UpMajorPage } from '../up-major/up-major.page';
 import { PaginacionModule } from '../components/paginacion/paginacion.module';
 @Component({
@@ -86,7 +87,7 @@ export class MajorPage {
     if(this.busqueda === '') {
       urlApi = this.baseUrl +'?page=' + this.page;
     } else {
-      urlApi = this.baseUrl +'/buscar/'+this.busqueda + '?page=' + this.page ;
+      urlApi = this.baseUrl +'/buscar/'+ this.busqueda + '?page=' + this.page ;
     }
     const response = await axios({
       
