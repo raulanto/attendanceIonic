@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { NewmajorPage } from '../newmajor/newmajor.page';
-import { ElimMajorPage } from '../elim-major/elim-major.page';
 import { UpMajorPage } from '../up-major/up-major.page';
 import { PaginacionModule } from '../components/paginacion/paginacion.module';
 @Component({
@@ -149,14 +148,6 @@ handleInput(event:any) {
     await paginaModal.present();
   }
 
-  async elimMajor() {
-    const paginaModal = await this.modalCtrl.create({
-      component: ElimMajorPage,
-      breakpoints: [0, 0.3, 0.5, 0.95],
-      initialBreakpoint: 0.95
-    });
-    await paginaModal.present();
-  }
 
   //Metodo Actualizar comienza
 
