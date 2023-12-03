@@ -13,7 +13,7 @@
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
   <ion-grid>
-    <ion-row *ngFor="let extras of extra">
+    <ion-row *ngFor="let extra of extras">
       <ion-col size="6">
         <div class="rectangle-avatar">
           <ion-img src="assets/img/extra.png" alt="Foto"></ion-img>
@@ -22,22 +22,22 @@
 
       <ion-col size="8">
         <ion-label class="ion-text-wrap">
-          <h2 class="extracurricular-text">{{extras.extracurricular}}</h2>
-          <h2 class="extracurricular-code">{{extras.code}}</h2>
+          <h2 class="extracurricular-text">{{extra.ext_name}}</h2>
+          <h2 class="extracurricular-code">{{extra.ext_code}}</h2>
           <h2 class="extracurricular-info">
-            {{extras.date | date: 'dd/MM/y'}}
+            {{extra.ext_date | date: 'dd/MM/y'}}
           </h2>
-          <h2 class="extracurricular-info">{{extras.time}}</h2>
-          <h2 class="extracurricular-info">{{extras.place}}</h2>
+          <h2 class="extracurricular-info">{{extra.ext_time}}</h2>
+          <h2 class="extracurricular-info">{{extra.ext_place}}</h2>
         </ion-label>
       </ion-col>
 
       <ion-col>
-        <ion-button id="click-trigger-{{extras.extgro_id}}">
+        <ion-button id="click-trigger-{{extra.extgro_id}}">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover
-          trigger="click-trigger-{{extras.extgro_id}}"
+          trigger="click-trigger-{{extra.extgro_id}}"
           [dismissOnSelect]="true"
           [keepContentsMounted]="true"
           side="end">
@@ -47,21 +47,21 @@
                 <ion-item 
                 [button]="true" 
                 [detail]="false"
-                (click)="alertEliminar(extras.extgro_id, extras.extracurricular, extras.code)"> 
+                (click)="eliminar(extra.extgro_id, extra.ext_code)"> 
                 <ion-icon name="trash"></ion-icon>
                 Eliminar
                 </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  (click)="editar(extras.extgro_fkextracurricular)"> 
+                  (click)="editar(extra.extgro_fkextracurricular)"> 
                   <ion-icon name="create"></ion-icon>
                   Modificar 
                 </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  [routerLink]="['extracurricular', extras.extgro_id]"> 
+                  [routerLink]="['extracurricular', extra.extgro_id]"> 
                   <ion-icon name="eye"></ion-icon>
                   Ver mas 
                 </ion-item>

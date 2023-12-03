@@ -18,8 +18,11 @@ export class NotextracurricularPage implements OnInit {
 
   public grupoid: any;
 
-  baseUrl: string = "http://attendancedb.test/extra-group";
-  //baseUrl: string = "http://attendancedb.test/extra-group/extragroups?id="
+  //baseUrl: string = "http://attendancedb.test/extra-group";
+  baseUrl: string = "http://attendancedb.test/extra-group/extragroups?id="
+  eliminarUrl: string = "http://attendancedb.test/extra-group";
+
+  extras: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,85 +36,94 @@ export class NotextracurricularPage implements OnInit {
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
+    // Una función que utiliza el valor de 'groupid'
+    mostrar() {
+      console.log('Valor de grupoid en Eventos:', this.grupoid);
+    }
+
   busqueda:string = '';
   page:number = 1;
   totalEventos:number = 0;
 
-  extra: any = [];
-
   ngOnInit() {
-    this.loadExtra();
+    this.mostrar();
+    this.cargarExtras();
     this.contarEventos();
   }
 
-  async loadExtra(event?: InfiniteScrollCustomEvent) {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando',
-      spinner: 'bubbles',
-    });
-    await loading.present();
+    //CARGAR EXTRA-GROUPS
 
-    let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place&page=' + this.page;
-    } else {
-      urlApi = 'http://attendancedb.test/extra-group/buscar/'+this.busqueda + '?expand=extracurricular,group,date,time,code,place'+ this.page;
-    }
-
-    const response = await axios({
-      method: 'get',
-      //url : "http://attendancedb.test/extracurricular",
-      //url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
-      url : urlApi,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json',
+    async cargarExtras(event?: InfiniteScrollCustomEvent) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Cargando',
+        spinner: 'bubbles',
+      });
+      await loading.present();
+  
+      let urlApi:string = '';
+      if (this.busqueda === '') {
+      //urlApi = 'http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place&page=' + this.page;
+      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}_expand=extracurricular&page=${this.page}`;
+      } else {
+      //urlApi = 'http://attendancedb.test/extra-group/buscar/'+this.busqueda + '?expand=extracurricular,group,date,time,code,place'+ this.page;
+      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}&text=${this.busqueda}&_expand=extracurricular`;
       }
-    }).then((response) => {
-      this.extra = response.data;
-      console.log(this.extra)
-      event?.target.complete();
-    }).catch(function (error) {
-      console.log(error);
-    });
-    this.contarEventos();
-    loading.dismiss();
-  }
-
-
-
-  async contarEventos() {
-    let urlApi:string = '';
-    if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/extra-group/total';
-    } else {
-        urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
-    }
-    const response = await axios({
-        method: 'get',
-        url : urlApi,
+  
+      const response = await axios({
+        method: 'GET',
+        // Url
+        url: urlApi,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
         }
-    }).then( (response) => {
-        this.totalEventos = response.data;
-    }).catch(function (error) {
-        console.log(error);     
-    });
-  }
-  
+      }).then((response) => {
+        this.extras = response.data;
+        event?.target.complete();
+      }).catch(function (error) {
+        console.log(error);
+      });
+      loading.dismiss();
+      this.contarEventos();
+    }
+
+    async contarEventos() {
+      let urlApi:string = '';
+      if (this.busqueda === '') {
+        //urlApi = 'http://attendancedb.test/extra-group/total';
+        urlApi = `http://attendancedb.test/extra-group/total/?id=${this.grupoid}`;
+      } else {
+        //urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
+        urlApi = `http://attendancedb.test/extra-group/total?id=${this.grupoid}&text=${this.busqueda}`;
+      }
+      const response = await axios({
+          method: 'get',
+          url : urlApi,
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token'
+          }
+      }).then( (response) => {
+          console.log(response);  
+          this.totalEventos = response.data;
+      }).catch(function (error) {
+          console.log(error);     
+      });
+    }
+
   pagina(event:any) {
-  this.page = event.target.innerText;
-  this.loadExtra();
+    this.page = event.target.innerText;
+    this.cargarExtras();
   }
   
   handleInput(event:any) {
-  this.busqueda = event.target.value.toLowerCase();
-  this.loadExtra();
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarExtras();
   }
 
+  //CREAR NUEVA CALIFICACION
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
@@ -122,72 +134,59 @@ export class NotextracurricularPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
-  }
-
-  async alertEliminar(idextra: any, name: any, code: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Eliminar evento',
-      subHeader: name,
-      message: '¿Estás seguro de eliminar el evento ' + code + '?',
-      cssClass: 'alert-center',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: () => {
-            this.eliminar(idextra, code);
-          }
-        }
-      ]
-    });
-    await alert.present();
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarExtras();
+  });
   }
 
   async eliminar(idextra: any, code: any) {
-    const response = await axios({
-      method: 'delete',
-      url: this.baseUrl + '/' + idextra,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-      }
-    }).then((response) => {
+    try {
+      const response = await axios({
+        method: 'delete',
+        url: this.baseUrl + '/' + idextra,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+      });
+  
       if (response?.status == 204) {
         this.alertEliminado(code, 'El evento con ' + code + ' ha sido eliminado');
+      } else {
+        console.error('Error al eliminar:', response);
+        this.alertEliminado(code, 'Error al eliminar el evento');
       }
-    }).catch(function (error) {
-      console.log(error);
-    });
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación:', error);
+      this.alertEliminado(code, 'Error en la solicitud de eliminación');
+    }
   }
+  
 
-  async alertEliminado(idextra: any, msg = "") {
-    const alert = await this.alertCtrl.create({
-      header: 'Evento',
-      subHeader: 'Eliminado',
-      message: msg,
-      cssClass: 'alert-center',
-      buttons: [
-        {
-          text: 'Continuar',
-          role: 'cancel',
-        },
-        {
-          text: 'Salir',
-          role: 'confirm',
-          handler: () => {
-            this.regresar();
+    async alertEliminado(idextra: any, msg = "") {
+      const alert = await this.alertCtrl.create({
+        header: 'Evento',
+        subHeader: 'Eliminado',
+        message: msg,
+        cssClass: 'alert-center',
+        buttons: [
+          {
+            text: 'Continuar',
+            role: 'cancel',
           },
-        },
-      ],
-    });
-
-    await alert.present();
-  }
+          {
+            text: 'Salir',
+            role: 'confirm',
+            handler: () => {
+              this.regresar();
+            },
+          },
+        ],
+      });
+  
+      await alert.present();
+    }
 
   private regresar() {
     this.router.navigate(['/tabs/notextracurricular']).then(() => {
@@ -208,7 +207,7 @@ export class NotextracurricularPage implements OnInit {
     await paginaModal.present();
 
     paginaModal.onDidDismiss().then((data) => {
-        this.loadExtra();
+        this.cargarExtras();
     });
 }
 }

@@ -156,6 +156,9 @@ export class LibraryPage implements OnInit {
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarLibrarys();
+  });
   }
 
   //BORRAR ARCHIVO
