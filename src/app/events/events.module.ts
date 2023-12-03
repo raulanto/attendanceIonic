@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GradesPageRoutingModule } from './grades-routing.module';
+import { EventsPageRoutingModule } from './events-routing.module';
 
-import { GradesPage } from './grades.page';
+import { EventsPage } from './events.page';
 
 import { PaginacionModule } from '../components/paginacion/paginacion.module';
 
@@ -15,9 +15,9 @@ import { PaginacionModule } from '../components/paginacion/paginacion.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    GradesPageRoutingModule,
+    EventsPageRoutingModule,
     PaginacionModule
   ],
-  declarations: [GradesPage]
+  declarations: [EventsPage]
 })
-export class GradesPageModule {}
+export class EventsPageModule {}

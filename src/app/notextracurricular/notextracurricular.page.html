@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Mis eventos </ion-title>
+    <ion-title>Eventos Asignados</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
@@ -13,10 +13,14 @@
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
   <ion-grid>
-    <ion-row *ngFor="let extras of extra">
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
+    <ion-row *ngFor="let extras of extra; let i = index">
+      <!-- MODIFICACIONES----------------------------------------------------------- -->
       <ion-col size="6">
         <div class="rectangle-avatar">
-          <ion-img src="assets/img/extra.png" alt="Foto"></ion-img>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <ion-img [src]="'assets/img/extra-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
         </div>
       </ion-col>
 
@@ -24,11 +28,8 @@
         <ion-label class="ion-text-wrap">
           <h2 class="extracurricular-text">{{extras.extracurricular}}</h2>
           <h2 class="extracurricular-code">{{extras.code}}</h2>
-          <h2 class="extracurricular-info">
-            {{extras.date | date: 'dd/MM/y'}}
-          </h2>
-          <h2 class="extracurricular-info">{{extras.time}}</h2>
-          <h2 class="extracurricular-info">{{extras.place}}</h2>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
         </ion-label>
       </ion-col>
 
@@ -88,12 +89,15 @@
       <ion-fab-button (click)="new()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button>
-        <ion-icon name="trash"></ion-icon>
+      <!-- MODIFICACIONES----------------------------------------------------------- -->
+      <ion-fab-button [routerLink]="['events']">
+        <ion-icon name="school"></ion-icon>
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-
-  <app-paginacion [total]="totalEventos" (click)="pagina($event)"></app-paginacion>
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
+  <app-paginacion [total]="totalExtracurriculares" (click)="pagina($event)"></app-paginacion>
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
 
 </ion-content>

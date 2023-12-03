@@ -11,8 +11,10 @@
       <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
       <ion-item>
           <ion-label position="floating" color="primary">Calificación</ion-label>
-          <ion-input type="number" formControlName="gra_score"
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <ion-input type="number" formControlName="graper_score"
           class="form-control"></ion-input>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-item>
       <div id="note" *ngFor="let validation of mensajes_validacion.gra_score">
           <ion-note color="danger"
@@ -23,9 +25,11 @@
       </ion-col>
       <ion-col size="12">
       <ion-item>
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
           <ion-label position="floating" color="primary">Comentario</ion-label>
-          <ion-input type="text" formControlName="gra_commit"
+          <ion-input type="text" formControlName="graper_commit"
           class="form-control"></ion-input>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-item>
       <div id="note" *ngFor="let validation of
           mensajes_validacion.gra_commit">

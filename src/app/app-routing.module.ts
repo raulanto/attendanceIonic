@@ -29,7 +29,8 @@ const routes: Routes = [
   {
     path: 'notextracurricular',
     loadChildren: () => import('./notextracurricular/notextracurricular.module').then( m => m.NotextracurricularPageModule)
-  },  {
+  },
+  {
     path: 'newextracurricular',
     loadChildren: () => import('./newextracurricular/newextracurricular.module').then( m => m.NewextracurricularPageModule)
   },
@@ -44,6 +45,18 @@ const routes: Routes = [
   {
     path: 'modgrade',
     loadChildren: () => import('./modgrade/modgrade.module').then( m => m.ModgradePageModule)
+  },
+  {
+    path: 'events',
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
+  },
+  {
+    path: 'newevents',
+    loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
+  },
+  {
+    path: 'updategrade/:gradecode',
+    loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
   }
 
 ];

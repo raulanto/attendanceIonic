@@ -1,0 +1,29 @@
+ion-content {
+    .second-grid {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        // border: 1px solid #ddd;
+        th,
+        td {
+        //   border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2; /* Color de fondo del encabezado */
+          font-weight: bold;
+        }
+        tr:nth-child(even) {
+          background-color: #f9f9f9; /* Color de fondo de filas pares */
+        }
+        tr:hover {
+          background-color: #f1f1f1; /* Color de fondo al pasar el cursor */
+        }
+        ion-button {
+          padding: 0; /* Ajuste de padding para botones */
+          margin: 0; /* Ajuste de margen para botones */
+        }
+      }
+    }
+  }

@@ -3,18 +3,18 @@ import axios from 'axios';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { LoadingController, Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { NewextracurricularPage } from '../newextracurricular/newextracurricular.page';
+import { NeweventsPage } from '../newevents/newevents.page';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-notextracurricular',
-  templateUrl: './notextracurricular.page.html',
-  styleUrls: ['./notextracurricular.page.scss'],
+  selector: 'app-events',
+  templateUrl: './events.page.html',
+  styleUrls: ['./events.page.scss'],
 })
-export class NotextracurricularPage implements OnInit {
+export class EventsPage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/extra-group";
+  baseUrl: string = "http://attendancedb.test/extracurricular";
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -26,9 +26,7 @@ export class NotextracurricularPage implements OnInit {
 
   busqueda:string = '';
   page:number = 1;
-  // MODIFICACIONES-----------------------------------------------------------
-  totalExtracurriculares:number = 0;
-  // MODIFICACIONES-----------------------------------------------------------
+  totalEventos:number = 0;
 
   extra: any = [];
 
@@ -46,9 +44,9 @@ export class NotextracurricularPage implements OnInit {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place&page=' + this.page;
+      urlApi = 'http://attendancedb.test/extracurricular?page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb.test/extra-group/buscar/'+this.busqueda + '?expand=extracurricular,group,date,time,code,place'+ this.page;
+      urlApi = 'http://attendancedb.test/extracurricular/buscar/'+this.busqueda;
     }
 
     const response = await axios({
@@ -58,7 +56,8 @@ export class NotextracurricularPage implements OnInit {
       url : urlApi,
       withCredentials: true,
       headers: {
-        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.extra = response.data;
@@ -76,9 +75,9 @@ export class NotextracurricularPage implements OnInit {
   async contarEventos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/extra-group/total';
+        urlApi = 'http://attendancedb.test/extracurricular/total';
     } else {
-        urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
+        urlApi = 'http://attendancedb.test/extracurricular/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',
@@ -89,9 +88,7 @@ export class NotextracurricularPage implements OnInit {
           'Authorization': 'Bearer 100-token'
         }
     }).then( (response) => {
-      // MODIFICACIONES-----------------------------------------------------------
-        this.totalExtracurriculares = response.data;
-        // MODIFICACIONES-----------------------------------------------------------
+        this.totalEventos = response.data;
     }).catch(function (error) {
         console.log(error);     
     });
@@ -111,12 +108,10 @@ export class NotextracurricularPage implements OnInit {
   async new() {
     // Crear una página modal utilizando el controlador de modales 
     const paginaModal = await this.modalCtrl.create({
-      component: NewextracurricularPage, // El componente que se mostrará en el modal
-      // MODIFICACIONES-----------------------------------------------------------
+      component: NeweventsPage, // El componente que se mostrará en el modal
       componentProps: {
-        'title': 'Crear Invitación' //Agregar titulo como parametro
+        'title': 'Crear Evento' //Agregar titulo como parametro
       },
-      // MODIFICACIONES-----------------------------------------------------------
       breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
       initialBreakpoint: 1.1, // Ubicacion inicial del punto de quiebre
     });
@@ -190,7 +185,7 @@ export class NotextracurricularPage implements OnInit {
   }
 
   private regresar() {
-    this.router.navigate(['/tabs/notextracurricular']).then(() => {
+    this.router.navigate(['/tabs/events']).then(() => {
       window.location.reload();
     });
   }
@@ -198,12 +193,10 @@ export class NotextracurricularPage implements OnInit {
   async editar(idextra: any) {
 
     const paginaModal = await this.modalCtrl.create({
-    component: NewextracurricularPage,
+    component: NeweventsPage,
     componentProps: {
-      // MODIFICACIONES-----------------------------------------------------------
         'idextra': idextra,
-        'title': 'Modificar Invitación'
-        // MODIFICACIONES-----------------------------------------------------------
+        'title': 'Modificar Evento'
     },
     breakpoints: [0, 0.3, 0.5, 0.95],
     initialBreakpoint: 0.95
@@ -214,4 +207,5 @@ export class NotextracurricularPage implements OnInit {
         this.loadExtra();
     });
 }
+
 }
