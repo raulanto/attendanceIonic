@@ -72,22 +72,7 @@ export class LoginPage implements OnInit {
             await localStorage.setItem('token', response?.data);
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', loginData.username);
-            this.router.navigate(['/tabs']);
-          } else if( response?.data === '') {
-            this.alertError();
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-      await this.loginPersonService.login(loginData).subscribe(
-        async response => {
-          if (response?.status == 200 && response?.data !== '') {
-            await localStorage.setItem('token', response?.data);
-            localStorage.setItem('sesion', 'login');
-            localStorage.setItem('username', loginData.username);
-            this.router.navigate(['/tabs']);
+            this.router.navigate(['grupo-opc']);
           } else if( response?.data === '') {
             this.alertError();
           }

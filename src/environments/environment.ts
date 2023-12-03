@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://attendancedb.test/'
+  apiUrl:'http://basic.test/'
 };
 
 /*

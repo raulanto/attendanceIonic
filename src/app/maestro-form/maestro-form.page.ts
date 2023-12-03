@@ -78,7 +78,7 @@ export class MaestroFormPage implements OnInit {
   //Cargar tipo de estudio
   degrees: any = [];
   //base de degree
-  baseDegre: string = 'http://attendancedb.test/degree';
+  baseDegre: string = 'http://basic.test/degree';
   ngOnInit() {
     this.cargarDegree();
     this.buildForm();
