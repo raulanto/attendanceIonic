@@ -86,11 +86,7 @@ const routes: Routes = [
   {
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
-  },
-
-
-
-  
+  },  
 
 
 ];

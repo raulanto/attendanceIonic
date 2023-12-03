@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { InfiniteScrollCustomEvent,
+        LoadingController, 
+        ModalController, 
+        AlertController,
+        Platform } from '@ionic/angular';
+import { ActivatedRoute, 
+          Router } from '@angular/router';        
 import axios from 'axios';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
-import { LoadingController, Platform } from '@ionic/angular';
-import { ModalController } from '@ionic/angular';
 import { ModgradePage } from '../modgrade/modgrade.page';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grade',
@@ -14,46 +16,85 @@ import { Router } from '@angular/router';
 })
 export class GradePage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/grade";
-  //baseUrl: string = "http://attendancedb.test/grade/grades?id="
+  public grupoid: any;
+
+  //baseUrl: string = "http://attendancedb.test/grade";
+  baseUrl: string = "http://attendancedb.test/grade/grades?id="
+  eliminarUrl: string = "http://attendancedb.test/grade";
+
+  grades: any = [];
 
   constructor(
+    private route: ActivatedRoute,
     private loadingCtrl : LoadingController,
-    private platform: Platform,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
+    private platform: Platform,
     private router: Router,
-  ) { }
-
-  busqueda:string = '';
-  page:number = 1;
-  totalCalificaciones:number = 0;
-
-  grade:any = [];
-
-  ngOnInit() {
-    this.loadGrade();
-    this.contarCalificaciones();
+  ) { 
+    //mandamos a pedir el id del grupo desde route paramMap
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
-  async loadGrade(event?: InfiniteScrollCustomEvent) {
+  // Una función que utiliza el valor de 'groupid'
+  mostrar() {
+    console.log('Valor de grupoid en grade:', this.grupoid);
+  }
+  
+  busqueda:string = '';
+  page:number = 1;
+  totalGrades:number = 0;
+
+  ngOnInit() {
+    this.mostrar();
+    this.cargarGrades();
+    this.contarGrades();
+  }
+
+  //CARGAR GRADES
+
+  async cargarGrades(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
-        message : 'Cargando',
-        spinner : 'bubbles',
+      message: 'Cargando',
+      spinner: 'bubbles',
     });
     await loading.present();
 
     let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/grade?page=' + this.page;
-    } else {
-      urlApi = 'http://attendancedb.test/grade/buscar/'+this.busqueda;
-    }
+		if (this.busqueda === '') {
+			urlApi = `http://attendancedb.test/grade/grades?id=${this.grupoid}&page=${this.page}`;
+		} else {
+			urlApi = `http://attendancedb.test/grade/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
+		}
 
     const response = await axios({
+      method: 'GET',
+      // Url
+      url: urlApi,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 100-token'
+      }
+    }).then((response) => {
+      this.grades = response.data;
+      event?.target.complete();
+    }).catch(function (error) {
+      console.log(error);
+    });
+    loading.dismiss();
+    this.contarGrades();
+  }
+
+  async contarGrades() {
+    let urlApi:string = '';
+		if (this.busqueda === '') {
+			urlApi = `http://attendancedb.test/grade/total/?id=${this.grupoid}`;
+		} else {
+			urlApi = `http://attendancedb.test/grade/total/?text=${this.busqueda}&id=${this.grupoid}`;
+		}
+    const response = await axios({
         method: 'get',
-        //url : "http://attendancedb.test/extracurricular",
-        //url : "http://attendancedb.test/grade",
         url : urlApi,
         withCredentials: true,
         headers: {
@@ -61,127 +102,88 @@ export class GradePage implements OnInit {
           'Authorization': 'Bearer 100-token'
         }
     }).then( (response) => {
-        this.grade = response.data;
-        event?.target.complete();
+        console.log(response);  
+        this.totalGrades = response.data;
     }).catch(function (error) {
         console.log(error);     
     });
-    this.contarCalificaciones();
-    loading.dismiss();
-}
-
-
-
-
-async contarCalificaciones() {
-  let urlApi:string = '';
-  if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/grade/total';
-  } else {
-      urlApi = 'http://attendancedb.test/grade/total/'+ this.busqueda;
   }
-  const response = await axios({
-      method: 'get',
-      url : urlApi,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-      }
-  }).then( (response) => {
-      this.totalCalificaciones = response.data;
-  }).catch(function (error) {
-      console.log(error);     
+
+  pagina(event:any) {
+    this.page = event.target.innerText;
+    this.cargarGrades();
+  }
+  
+  handleInput(event:any) {
+    this.busqueda = event.target.value.toLowerCase();
+    this.cargarGrades();
+  }
+
+  //CREAR NUEVA CALIFICACION
+
+  async new(idgrade: any) {
+    const paginaModal = await this.modalCtrl.create({
+      component: ModgradePage, // El componente que se mostrará en el modal
+      componentProps: { 'idgrade': idgrade }, // Pasar el ID de la calificacion como un parámetro
+      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+    });
+    // Presentar la página modal en la interfaz de usuario
+    await paginaModal.present();
+
+    paginaModal.onDidDismiss().then((data) => {
+      this.cargarGrades();
   });
-}
-
-pagina(event:any) {
-this.page = event.target.innerText;
-this.loadGrade();
-}
-
-handleInput(event:any) {
-this.busqueda = event.target.value.toLowerCase();
-this.loadGrade();
-}
-
-
-
-
-
-
-  async alertEliminar(idgrade: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Eliminar Calificación',
-      message: '¿Estás seguro de eliminar esta calificación?',
-      cssClass: 'alert-center',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: () => {
-            this.eliminar(idgrade);
-          }
-        }
-      ]
-    });
-    await alert.present();
   }
 
-  async eliminar(idgrade: any) {
+  async eliminar(idgrade:any) {
     const response = await axios({
-      method: 'delete',
-      url: this.baseUrl + '/' + idgrade,
-      withCredentials: true,
-      headers: {
+    method: 'delete',
+    url: this.eliminarUrl + '/' + idgrade,
+    withCredentials: true,
+    headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 100-token'
-      }
+    }
     }).then((response) => {
-      if (response?.status == 204) {
-        this.alertEliminado(idgrade, 'La calificación ha sido eliminada');
-      }
-    }).catch(function (error) {
-      console.log(error);
+    if (response?.status == 204) {
+        this.alertEliminado(idgrade, ' El archivo ' + idgrade + ' ha sido eliminado');
+    }
+    }).catch((error) => {
+    if (error?.response?.status == 500) {
+        this.alertEliminado(idgrade, "No puedes eliminar porque existe informacion relacionada ");
+    }
     });
   }
 
-  async alertEliminado(idgrade: any, msg = "") {
+
+  async alertEliminado(archivoid: any, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Califiación',
-      subHeader: 'Eliminada',
-      message: msg,
-      cssClass: 'alert-center',
-      buttons: [
+    header: 'Calificacion',
+    subHeader: 'Eliminar',
+    message: msg,
+    cssClass: 'alert-center',
+    buttons: [
         {
-          text: 'Continuar',
-          role: 'cancel',
+        text: 'Continuar',
+        role: 'cancel',
+        handler: () => {
+          this.regresar();
+      },
         },
         {
-          text: 'Salir',
-          role: 'confirm',
-          handler: () => {
+        text: 'Salir',
+        role: 'confirm',
+        handler: () => {
             this.regresar();
-          },
         },
-      ],
+        },
+    ],
     });
-
     await alert.present();
-  }
-
-  private regresar() {
-    this.router.navigate(['/tabs/grade']).then(() => {
-      window.location.reload();
-    });
   }
 
   async editar(idgrade: any) {
-
     const paginaModal = await this.modalCtrl.create({
     component: ModgradePage,
     componentProps: {
@@ -191,9 +193,19 @@ this.loadGrade();
     initialBreakpoint: 0.95
     });
     await paginaModal.present();
-
     paginaModal.onDidDismiss().then((data) => {
-        this.loadGrade();
+        this.cargarGrades();
     });
-}
+  }
+
+
+  //VOLVER A CARGAR
+  private regresar() {
+    this.router.navigate(['grade', this.grupoid]).then(() => {
+      window.location.reload();
+    });
+  }
+
+
+
 }

@@ -1,11 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Mis calificaciones
-    </ion-title>
+<!-- Boton para regresar -->    
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-title>Mis calificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,32 +13,32 @@
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
   <ion-accordion-group [multiple]="true" expand="inset">
-    <ion-accordion *ngFor="let grades of grade">
+    <ion-accordion *ngFor="let grade of grades">
       
       <ion-item slot="header">
         <ion-icon name="clipboard" slot="start"></ion-icon>
         <ion-label>
-          {{grades.gra_type}}
+          {{grade.gra_type}}
         </ion-label>
       </ion-item>
 
       <div class="ion-padding" slot="content">
-        {{grades.gra_score}} / 100
+        {{grade.gra_score}} / 100
         <ion-icon name="star" slot="start"></ion-icon>
       </div>
 
       <div class="ion-padding" slot="content">
-        {{grades.gra_commit}}
+        {{grade.gra_commit}}
       </div>
 
       <div class="ion-padding" slot="content">
-        <ion-button id="click-trigger-{{grades.gra_id}}">
+        <ion-button id="click-trigger-{{grade.gra_id}}">
           <ion-icon name="ellipsis-horizontal"></ion-icon>
         </ion-button>
       </div>
 
       <ion-popover
-      trigger="click-trigger-{{grades.gra_id}}"
+      trigger="click-trigger-{{grade.gra_id}}"
       [dismissOnSelect]="true"
       [keepContentsMounted]="true"
       side="end">
@@ -49,14 +48,14 @@
             <ion-item 
             [button]="true" 
             [detail]="false"
-            (click)="alertEliminar(grades.gra_id)"> 
+            (click)="alertEliminado(grade.gra_id)"> 
             <ion-icon name="trash"></ion-icon>
             Eliminar
             </ion-item>
             <ion-item
               [button]="true"
               [detail]="false"
-              (click)="editar(grades.gra_id)"> 
+              (click)="editar(grade.gra_id)"> 
               <ion-icon name="create"></ion-icon>
               Modificar 
             </ion-item>
@@ -82,6 +81,6 @@
     </ion-fab-list>
   </ion-fab>
 
-  <app-paginacion [total]="totalCalificaciones" (click)="pagina($event)"></app-paginacion>
+  <app-paginacion [total]="totalGrades" (click)="pagina($event)"></app-paginacion>
 
 </ion-content>

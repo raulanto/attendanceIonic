@@ -36,7 +36,7 @@ export class LibraryPage implements OnInit {
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
-  // Una función que utiliza el valor de 'idperson'
+  // Una función que utiliza el valor de 'groupid'
   mostrar() {
     console.log('Valor grupoid en library:', this.grupoid);
   }

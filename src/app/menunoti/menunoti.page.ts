@@ -11,8 +11,8 @@ export class MenunotiPage implements OnInit {
 
   constructor(private route: ActivatedRoute) {
     // Acceder al valor de 'grupoid' y asignarlo a la propiedad de clase 'grupoid'
-    this.grupoid = this.route.snapshot.paramMap.get('gro_id');
-   }
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+  }  
 
   ngOnInit() {
     this.mostrar();
@@ -20,7 +20,7 @@ export class MenunotiPage implements OnInit {
 
   // Una función que utiliza el valor de 'grupoid'
   mostrar() {
-    console.log('Valor de grupoid en asistencia:', this.grupoid);
+    console.log('Valor de grupoid en mi menunoti:', this.grupoid);
   }
 
 }
