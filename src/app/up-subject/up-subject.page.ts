@@ -25,7 +25,7 @@ export class UpSubjectPage  {
     public formBuilder: FormBuilder,
     private alert : AlertController,) { }
 
-  subjectUrl: string = "http://attendancedb.test/subject"
+  baseUrl: string = 'http://attendancedb.test/subject';
   subjects: any = [];
   private editarDatos = [];
   public editMateria!: FormGroup;
@@ -56,7 +56,7 @@ export class UpSubjectPage  {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/subject",
+      url: this.baseUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -89,7 +89,7 @@ export class UpSubjectPage  {
          // Crea un objeto con la carrera a editar
         const response = await axios({
           method: 'post',
-          url: this.subjectUrl + "/" + this.selectedSubject,
+          url: this.baseUrl + "/" + this.selectedSubject,
           withCredentials: true,
           data: editar,
           headers: {
@@ -114,7 +114,7 @@ export class UpSubjectPage  {
       } else {
         const response = await axios({
           method: 'put',
-          url: this.subjectUrl + '/' + this.selectedSubject,
+          url: this.baseUrl + '/' + this.selectedSubject,
           data: editar,
           headers: {
               'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export class UpSubjectPage  {
   async getDetalles() {
     const response = await axios({
     method: 'get',
-    url: this.subjectUrl + "/" + this.selectedSubject,
+    url: this.baseUrl + "/" + this.selectedSubject,
     withCredentials: true,
     headers: {
         'Accept': 'application/json'

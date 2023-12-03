@@ -29,7 +29,7 @@ export class UpMajorPage {
     private alert : AlertController,
   ) { }
 
-  majorUrl: string = "http://attendancedb.test/major"
+  baseUrl: string = 'http://attendancedb.test/major';
   majors: any = [];
   private editarDatos = [];
   public editCarrera!: FormGroup;
@@ -62,7 +62,7 @@ export class UpMajorPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/major",
+      url: this.baseUrl,
       withCredentials: true,
       headers: {
         'Accept': 'application/json'
@@ -96,7 +96,7 @@ export class UpMajorPage {
          // Crea un objeto con la carrera a editar
         const response = await axios({
           method: 'post',
-          url: this.majorUrl + "/" + this.selectedMajor,
+          url: this.baseUrl + "/" + this.selectedMajor,
           withCredentials: true,
           data: editar,
           headers: {
@@ -121,7 +121,7 @@ export class UpMajorPage {
       } else {
         const response = await axios({
           method: 'put',
-          url: this.majorUrl + '/' + this.selectedMajor,
+          url: this.baseUrl + '/' + this.selectedMajor,
           data: editar,
           headers: {
               'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export class UpMajorPage {
   async getDetalles() {
     const response = await axios({
     method: 'get',
-    url: this.majorUrl + "/" + this.selectedMajor,
+    url: this.baseUrl + "/" + this.selectedMajor,
     withCredentials: true,
     headers: {
         'Accept': 'application/json'

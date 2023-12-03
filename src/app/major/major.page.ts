@@ -32,7 +32,7 @@ export class MajorPage {
   
   majors: any = [];
   majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
-  baseUrl: string = "http://attendancedb.test/major"
+  baseUrl: string = 'http://attendancedb.test/major'
 
   public alertButtons = ['Crear'];
   public alertInputs = [
@@ -84,9 +84,9 @@ export class MajorPage {
     await loading.present();
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/major?page=' + this.page;
+      urlApi = this.baseUrl +'?page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb.test/major/buscar/'+this.busqueda + '?page=' + this.page ;
+      urlApi = this.baseUrl +'/buscar/'+this.busqueda + '?page=' + this.page ;
     }
     const response = await axios({
       
@@ -110,9 +110,9 @@ export class MajorPage {
   async contarMajors() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/major/total';
+        urlApi = this.baseUrl +'/total';
     } else {
-        urlApi = 'http://attendancedb.test/major/total/'+ this.busqueda;
+        urlApi = this.baseUrl +'/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',
@@ -198,7 +198,7 @@ handleInput(event:any) {
       const eliminar = selectedMajor;
       const response = await axios({
         method: 'delete',
-        url: "http://attendancedb.test/major" + "/" + selectedMajor,
+        url: this.baseUrl + "/" + selectedMajor,
         data: eliminar,
         headers: {
           'Content-Type': 'application/json',

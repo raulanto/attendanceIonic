@@ -28,7 +28,7 @@ export class SubjectPage {
   ) { }
 
   subjects: any = [];
-  subjectUrl: string = "http://attendanceproyect.atwebpages.com/subject"
+  baseUrl: string = 'http://attendancedb.test/subject';
 
 
   public alertButtons = ['Crear'];
@@ -86,9 +86,9 @@ export class SubjectPage {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/subject?page=' + this.page;
+      urlApi = this.baseUrl +'?page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb.test/subject/buscar/'+this.busqueda + '?page=' + this.page ;
+      urlApi = this.baseUrl + '/buscar/'+this.busqueda + '?page=' + this.page ;
     }
     const response = await axios({
       method: 'get',
@@ -111,9 +111,9 @@ export class SubjectPage {
   async contarSubjects() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/subject/total';
+        urlApi = this.baseUrl + '/total';
     } else {
-        urlApi = 'http://attendancedb.test/subject/total/'+ this.busqueda;
+        urlApi = this.baseUrl + '/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',
@@ -204,7 +204,7 @@ handleInput(event:any) {
         // La condición verifica si selectedMajor tiene un valor.
         const response = await axios({
           method: 'delete',
-          url: 'http://attendancedb.test/subject' + "/" + selectedSubject,
+          url: this.baseUrl + "/" + selectedSubject,
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',

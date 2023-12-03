@@ -16,8 +16,7 @@ import axios from 'axios';
 export class NewmajorPage {
 
   majors: any = [];
-  majorUrl:string = "http://attendancedb.test/major"
-  baseUrl:string = "http://attendancedb.test/major"
+  baseUrl:string = 'http://attendancedb.test/major'
 
 
   public CarreraForm!: FormGroup;
@@ -72,7 +71,7 @@ export class NewmajorPage {
       const agregar = this.CarreraForm?.value;
       const response = await axios({
         method: 'post',
-        url: this.majorUrl,
+        url: this.baseUrl,
         data: agregar,
         headers: {
           'Content-Type': 'application/json',
