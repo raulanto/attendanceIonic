@@ -86,7 +86,32 @@ const routes: Routes = [
   {
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
-  },  
+  },   
+  {
+    path: 'major',
+    loadChildren: () => import('./major/major.module').then( m => m.MajorPageModule)
+  },
+  {
+    path: 'newmajor',
+    loadChildren: () => import('./newmajor/newmajor.module').then( m => m.NewmajorPageModule)
+  },
+  {
+    path: 'modmajor',
+    loadChildren: () => import('./modmajor/modmajor.module').then( m => m.ModmajorPageModule)
+  },  {
+    path: 'subject',
+    loadChildren: () => import('./subject/subject.module').then( m => m.SubjectPageModule)
+  },
+  {
+    path: 'newsubject',
+    loadChildren: () => import('./newsubject/newsubject.module').then( m => m.NewsubjectPageModule)
+  },
+  {
+    path: 'modsubject',
+    loadChildren: () => import('./modsubject/modsubject.module').then( m => m.ModsubjectPageModule)
+  },
+
+ 
 
 
 ];
