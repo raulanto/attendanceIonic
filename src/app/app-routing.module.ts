@@ -11,37 +11,13 @@ const routes: Routes = [
     loadChildren: () => import('./menu1/menu1.module').then( m => m.Menu1PageModule)
   },
   {
-    path: 'library',
-    loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
-  },
-  {
-    path: 'classroom',
-    loadChildren: () => import('./classroom/classroom.module').then( m => m.ClassroomPageModule)
-  },
-  {
     path: 'question',
     loadChildren: () => import('./question/question.module').then(m => m.QuestionPageModule)
+  },  {
+    path: 'new-question',
+    loadChildren: () => import('./new-question/new-question.module').then( m => m.NewQuestionPageModule)
   },
-  {
-    path: 'subject',
-    loadChildren: () => import('./subject/subject.module').then( m => m.SubjectPageModule)
-  },
-  {
-    path: 'major',
-    loadChildren: () => import('./major/major.module').then( m => m.MajorPageModule)
-  },
-  {
-    path: 'elim-major',
-    loadChildren: () => import('./elim-major/elim-major.module').then( m => m.ElimMajorPageModule)
-  },
-  {
-    path: 'elim-subject',
-    loadChildren: () => import('./elim-subject/elim-subject.module').then( m => m.ElimSubjectPageModule)
-  },  
-  {
-    path: 'group',
-    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
-  },
+
   
 ];
 @NgModule({

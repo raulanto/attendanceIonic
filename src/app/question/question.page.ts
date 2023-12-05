@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent, LoadingController, ModalController, AlertController } from '@ionic/angular';
 import axios from 'axios';
 import { NewQuestionPage } from '../new-question/new-question.page';
@@ -8,12 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-question',
   templateUrl: './question.page.html',
   styleUrls: ['./question.page.scss'],
-  
 })
 export class QuestionPage implements OnInit {
-  items: any = [];
+
   imagenPath: string = 'assets/icon/image.png';
   public baseUrl: string = 'http://attendancedb1.test/question';
+  busqueda: string = '';
+  page: number = 1;
+  totalQuestions: number = 0;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
@@ -71,18 +76,20 @@ export class QuestionPage implements OnInit {
       spinner: 'bubbles',
     });
     await loading.present();
+    let urlApi: string = '';
+    if (this.busqueda === '') {
+      urlApi = 'http://attendancedb1.test/question?expand=tag,teacher,person&page=' + this.page;
+    } else {
+      urlApi = 'http://attendancedb1.test/question/buscar/' + this.busqueda + '?expand=tag,teacher,person&page=' + this.page;
+    }
+
     const response = await axios({
       method: 'GET',
-      // Url de Monica
-      url: "http://attendancedb1.test/question?expand=tag,teacher,person",
-      // Url de Zarate
-      //url: "http://attendancebd.test/question?expand=tag,teacher,person",      
-      // Url de Raul
-      //url: "http://attendancedb1.test/question?expand=tag,teacher,person",
+      url: urlApi,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
-        //'Authorization': 'Bearer 100-token'
+        'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
       this.questions = response.data;
@@ -91,6 +98,7 @@ export class QuestionPage implements OnInit {
       console.log(error);
     });
     loading.dismiss();
+    this.contarQuestions();
   }
 
   async alertEliminar(person: any) {
@@ -154,15 +162,11 @@ export class QuestionPage implements OnInit {
     alert.onDidDismiss().then((data) => {
       this.cargarQuestions();
     });
-    
   }
   private regresar() {
     this.router.navigate(['/tabs/question']).then(() => {
       window.location.reload();
     });
   }
-
-
-
 
 }
