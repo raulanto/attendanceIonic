@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Calificaciones </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  
+    <ion-grid class="second-grid"> <!-- Cuadrícula de diseño -->
+      <ion-row> <!-- Fila de la cuadrícula -->
+        <ion-col size="12">
+
+          <table class="table">
+
+            <tr>
+              <th>Calificacion</th>
+              <th>Comentario</th>
+              <th>Alumno</th>
+              <th>Grade</th>
+            </tr>
+
+            <ng-container *ngFor="let grade of grades">
+
+            <tr>
+
+              <td>
+                <ion-label color="primary">{{grade.graper_score}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.graper_commit}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.person}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.grade}}</ion-label>
+              </td>
+
+              <td>
+                <ion-button fill="clear" (click)="editar(grade.graper_id)">MODIFICAR</ion-button>
+              </td>
+
+            </tr>
+
+          </ng-container>
+
+          </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+</ion-content>

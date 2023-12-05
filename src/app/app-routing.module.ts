@@ -86,7 +86,19 @@ const routes: Routes = [
   {
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
-  },  
+  },   {
+    path: 'events',
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
+  },
+  {
+    path: 'newevents',
+    loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
+  },
+  {
+    path: 'updategrade',
+    loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
+  },
+ 
 
 
 ];

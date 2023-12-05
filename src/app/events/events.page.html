@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Eventos Disponibles </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
+  <ion-grid>
+    <ion-row *ngFor="let extras of extra; let i = index">
+      <ion-col size="6">
+        <div class="rectangle-avatar">
+        </div>
+      </ion-col>
+
+      <ion-col size="8">
+        <ion-label class="ion-text-wrap">
+          <h2 class="extracurricular-text">{{extras.ext_name}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_code}}</h2>
+          <h2 class="extracurricular-info">
+            {{extras.ext_date | date: 'dd/MM/y'}}
+          </h2>
+          <h2 class="extracurricular-info">{{extras.ext_opening}} - {{extras.ext_closing}}</h2>
+          <h2 class="extracurricular-info">{{extras.ext_place}}</h2>
+          <h2 class="extracurricular-info">{{extras.ext_description}}</h2>
+        </ion-label>
+      </ion-col>
+
+      <ion-col>
+        <ion-button id="click-trigger-{{extras.ext_id}}-{{i}}">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+        <ion-popover
+          trigger="click-trigger-{{extras.ext_id}}-{{i}}"
+          [dismissOnSelect]="true"
+          [keepContentsMounted]="true"
+          side="end">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <ion-item 
+                [button]="true" 
+                [detail]="false"
+                (click)="alertEliminar(extras.ext_id, extras.ext_name, extras.ext_code)"> 
+                <ion-icon name="trash"></ion-icon>
+                Eliminar
+                </ion-item>
+                <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  (click)="editar(extras.ext_id)"> 
+                  <ion-icon name="create"></ion-icon>
+                  Modificar 
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="new()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <app-paginacion [total]="totalEventos" (click)="pagina($event)"></app-paginacion>
+
+</ion-content>
