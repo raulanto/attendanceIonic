@@ -25,7 +25,7 @@ export class Tab1Page {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/group",
+      url: "http://attendance.test/group",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

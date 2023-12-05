@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border  ">
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button default-href="#" routerLink="/"></ion-back-button>
@@ -8,22 +8,16 @@
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center flex-container">
   <main class="blur-white">
-
     <section size="12" class="">
-
       <b>Que tipo de Usuario eres?</b>
-
       <ion-button class="ion-activatable ripple-parent custom-parent" [routerLink]="['/maestro-form']">
         Maestro
         <ion-ripple-effect></ion-ripple-effect>
       </ion-button>
-
       <ion-button class="ion-activatable ripple-parent custom-parent2" [routerLink]="['/alumno-form']">
         Alumno
         <ion-ripple-effect class="custom-ripple"></ion-ripple-effect>
       </ion-button>
-
     </section>
-
   </main>
 </ion-content>

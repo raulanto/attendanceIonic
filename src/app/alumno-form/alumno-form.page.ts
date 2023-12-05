@@ -23,7 +23,7 @@ export class AlumnoFormPage implements OnInit {
       { type: 'required', message: "Nombre de usuario requerido." },
       { type: 'minLength', message: "El nombre de usuario debe contener al menos 8 caracteres." },
       { type: 'maxlength', message: "El usario no puede contener mas de 10 caracteres" },
-      { type: 'pattern', message: "Digita una matricula valida" },
+      { type: 'pattern', message: "Digita un usuario valida" },
     ],
     'password': [
       { type: 'required', message: 'Contraseña requerida.' },
@@ -47,7 +47,7 @@ export class AlumnoFormPage implements OnInit {
     'per_maternal': [
       { type: 'required', message: "Apellido requerido" },
     ],
-    'per_mail': [
+    'per_email': [
       { type: 'required', message: "Correo requerido" },
       { type: 'pattern', message: 'Tiene que llevar @gamil.com' },
     ],
@@ -64,7 +64,7 @@ export class AlumnoFormPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginService: LoginPersonService,
+    private loginPersonService: LoginPersonService,
     private alertCtrl: AlertController,
     private router: Router,
   ) {
@@ -73,7 +73,7 @@ export class AlumnoFormPage implements OnInit {
   //Cargar tipo de estudio
   degrees: any = [];
   //base de degree
-  baseDegre: string = 'http://attendancedb.test/degree';
+  baseDegre: string = 'http://attendance.test/degree';
   ngOnInit() {
 
     this.buildForm();
@@ -83,7 +83,7 @@ export class AlumnoFormPage implements OnInit {
       username: ['', Validators.compose([
         Validators.maxLength(10),
         Validators.minLength(8),
-        Validators.pattern("^[0|1|2][0-9]{7,9}$"),
+        Validators.pattern("^(?=.*[0-9]).{8,15}$"),
         Validators.required
       ])],
       password: ['', Validators.compose([
@@ -115,7 +115,7 @@ export class AlumnoFormPage implements OnInit {
 
     }, { validator: this.checkIfMatchingPasswords('password', 'password_confirm') });
   }
-
+  //mostrar contrase;a
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[passwordKey],
@@ -128,23 +128,27 @@ export class AlumnoFormPage implements OnInit {
       }
     }
   }
+
   async submitRegistrar() {
     localStorage.clear();
     const registrarData = this.registro?.value;
     try {
-      await this.loginService.registrar(registrarData).subscribe(
+      await this.loginPersonService.registrar(registrarData).subscribe(
         async response => {
-          if (response?.status == 200 && response?.data !== '') {
+          if (response?.status == 200 ) {
             await localStorage.setItem('token', response?.data);
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', registrarData.username);
-            this.router.navigate(['/tabs/tab1']);
+            this.alterCreado(registrarData.username);
+            this.router.navigate(['tab1']);
           } else if (response?.data === '') {
             this.alertError();
           }
         },
         error => {
           if (error.status == 422) {
+            this.alertDuplicado();
+          }else if (error.status == 400) {
             this.alertDuplicado();
           }
         }
@@ -153,6 +157,8 @@ export class AlumnoFormPage implements OnInit {
       console.log(error);
     }
   }
+
+  
   async alertError() {
     const alert = await this.alertCtrl.create({
       header: 'Importante',
@@ -169,6 +175,17 @@ export class AlumnoFormPage implements OnInit {
       header: 'Importante',
       subHeader: 'Duplicado',
       message: 'La matricula ya se encuentra registrada',
+      cssClass: 'alert-center',
+      buttons: ['Corregir'],
+    });
+
+    await alert.present();
+  }
+  async alterCreado(nombre:any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Importante',
+      subHeader: 'Creado',
+      message: 'Creado el usuario'+nombre,
       cssClass: 'alert-center',
       buttons: ['Corregir'],
     });

@@ -10,6 +10,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  
   <ion-list>
     <ion-item button *ngFor="let lista of listas" [routerLink]="['/detalle-asistencia',lista.list_id]">
       <ion-avatar aria-hidden="true" slot="start">

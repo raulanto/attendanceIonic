@@ -82,6 +82,14 @@ const routes: Routes = [
     path: 'selecion-ma',
     loadChildren: () => import('./selecion-ma/selecion-ma.module').then( m => m.SelecionMAPageModule)
   },
+  {
+    path: 'tab1',
+    loadChildren: () => import('./tab1/tab1.module').then(m => m.Tab1PageModule)
+  },  {
+    path: 'codiogog',
+    loadChildren: () => import('./codiogog/codiogog.module').then( m => m.CodiogogPageModule)
+  },
+
   
 
 

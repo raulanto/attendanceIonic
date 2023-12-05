@@ -21,9 +21,9 @@ export class MaestroFormPage implements OnInit {
   passwordTypeInput = 'password';
   validation_messages: any = {
     'username': [
-      { type: 'required', message: 'Matrícula requerida.' },
-      { type: 'minlength', message: 'Matrícula debe contener al menos 8 caracteres.' },
-      { type: 'maxlength', message: 'Matrícula no puede contener más de 10 caracteres.' },
+      { type: 'required', message: 'Usuario requerida.' },
+      { type: 'minlength', message: 'Usuario debe contener al menos 8 caracteres.' },
+      { type: 'maxlength', message: 'Usuario no puede contener más de 10 caracteres.' },
       { type: 'pattern', message: 'Dígita un usuario valida' },
     ],
     'password': [
@@ -78,7 +78,7 @@ export class MaestroFormPage implements OnInit {
   //Cargar tipo de estudio
   degrees: any = [];
   //base de degree
-  baseDegre: string = 'http://basic.test/degree';
+  baseDegre: string = 'http://attendance.test/degree';
   ngOnInit() {
     this.cargarDegree();
     this.buildForm();
@@ -139,11 +139,14 @@ export class MaestroFormPage implements OnInit {
     try {
       await this.loginService.registrar(registrarData).subscribe(
         async response => {
-          if (response?.status == 200 && response?.data !== '') {
+          console.log(response?.data);
+          
+          if (response?.status == 200 ) {
             await localStorage.setItem('token', response?.data);
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', registrarData.username);
-            this.router.navigate(['/tabs/tab1']);
+            this.alterCreado(registrarData.username);
+            this.router.navigate(['tab1']);
           } else if (response?.data === '') {
             this.alertError();
           }
@@ -214,6 +217,17 @@ export class MaestroFormPage implements OnInit {
       errors = JSON.parse(JSON.stringify(control!.errors));
     }
     return errors;
+  }
+  async alterCreado(nombre:any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Importante',
+      subHeader: 'Creado',
+      message: 'Creado el usuario'+nombre,
+      cssClass: 'alert-center',
+      buttons: ['Corregir'],
+    });
+
+    await alert.present();
   }
 
   login() {

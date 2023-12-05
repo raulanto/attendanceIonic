@@ -35,9 +35,9 @@ export class ListaAsistenciaPage implements OnInit {
 		let urlApi: string = '';
 
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/listg/listas?id=${this.grupoid}&page=${this.page}`;
+			urlApi = `http://attendance.test/listg/listas?id=${this.grupoid}&page=${this.page}`;
 		} else {
-			urlApi = `http://attendancedb.test/listg/buscar/?text=${this.busqueda}&id=${this.grupoid}&expand=person&page=${this.page}`;
+			urlApi = `http://attendance.test/listg/buscar?text=${this.busqueda}&id=${this.grupoid}&expand=person&page=${this.page}`;
 		}
 
 		const response = await axios({
@@ -66,9 +66,9 @@ export class ListaAsistenciaPage implements OnInit {
 		let urlApi: string = '';
 
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/listg/total/?id=${this.grupoid}`;
+			urlApi = `http://attendance.test/listg/total?id=${this.grupoid}`;
 		} else {
-			urlApi = `http://attendancedb.test/listg/total/?text=${this.busqueda}&id=${this.grupoid}`;
+			urlApi = `http://attendance.test/listg/total?text=${this.busqueda}&id=${this.grupoid}`;
 		}
 
 		const response = await axios({
@@ -83,6 +83,8 @@ export class ListaAsistenciaPage implements OnInit {
 		}).then((response) => {
 			console.log(response);
 			this.totalAlumnos = response.data;
+			console.log(this.totalAlumnos);
+			
 		}).catch(function (error) {
 			console.log(error);
 		});

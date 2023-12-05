@@ -13,7 +13,7 @@ import axios from 'axios';
 export class DetalleAsistenciaPage implements OnInit {
   [x: string]: any;
   public idperson: any;
-  public baseUrl: string = 'http://attendancedb.test/attendance';
+  public baseUrl: string = 'http://attendance.test/attendance';
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
@@ -47,7 +47,7 @@ export class DetalleAsistenciaPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://attendancedb.test/attendance/asistencias?id=" + this.idperson,
+      url: "http://attendance.test/attendance/asistencias?id=" + this.idperson,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',

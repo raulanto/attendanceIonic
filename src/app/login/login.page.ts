@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
             await localStorage.setItem('token', response?.data);
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', loginData.username);
-            this.router.navigate(['grupo-opc']);
+            this.router.navigate(['tab1']);
           } else if( response?.data === '') {
             this.alertError();
           }

@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginPersonService {
-  urlPerson:string  = `${environment.apiUrl}person/`;
-  headers:any = {'Content-Type': 'application/json'}; 
+  urlPerson: string = `${environment.apiUrl}person/`;
+  headers: any = { 'Content-Type': 'application/json' };
   constructor() { }
 
   login(dataLogin: any): Observable<any> {

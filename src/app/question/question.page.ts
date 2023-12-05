@@ -29,7 +29,7 @@ export class QuestionPage implements OnInit {
     const response = await axios({
       method: 'GET',
       //es attendancedb
-      url: "http://attendancedb.test/question?expand=tag,teacher,person",
+      url: "http://attendance.test/question?expand=tag,teacher,person",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

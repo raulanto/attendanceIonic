@@ -37,7 +37,7 @@ export class CodigosPage implements OnInit {
 		await loading.present();
 		const response = await axios({
 			method: 'get',
-			url: "http://attendancedb.test/code/codigos?id=" + this.grupoid,
+			url: "http://attendance.test/code/codigos?id=" + this.grupoid,
 			withCredentials: true,
 			headers: {
 				'Accept': 'application/json',
@@ -59,13 +59,19 @@ export class CodigosPage implements OnInit {
 	async new() {
 		// Crear una página modal utilizando el controlador de modales 
 		const paginaModal = await this.modalCtrl.create({
-			component: GenerarCodigoPage, // El componente que se mostrará en el modal
-			breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
-			initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+		  component: GenerarCodigoPage, // El componente que se mostrará en el modal
+		  componentProps: {
+			parametro: this.grupoid, // Puedes enviar cualquier tipo de dato
+			// Agrega más parámetros según sea necesario
+		  },
+		  breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+		  initialBreakpoint: 0.95, // Ubicación inicial del punto de quiebre
 		});
+	  
 		// Presentar la página modal en la interfaz de usuario
 		await paginaModal.present();
-	}
+	  }
+	  
 
 
 	async showDataAlert(codigo: any) {
