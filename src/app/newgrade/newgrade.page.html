@@ -52,78 +52,112 @@
             </ion-note>
         </div>
         </ion-col>
+
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
+        <ion-col size="12">
+          <ion-item>
+              <ion-label position="floating" color="primary">Grupo</ion-label>
+              <ion-input type="text" formControlName="gra_fkgroup"
+              class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.gra_fkgroup">
+          <ion-note color="danger"
+          *ngIf="getError('gra_fkgroup')[(validation.type)]">
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+          </div>
+          </ion-col>
+
       </ion-row>
     </ion-grid>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+        <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!grad.valid">Guardar</ion-button>
+        </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  </form>
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
 
 
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
+  <form [formGroup]="grad2" (ngSubmit)="guardarDatos2()">
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
     <ion-grid class="second-grid"> <!-- Cuadrícula de diseño -->
       <ion-row> <!-- Fila de la cuadrícula -->
         <ion-col size="12">
 
           <table class="table">
 
+            <!-- MODIFICACIONES----------------------------------------------------------- -->
             <tr>
-              <th>Grupo</th>
+              <th>Grade</th>
               <th>Alumno</th>
               <th>Calificación</th>
               <th>Comentario</th>
             </tr>
+            <!-- MODIFICACIONES----------------------------------------------------------- -->
 
             <tr>
 
+              <!-- MODIFICACIONES----------------------------------------------------------- -->
               <td>
-                <ion-input type="text" formControlName="gra_fkgroup"
+                <ion-input type="text" formControlName="graper_fkgrade"
                 class="form-control"></ion-input>
                 <div id="note" *ngFor="let validation of
-                mensajes_validacion.gra_fkgroup">
+                mensajes_validacion.graper_fkgrade">
                 <ion-note color="danger"
-                *ngIf="getError('gra_fkgroup')[(validation.type)]">
+                *ngIf="getError('graper_fkgrade')[(validation.type)]">
                 <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
                 </div>
               </td>
 
               <td>
-                <ion-select formControlName="gra_fkperson" class="form-control">
+                <ion-select formControlName="graper_fkperson" class="form-control">
                   <ion-select-option *ngFor="let person of personas"
                       [value]="person.per_id">
                       {{ person.per_name }}
                   </ion-select-option>
                   </ion-select>
                 <div id="note" *ngFor="let validation of
-                mensajes_validacion.gra_fkperson">
+                mensajes_validacion.graper_fkperson">
                 <ion-note color="danger"
-                *ngIf="getError('gra_fkperson')[(validation.type)]">
+                *ngIf="getError('graper_fkperson')[(validation.type)]">
                 <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
                 </div>
               </td>
 
               <td>
-                <ion-input type="text" formControlName="gra_score"
+                <ion-input type="text" formControlName="graper_score"
                 class="form-control"></ion-input>
                 <div id="note" *ngFor="let validation of
-                mensajes_validacion.gra_score">
+                mensajes_validacion.graper_score">
                 <ion-note color="danger"
-                *ngIf="getError('gra_score')[(validation.type)]">
+                *ngIf="getError('graper_score')[(validation.type)]">
                 <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
                 </div>
               </td>
 
               <td>
-                <ion-input type="text" formControlName="gra_commit"
+                <ion-input type="text" formControlName="graper_commit"
                 class="form-control"></ion-input>
                 <div id="note" *ngFor="let validation of
-                mensajes_validacion.gra_commit">
+                mensajes_validacion.graper_commit">
                 <ion-note color="danger"
-                *ngIf="getError('gra_commit')[(validation.type)]">
+                *ngIf="getError('graper_commit')[(validation.type)]">
                 <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
                 </ion-note>
                 </div>
               </td>
-
+              <!-- MODIFICACIONES----------------------------------------------------------- -->
             </tr>
 
           </table>
@@ -135,8 +169,10 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
         <p class="ion-text-center">
-            <ion-button type="submit" [disabled]="!grad.valid">Guardar</ion-button>
+            <ion-button type="submit" [disabled]="!grad2.valid">Guardar</ion-button>
+            <!-- MODIFICACIONES----------------------------------------------------------- -->
         </p>
         </ion-col>
     </ion-row>

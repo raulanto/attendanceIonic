@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-<!-- Boton para regresar -->    
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
+    <ion-title>
+      Calificaciones asignadas
+    </ion-title>
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Mis calificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,60 +15,70 @@
 
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
-  <ion-accordion-group [multiple]="true" expand="inset">
-    <ion-accordion *ngFor="let grade of grades">
-      
-      <ion-item slot="header">
-        <ion-icon name="clipboard" slot="start"></ion-icon>
-        <ion-label>
-          {{grade.gra_type}}
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
+  <ion-grid>
+    <ion-row *ngFor="let grades of grade">
+      <ion-col size="6" class="icon-col">
+        <div class="rectangle-avatar">
+          <!-- <ion-img src="assets/img/extra.png" alt="Foto"></ion-img> -->
+          <!-- <ion-icon name="checkmark-done"></ion-icon> -->
+          <ion-icon name="document-text" class="purple-icon"></ion-icon>
+        </div>
+      </ion-col>
+
+      <ion-col size="8" class="text-col">
+        <ion-label class="ion-text-wrap">
+          <h2 class="extracurricular-text">{{grades.gra_type}}</h2>
+          <h2 class="extracurricular-info">
+            {{grades.gra_date | date: 'dd/MM/y'}}
+          </h2>
+          <h2 class="extracurricular-info">{{grades.gra_time}}</h2>
         </ion-label>
-      </ion-item>
+      </ion-col>
 
-      <div class="ion-padding" slot="content">
-        {{grade.gra_score}} / 100
-        <ion-icon name="star" slot="start"></ion-icon>
-      </div>
-
-      <div class="ion-padding" slot="content">
-        {{grade.gra_commit}}
-      </div>
-
-      <div class="ion-padding" slot="content">
-        <ion-button id="click-trigger-{{grade.gra_id}}">
-          <ion-icon name="ellipsis-horizontal"></ion-icon>
+      <ion-col>
+        <ion-button id="click-trigger-{{grades.gra_id}}">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
-      </div>
+        <ion-popover
+          trigger="click-trigger-{{grades.gra_id}}"
+          [dismissOnSelect]="true"
+          [keepContentsMounted]="true"
+          side="end">
+          <ng-template>
+            <ion-content>
+              <ion-list>
+                <ion-item 
+                [button]="true" 
+                [detail]="false"
+                (click)="alertEliminar(grades.gra_id)"> 
+                <ion-icon name="trash"></ion-icon>
+                Eliminar
+                </ion-item>
+                <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  [routerLink]="['updategrade', grades.gra_id]"> 
+                  <ion-icon name="create"></ion-icon>
+                  Modificar 
+                </ion-item>
+                <!-- <ion-item
+                  [button]="true"
+                  [detail]="false"
+                  [routerLink]="['extracurricular', extras.extgro_id]"> 
+                  <ion-icon name="eye"></ion-icon>
+                  Ver mas 
+                </ion-item> -->
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
+      </ion-col>
 
-      <ion-popover
-      trigger="click-trigger-{{grade.gra_id}}"
-      [dismissOnSelect]="true"
-      [keepContentsMounted]="true"
-      side="end">
-      <ng-template>
-        <ion-content>
-          <ion-list>
-            <ion-item 
-            [button]="true" 
-            [detail]="false"
-            (click)="eliminar(grade.gra_id)"> 
-            <ion-icon name="trash"></ion-icon>
-            Eliminar
-            </ion-item>
-            <ion-item
-              [button]="true"
-              [detail]="false"
-              (click)="editar(grade.gra_id)"> 
-              <ion-icon name="create"></ion-icon>
-              Modificar 
-            </ion-item>
-          </ion-list>
-        </ion-content>
-      </ng-template>
-    </ion-popover>
-      
-    </ion-accordion>
-  </ion-accordion-group>
+    </ion-row>
+  </ion-grid>
+
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
@@ -75,12 +88,14 @@
       <ion-fab-button [routerLink]="['/newgrade']">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button>
+      <!-- MODIFICACIONES----------------------------------------------------------- -->
+      <!-- <ion-fab-button>
         <ion-icon name="trash"></ion-icon>
-      </ion-fab-button>
+      </ion-fab-button> -->
     </ion-fab-list>
   </ion-fab>
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
 
-  <app-paginacion [total]="totalGrades" (click)="pagina($event)"></app-paginacion>
+  <app-paginacion [total]="totalCalificaciones" (click)="pagina($event)"></app-paginacion>
 
 </ion-content>

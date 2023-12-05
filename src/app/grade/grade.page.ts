@@ -22,7 +22,7 @@ export class GradePage implements OnInit {
   baseUrl: string = "http://attendancedb.test/grade/grades?id="
   eliminarUrl: string = "http://attendancedb.test/grade";
 
-  grades: any = [];
+  grade: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +43,7 @@ export class GradePage implements OnInit {
   
   busqueda:string = '';
   page:number = 1;
-  totalGrades:number = 0;
+  totalCalificaciones:number = 0;
 
   ngOnInit() {
     this.mostrar();
@@ -77,7 +77,7 @@ export class GradePage implements OnInit {
         'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
-      this.grades = response.data;
+      this.grade = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
@@ -103,7 +103,7 @@ export class GradePage implements OnInit {
         }
     }).then( (response) => {
         console.log(response);  
-        this.totalGrades = response.data;
+        this.totalCalificaciones = response.data;
     }).catch(function (error) {
         console.log(error);     
     });
