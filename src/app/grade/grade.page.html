@@ -17,7 +17,7 @@
 
   <!-- MODIFICACIONES----------------------------------------------------------- -->
   <ion-grid>
-    <ion-row *ngFor="let grades of grade">
+    <ion-row *ngFor="let grades of grade ; let i = index">
       <ion-col size="6" class="icon-col">
         <div class="rectangle-avatar">
           <!-- <ion-img src="assets/img/extra.png" alt="Foto"></ion-img> -->
@@ -37,11 +37,11 @@
       </ion-col>
 
       <ion-col>
-        <ion-button id="click-trigger-{{grades.gra_id}}">
+        <ion-button id="click-trigger-{{grades.gra_id}}-{{i}}">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover
-          trigger="click-trigger-{{grades.gra_id}}"
+          trigger="click-trigger-{{grades.gra_id}}-{{i}}"
           [dismissOnSelect]="true"
           [keepContentsMounted]="true"
           side="end">

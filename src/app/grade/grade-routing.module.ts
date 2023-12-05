@@ -7,7 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: GradePage
+  },
+  // MODIFICACIONES-----------------------------------------------------------
+  {
+    path: 'updategrade/:gradecode',
+    loadChildren: () => import('../updategrade/updategrade.module').then( m => m.UpdategradePageModule)
   }
+    // MODIFICACIONES---------------------------------------------------------
 ];
 
 @NgModule({
