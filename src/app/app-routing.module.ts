@@ -92,7 +92,7 @@ const routes: Routes = [
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
   {
-    path: 'asistencia-detalle',
+    path: 'asistencia-detalle/:idperson',
     loadChildren: () => import('./asistencia-detalle/asistencia-detalle.module').then( m => m.AsistenciaDetallePageModule)
   },
 
