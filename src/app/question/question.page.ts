@@ -33,7 +33,7 @@ export class QuestionPage implements OnInit {
     private modalCtrl: ModalController,
     private router: Router,
     private alertCtrl: AlertController
-  ) { }
+  ) { this.grupoid = this.route.snapshot.paramMap.get('grupoid');}
 
   questions: any = [];
 

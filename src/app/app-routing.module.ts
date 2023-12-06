@@ -174,7 +174,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'question',
+    path: 'question/:grupoid',
     loadChildren: () => import('./question/question.module').then( m => m.QuestionPageModule)
   },
   {
