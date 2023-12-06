@@ -1,0 +1,152 @@
+
+ion-card {
+    background-color:var(--ion-color-tertiary) ;
+    border-radius: 15px;
+    box-shadow: #cfcfcf;
+    margin-bottom: 22px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    width: 325px; /* Ancho deseado para la tarjeta */
+    height: 130px;
+}
+  
+  ion-card:hover {
+    transform: scale(1.05);
+    box-shadow: var(--ion-color-tertiary);
+  }
+  
+  /* Estilos para el contenido de la tarjeta */
+  ion-card-content {
+    padding: 15px;
+    bottom:15px;
+    flex-grow: 0;
+    
+  }
+  .ic{
+    display: flex;
+    flex-direction: row;
+  }
+  .ictittle{
+    font-size: 14px;
+    bottom: -75px;
+  }
+  .icdesc{
+    font-size: 12px;
+    bottom: -65px;
+  }
+  .icnameteacher{
+    position: relative;
+    font-size: 12px;
+    bottom: -75px;
+  }
+  .icfecha{
+    position: relative;
+    font-size: 12px;
+    bottom: -55px;
+    
+  }
+  .imagecard{
+    width: 100px; 
+    height: 100px;
+  }
+
+  .bottom-right {
+    position: relative;
+    left: 150px;
+    margin: 10;
+    font-size: 10px;
+    top: -25px;
+    color: var(--ion-color-secondary-tint); 
+    width: 75px; 
+    height: 5px
+  }
+  .flecha{
+    position: relative;
+    margin: 10;
+    left: 5px;
+    bottom:-2px;
+  }
+  
+.delete{
+  position: relative;
+    left: 150px;
+    margin: 10;
+    font-size: 10px;
+    top: -45px;
+    color: var(--ion-color-secondary-tint); 
+    width: 75px; 
+    height: 5px
+}
+
+.update{
+  position: relative;
+    left: 150px;
+    margin: 10;
+    font-size: 10px;
+    top: -65px;
+    color: var(--ion-color-secondary-tint); 
+    width: 75px; 
+    height: 5px
+}
+
+.settings{
+    position: relative;
+    left: 190px;
+    margin: 10;
+    font-size: 10px;
+    bottom: 160px;
+    color: var(--ion-color-secondary-tint); 
+    width: 75px; 
+    height: 5px
+}
+.settings2{
+  position: relative;
+  left: 500px;
+  margin: 10;
+  font-size: 10px;
+  bottom: -50px;
+  color: var(--ion-color-secondary-tint); 
+  width: 75px; 
+  height: 5px
+}
+
+
+  /* Estilos para los encabezados de las tarjetas */
+  ion-card-header {
+    background-color: var(--ion-color-tertiary);
+    border-bottom: var(--ion-color-tertiary-contrast);
+    padding: 15px;
+    font-size: 18px;
+  }
+
+  /* Estilos para los títulos y subtítulos de las tarjetas */
+ion-card-title {
+    color: var(--ion-color-tertiary-contrast); 
+  }
+  
+  ion-card-subtitle {
+    color: var(--ion-color-tertiary-contrast);
+  }
+  
+
+  ion-toolbar {
+    background-color: var(--ion-color-tertiary-contrast);
+    color: var(--ion-color-tertiary-contrast);
+    border-bottom: 1px solid var(--ion-color-tertiary-contrast);
+  }
+
+  ion-fab-button::part(native) {
+    background-color: var(--ion-color-secondary-tint);
+    box-shadow: 0px 1px 2px 0px rgba(255, 72, 72, 0.3), 0px 1px 3px 1px rgba(133, 127, 127, 0.15);
+    color: var(--ion-color-tertiary-contrast);
+  }
+  
+  /*ion-fab-button::part(native):hover::after {
+    background-color: #a3e681;
+  }
+  
+  ion-fab-button::part(native):active::after {
+    background-color: #87d361;
+  }*/
+  

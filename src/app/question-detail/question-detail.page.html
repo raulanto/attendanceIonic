@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+     <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Respuestas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="questiondetails as answer" class="ic2">
+    <ion-card-header>
+      <ion-card-subtitle class="quedesc">{{ answer?.desc }}</ion-card-subtitle>
+        <ion-card-subtitle class="icfecha">{{ answer?.ans_create }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <ion-card *ngIf="questiondetails as answer" class="ic">
+    <ion-card-header>
+      <ion-card-subtitle class="icdesc">{{ answer?.ans_description }}</ion-card-subtitle>
+      <ion-card-subtitle class="icdesc">{{ answer?.ans_create }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  
+</ion-content>
