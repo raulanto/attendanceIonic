@@ -1,0 +1,17 @@
+h1{
+    
+    color: white;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+
+ion-content{
+    --background: url('../../assets/fondo.svg');
+    --background-position: center;
+    --background-repeat: no-repeat;
+    --background-size: contain;
+    display: flex;
+    justify-content: center;
+}
+

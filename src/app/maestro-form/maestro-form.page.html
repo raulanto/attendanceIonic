@@ -1,0 +1,155 @@
+<ion-header class="ion-no-border  ">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+      <ion-title class="dark">Regresar</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="content-centered ">
+  <ion-title class="titulo">Bienvenido a la Aplicacion</ion-title>
+  <form [formGroup]="registro" (ngSubmit)="submitRegistrar()" >
+    <main class="">
+      <ion-grid class="">
+        <ion-row class="">
+
+          <!-- Mostrar la parte del maestro si la opción seleccionada es 1 -->
+          
+            <ion-text>
+              <h1 class="fuente">Datos Maestros</h1>
+            </ion-text>
+            <ion-col size="12">
+              <ion-input type="text" formControlName="tea_name" label="Nombres" label-placement="floating"
+                fill="outline" placeholder="Nombres"></ion-input>
+              <div id="note" *ngFor="let validation of
+              validation_messages.tea_name">
+                <ion-note color="danger" *ngIf="getError('tea_name')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input label="Apellido Paterno" label-placement="floating" fill="outline"
+                placeholder="Apellido Paterno" type="text" formControlName="tea_paternal"></ion-input>
+              <div id="note" *ngFor="let validation of
+                validation_messages.tea_paternal">
+                <ion-note color="danger" *ngIf="getError('tea_paternal')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input label="Apellido Materno" label-placement="floating" fill="outline"
+                placeholder="Apellido Materno" formControlName="tea_maternal" type="text"></ion-input>
+              <div id="note" *ngFor="let validation of
+                validation_messages.tea_maternal">
+                <ion-note color="danger" *ngIf="getError('tea_maternal')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input label="Teléfono" label-placement="floating" fill="outline" placeholder="Teléfono" type="tel"
+                maxlength="10" minlength="10" formControlName="tea_phone"></ion-input>
+              <div id="note" *ngFor="let validation of
+              validation_messages.tea_phone">
+                <ion-note color="danger" *ngIf="getError('tea_phone')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-input label="Email" label-placement="floating" fill="outline" type="email"
+                placeholder="email@domain.com" formControlName="tea_mail"></ion-input>
+              <div id="note" *ngFor="let validation of
+              validation_messages.tea_mail">
+                <ion-note color="danger" *ngIf="getError('tea_mail')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text>Grados de Estudios</ion-text>
+              <ion-item>
+                <ion-select interface="action-sheet" placeholder="Opciones " formControlName="tea_fkdegree"
+                  [interfaceOptions]="customActionSheetOptions">
+                  <ion-select-option *ngFor="let degree of degrees"
+                    [value]="degree.deg_id">{{degree.deg_name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div id="note" *ngFor="let validation of
+              validation_messages.tea_fkdegree">
+                <ion-note color="danger" *ngIf="getError('tea_fkdegree')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-text class="ion-margin">Datos de inicio</ion-text>
+            <ion-col size="12">
+              <ion-item counter="true">
+                <ion-label position="floating" color="primary">Usuario</ion-label>
+                <ion-input type="text" formControlName="username" class="form-control" [maxlength]="10"></ion-input>
+              </ion-item>
+              <div id="note" *ngFor="let validation of validation_messages.username">
+                <ion-note color="danger" *ngIf="getError('username')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-item counter="true">
+                <ion-label position="floating" color="primary">Contraseña</ion-label>
+                <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password"
+                  clearOnEdit="false" class="form-control" [maxlength]="15">
+                </ion-input>
+                <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+                  <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'" color="primary"></ion-icon>
+                </button>
+              </ion-item>
+              <div id="note" *ngFor="let validation of
+                validation_messages.password">
+                <ion-note color="danger" *ngIf="getError('password')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label position="floating" color="primary">Confirmar Contraseña</ion-label>
+                <ion-input #passwordEyeRegister [type]="passwordTypeInput" formControlName="password_confirm"
+                  clearOnEdit="false" class="form-control">
+                </ion-input>
+                <button slot="end" class="btn_eye_icon" (click)="togglePasswordMode()">
+                  <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'" color="primary"></ion-icon>
+                </button>
+              </ion-item>
+              <div id="note" *ngFor="let validation of
+                validation_messages.password_confirm">
+                <ion-note color="danger" *ngIf="getError('password_confirm')[(validation.type)]">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{
+                  validation.message }}
+                </ion-note>
+              </div>
+            </ion-col>
+
+          
+          <ion-col size="12">
+            <p class="ion-text-center">
+              <ion-button type="submit" expand="block" [disabled]="!registro.valid">Guardar</ion-button>
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </main>
+  </form>
+
+
+
+</ion-content>

@@ -1,0 +1,74 @@
+ion-content {
+    --background: url("../../assets/fondo.svg");
+    --background-position: center;
+    --background-clip: content-box;
+    --background-size: contain;
+    --background-repeat: no-repeat;
+
+}
+
+ion-header {
+    --background: white;
+}
+
+.titulo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+.content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+main {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+
+}
+
+img {
+    --height: 100px;
+}
+
+ion-thumbnail {
+    --size: 10rem;
+    --border-radius: 14px;
+}
+
+div {
+    margin-top: 0.5rem;
+}
+
+ion-select {
+    --placeholder-opacity: 1;
+    width: 100%;
+    justify-content: center;
+}
+
+.fuente {
+    margin-top: 0.2rem;
+    font-weight: bolder;
+}
+
+ion-icon {
+    background: white;
+}

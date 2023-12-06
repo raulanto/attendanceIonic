@@ -1,0 +1,23 @@
+div {
+
+    margin-top: 0.5rem;
+    swiper-container {
+        swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            img {
+                width: 85%;
+                border-radius: 5px;
+                
+            }
+        }
+    }
+}
+
+p{
+    margin: 1rem;
+    margin-bottom: 2rem;
+    color:rgb(70, 70, 70) ;
+}

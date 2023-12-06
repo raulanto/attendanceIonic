@@ -1,0 +1,37 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Generar Codigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="codigo" (ngSubmit)="guardarDatos()">
+    <ion-grid> <!-- Cuadrícula de diseño -->
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-thumbnail size="">
+          <ion-icon name="qr-code-outline" size="large"></ion-icon>
+        </ion-thumbnail>
+      </ion-row>
+      <ion-row class="ion-justify-content-center "> <!-- Fila de la cuadrícula -->
+        <ion-col size="12" class="ion-justify-content-center "> <!-- Columna con tamaño completo (12) -->
+          <ion-datetime presentation="time" formControlName="cod_duration"></ion-datetime>
+          <div id="note" *ngFor="let validation of mensajes_validacion.cod_duration">
+            <ion-note color="danger" *ngIf="getError('cod_duration')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" expand="block" [disabled]="!codigo.valid">Enviar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-asistencia',
@@ -8,6 +8,7 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./asistencia.page.scss'],
 })
 export class AsistenciaPage implements OnInit {
+
   public grupoid: any;
 
   constructor(private route: ActivatedRoute) {
@@ -15,6 +16,7 @@ export class AsistenciaPage implements OnInit {
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
+  
   ngOnInit() {
     this.mostrar();
   }

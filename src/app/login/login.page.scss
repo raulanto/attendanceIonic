@@ -1,0 +1,45 @@
+ion-content {
+    --background: url("../../assets/fondo.svg");
+    --background-position: center;
+    --background-clip: content-box;
+    --background-size: contain;
+    --background-repeat: no-repeat;
+    /* Evitar que el fondo se repita */
+}
+
+
+
+
+.content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // height: 100vh;
+    /* Opcional: ajusta la altura según tus necesidades */
+}
+
+
+
+img {
+    --ion-height: 190px;
+}
+
+ion-thumbnail {
+    --size: 12rem;
+    --border-radius: 14px;
+}
+
+
+ion-input {
+    --height: 3rem;
+}
+
+ion-input.custom {
+    --background: #f1f1f1;
+    --color: #050505;
+    --placeholder-color: rgb(128, 62, 204);
+    --placeholder-opacity: 0.8;
+
+}
+
