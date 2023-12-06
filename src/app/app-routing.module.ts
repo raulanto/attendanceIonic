@@ -85,10 +85,21 @@ const routes: Routes = [
   {
     path: 'tab1',
     loadChildren: () => import('./tab1/tab1.module').then(m => m.Tab1PageModule)
-  },  {
-    path: 'codiogog',
+  },
+  {
+    path: 'codiogog/idcode',
     loadChildren: () => import('./codiogog/codiogog.module').then( m => m.CodiogogPageModule)
   },
+  {
+    path: 'tomar-asistencia/:idperson',
+    loadChildren: () => import('./tomar-asistencia/tomar-asistencia.module').then( m => m.TomarAsistenciaPageModule)
+  },  {
+    path: 'asistencia-generada',
+    loadChildren: () => import('./asistencia-generada/asistencia-generada.module').then( m => m.AsistenciaGeneradaPageModule)
+  },
+
+
+
 
   
 

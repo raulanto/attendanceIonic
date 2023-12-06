@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CodigoService } from '../services/codigo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController, NavParams } from '@ionic/angular';
-import axios from 'axios';
-
+import { RangeCustomEvent } from '@ionic/angular';
 @Component({
 	selector: 'app-generar-codigo',
 	templateUrl: './generar-codigo.page.html',
@@ -17,9 +16,13 @@ export class GenerarCodigoPage implements OnInit {
 
 
 	public grupoid: number;
+	public cod_id: number;
+	public code_fkgroup: number;
+
+
 	public nuevoCodigo: any;
 	public time: any;
-
+	
 
 	public codigo!: FormGroup; //Sirve para ingresar datos de "codigos"
 
@@ -39,22 +42,25 @@ export class GenerarCodigoPage implements OnInit {
 	) {
 		// Acceder al valor de 'grupoid' y asignarlo a la propiedad de clase 'grupoid'
 		this.grupoid = this.navParams.get('parametro');
+		this.cod_id = this.navParams.get('parametro2');
+		this.code_fkgroup = this.navParams.get('parametro3');
 		console.log(this.grupoid);
 
 	}
 
-	private convertirHoraAMinutos(valorHora: string): number {
-		const partesHora = valorHora.split(":");
-		const horas = parseInt(partesHora[0], 10);
-		const minutos = parseInt(partesHora[1], 10);
-		return horas * 60 + minutos;
-	}
 
 
 
 	ngOnInit() {
 		// this.mostrar();
 		this.formulario();// Inicializar el formulario al cargar pagina
+	}
+	onIonChange(ev: Event) {
+		this.time=(ev as RangeCustomEvent).detail.value
+	}
+
+	pinFormatter(value: number) {
+		return `${value}mn`;
 	}
 
 	private formulario() {
@@ -67,32 +73,63 @@ export class GenerarCodigoPage implements OnInit {
 
 
 	async guardarDatos() {
-		let codigos = this.codigo?.value; //Obtener los valores del formulario
-		codigos.cod_fkgroup =Number(this.grupoid);
-		codigos.cod_duration = this.convertirHoraAMinutos("01:00");
-		console.log(codigos);
-		try {
-			await this.codigoService.generarCodigo(codigos).subscribe(
-				async response => {
-					if (response?.status == 200) {
-						this.alertGuardado(response.data.cod_code, 'El archivo ' + response.data.cod_code + ' ha sido registrado');
-						this.nuevoCodigo = response.data;
-					} else if (response?.status === 400) {
-						this.alertGuardado('Codigo no generado');
 
-
+		if (this.grupoid===0) {
+			let codigos = this.codigo?.value; //Obtener los valores del formulario
+			codigos.cod_fkgroup=this.code_fkgroup;
+			console.log(codigos);
+			console.log(codigos.cod_duration);
+			try {
+				await this.codigoService.generarCodigo(codigos,this.cod_id).subscribe(
+					async response => {
+						if (response?.status == 200) {
+							this.nuevoCodigo = response.data;
+							this.alertGuardado(response.data.cod_code, 'Se edito el codigo ' + this.nuevoCodigo.cod_duration + ' duracion nueva');
+							this.recargarPagina();
+						} else if (response?.status === 400) {
+							this.alertGuardado('Codigo no generado');
+						}
+					},
+					error => {
+						if (error.status == 422) {
+							this.alertGuardado('Codigo no generado');
+						}
 					}
-				},
-				error => {
-					if (error.status == 422) {
-						this.alertGuardado('Codigo no generado');
+				);
+			} catch (error) {
+				console.log(error);
+			}
+		}else{
+			let codigos = this.codigo?.value; //Obtener los valores del formulario
+			codigos.cod_fkgroup=this.grupoid;
+			console.log(codigos);
+			console.log(codigos.cod_duration);
+			try {
+				await this.codigoService.generarCodigo(codigos).subscribe(
+					async response => {
+						if (response?.status == 200) {
+							this.nuevoCodigo = response.data;
+							this.alertGuardado(response.data.cod_code, 'El archivo ' + this.nuevoCodigo.cod_code + ' ha sido registrado');
+							this.recargarPagina();
+						} else if (response?.status === 400) {
+							this.alertGuardado('Codigo no generado');
+						}
+					},
+					error => {
+						if (error.status == 422) {
+							this.alertGuardado('Codigo no generado');
+						}
 					}
-				}
-			);
-		} catch (error) {
-			console.log(error);
+				);
+			} catch (error) {
+				console.log(error);
+			}
 		}
+
 	}
+
+
+
 
 
 
@@ -106,7 +143,7 @@ export class GenerarCodigoPage implements OnInit {
 	}
 
 	//método para reutilizar un alert
-	private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
+	private async alertGuardado(ID: String, msg = "", subMsg = "Guardado", data = 2) {
 		const alert = await this.alert.create({
 			header: 'Recurso', //Titulo de nuestra alerta
 			subHeader: subMsg,
@@ -114,22 +151,24 @@ export class GenerarCodigoPage implements OnInit {
 			cssClass: 'alert-center',
 			buttons: [
 				{
-					text: 'Continuar',
-					role: 'cancel',
-				},
-				{
 					text: 'Salir',
 					role: 'confirm',
 					handler: () => {
 						this.modalCtrl.dismiss();
+						window.location.reload();
 					},
 				},
 			],
 		});
-
 		await alert.present();
-		this.router.navigate(['codigog']);
 	}
+
+	private recargarPagina() {
+		const currentUrl = this.router.url;
+		this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+		  this.router.navigate([currentUrl]);
+		});
+	  }
 
 
 

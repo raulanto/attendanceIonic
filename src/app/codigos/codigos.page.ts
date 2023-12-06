@@ -6,9 +6,13 @@ import {
 	AlertController,
 	ModalController,
 } from '@ionic/angular';
-import axios from 'axios';
+
 import { GenerarCodigoPage } from '../generar-codigo/generar-codigo.page';
 import { CodigoService } from '../services/codigo.service';
+
+
+
+
 
 @Component({
 	selector: 'app-codigos',
@@ -23,7 +27,8 @@ export class CodigosPage implements OnInit {
 		private loadingCtrl: LoadingController,
 		public modalCtrl: ModalController,
 		private alertController: AlertController,
-		private codigoService: CodigoService
+		private codigoService: CodigoService,
+
 	) {
 		this.grupoid = this.route.snapshot.paramMap.get('grupoid');
 	}
@@ -33,57 +38,24 @@ export class CodigosPage implements OnInit {
 		this.mostrar();
 	}
 
-	// async cargarCodigo(event?: InfiniteScrollCustomEvent) {
-	// 	const loading = await this.loadingCtrl.create({
-	// 		message: 'Cargando',
-	// 		spinner: 'bubbles',
-	// 	});
-	// 	await loading.present();
-	// 	const response = await axios({
-	// 		method: 'get',
-	// 		url: "http://attendance.test/code/codigos?id=" + this.grupoid,
-	// 		withCredentials: true,
-	// 		headers: {
-	// 			'Accept': 'application/json',
-	// 			//token Bearer 100-token
-	// 			'Authorization': 'Bearer 100-token'
-	// 		}
-	// 	}).then((response) => {
-	// 		this.codigos = response.data;
-	// 		event?.target.complete();
-	// 	}).catch(function (error) {
-	// 		console.log(error);
-	// 	});
-	// 	loading.dismiss();
-	// }
-
 	async cargarCodigo(event?: InfiniteScrollCustomEvent) {
+		const loading = await this.loadingCtrl.create({
+			message: 'Cargando',
+			spinner: 'bubbles',
+		});
+		await loading.present();
+
 		try {
-			const loading = await this.loadingCtrl.create({
-				message: 'Cargando',
-				spinner: 'bubbles',
-			});
-			await loading.present();
-			await this.codigoService.codigos(this.grupoid).subscribe(
-				async (response) => {
-					if (response?.status == 200) {
-						this.data = response.data;
-						event?.target.complete();
-						console.log('coorecto');
-					} else if (response?.status === 400) {
-						console.log(response?.error);
-					}
-				},
-				(error) => {
-					if (error.status == 422) {
-						console.log(error);
-					}
-				}
-			);
+			const response = await this.codigoService.codigos(this.grupoid).toPromise();
+			this.data = response;
+			event?.target.complete();
 		} catch (error) {
-			console.log(error);
+			console.error('Error al cargar códigos:', error);
+		} finally {
+			loading.dismiss();
 		}
 	}
+
 
 	mostrar() {
 		console.log('Valor de grupoid en codigo:', this.grupoid);
@@ -94,7 +66,6 @@ export class CodigosPage implements OnInit {
 			component: GenerarCodigoPage, // El componente que se mostrará en el modal
 			componentProps: {
 				parametro: this.grupoid, // Puedes enviar cualquier tipo de dato
-				// Agrega más parámetros según sea necesario
 			},
 			breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
 			initialBreakpoint: 0.95, // Ubicación inicial del punto de quiebre
@@ -103,6 +74,24 @@ export class CodigosPage implements OnInit {
 		// Presentar la página modal en la interfaz de usuario
 		await paginaModal.present();
 	}
+	async editar(code_id:number,code_fkgroup:number) {
+		// Crear una página modal utilizando el controlador de modales
+		const paginaModal = await this.modalCtrl.create({
+			component: GenerarCodigoPage, // El componente que se mostrará en el modal
+			componentProps: {
+				parametro2: code_id,
+				parametro:0,
+				parametro3:code_fkgroup, // Puedes enviar cualquier tipo de dato
+			},
+			breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
+			initialBreakpoint: 0.95, // Ubicación inicial del punto de quiebre
+		});
+
+		// Presentar la página modal en la interfaz de usuario
+		await paginaModal.present();
+	}
+
+
 
 	async showDataAlert(codigo: any) {
 		const alert = await this.alertController.create({
@@ -117,4 +106,8 @@ export class CodigosPage implements OnInit {
 
 		await alert.present();
 	}
+
+
+
+
 }
