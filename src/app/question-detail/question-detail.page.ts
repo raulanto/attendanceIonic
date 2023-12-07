@@ -3,7 +3,6 @@ import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import axios from 'axios';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-question-detail',
   templateUrl: './question-detail.page.html',
@@ -32,7 +31,7 @@ export class QuestionDetailPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url de Monica
-      url: "http://attendancedb.test/answers/"+queId+"?expand=title,desc",
+      url: "http://attendance.test/answers/"+ queId +"?expand=title,desc",
       // Url de Zarate
       //url: "http://attendancebd.test/question?expand=tag,teacher,person",      
       // Url de Raul
@@ -50,4 +49,3 @@ export class QuestionDetailPage implements OnInit {
     loading.dismiss();
   }
 }
-
