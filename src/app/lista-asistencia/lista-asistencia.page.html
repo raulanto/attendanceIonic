@@ -1,0 +1,25 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+  
+  <ion-list>
+    <ion-item button *ngFor="let lista of listas" [routerLink]="['/detalle-asistencia',lista.list_id]">
+      <ion-avatar aria-hidden="true" slot="start">
+        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>{{lista.person}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <app-paginacion [total]="totalAlumnos" (click)="pagina($event)"></app-paginacion>
+
+
+</ion-content>

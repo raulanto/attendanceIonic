@@ -19,8 +19,8 @@ export class LoginPage implements OnInit {
 
   validation_messages:any = {
     'username': [
-      { type: 'required', message: 'Matrícula requerida.' },
-      { type: 'minlength', message: 'Matrícula debe contener al menos 8 caracteres.' },
+      { type: 'required', message: 'Usuario requerid.' },
+      { type: 'minlength', message: 'Usuario debe contener al menos 8 caracteres.' },
       { type: 'maxlength', message: 'Matrícula no puede contener más de 10 caracteres.' },
       { type: 'pattern', message: 'Dígita una matrícula valida' },
     ],
@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
             await localStorage.setItem('token', response?.data);
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', loginData.username);
-            this.router.navigate(['group']);
+            this.router.navigate(['groups']);
           } else if( response?.data === '') {
             this.alertError();
           }
@@ -81,6 +81,7 @@ export class LoginPage implements OnInit {
           console.log(error);
         }
       );
+      
     } catch (error) {
       console.log(error);
     }

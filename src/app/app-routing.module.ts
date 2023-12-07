@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AsistenciaPageModule } from './asistencia/asistencia.module';
 
 const routes: Routes = [
 
@@ -16,9 +17,9 @@ const routes: Routes = [
 
   //APARTADO DE SELECCIONAR USUARIO (REGISTRAR)
   {
-    path: 'seleccion-ma',
-    loadChildren: () => import('./seleccion-ma/seleccion-ma.module').then( m => m.SeleccionMaPageModule)
-  }, 
+    path: 'selecion-ma',
+    loadChildren: () => import('./selecion-ma/selecion-ma.module').then( m => m.SelecionMAPageModule)
+  },
 
   //APARTADO DE REGISTRAR USUARIO
   {
@@ -91,16 +92,13 @@ const routes: Routes = [
     path: 'asistencia/:grupoid',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
-  {
-    path: 'asistencia-detalle/:idperson',
-    loadChildren: () => import('./asistencia-detalle/asistencia-detalle.module').then( m => m.AsistenciaDetallePageModule)
-  },
+
 
   //APARTADO DE LISTA 
     //Agrego la nueva ruta donde llevara el id del grupo 
   {
-    path: 'lista/:grupoid',
-    loadChildren: () => import('./lista/lista.module').then( m => m.ListaPageModule)
+    path: 'lista-asistencia/:grupoid',
+    loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
   },
   {
     path: 'newlista',
@@ -109,19 +107,55 @@ const routes: Routes = [
 
   //APARTADO DE CODIGOS
     //Agrego la nueva ruta donde llevara el id del grupo      
-  {
-    path: 'codigos/:grupoid',
-    loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
-  },
+    {
+      path: 'codigos/:grupoid',
+      loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
+    },
+    {
+      path: 'codigos',
+      loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
+    },
+
+    {
+      path: 'lista-asistencia',
+      loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
+    },
+    //Agrego la nueva ruta donde llevara el id del grupo
+    {
+      path: 'lista-asistencia/:grupoid',
+      loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
+    },
+    {
+      path: 'generar-codigo',
+      loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
+    },
+    {
+      path: 'generar-codigo/:grupoid',
+      loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
+    },
+    {
+      path: 'detalle-asistencia',
+      loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+    },
+    //esta ruta nos mandara al despliege todas las asistencia que pertenecen a la persona
+    {
+      path: 'detalle-asistencia/:idperson',
+      loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+    },
+    {
+      path: 'codiogog/idcode',
+      loadChildren: () => import('./codiogog/codiogog.module').then( m => m.CodiogogPageModule)
+    },
+    {
+      path: 'tomar-asistencia/:idperson',
+      loadChildren: () => import('./tomar-asistencia/tomar-asistencia.module').then( m => m.TomarAsistenciaPageModule)
+    },
+    {
+      path: 'asistencia-generada',
+      loadChildren: () => import('./asistencia-generada/asistencia-generada.module').then( m => m.AsistenciaGeneradaPageModule)
+    },
   //llamar modal para crear el codigo
-  {
-    path: 'codigo-generar',
-    loadChildren: () => import('./codigo-generar/codigo-generar.module').then( m => m.CodigoGenerarPageModule)
-  },
-  {
-    path: 'codigo-generado',
-    loadChildren: () => import('./codigo-generado/codigo-generado.module').then( m => m.CodigoGeneradoPageModule)
-  },
+
 
 
   //Menu para acceder a ver eventos y calificaciones
