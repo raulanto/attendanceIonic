@@ -77,7 +77,7 @@ export class NewQuestionPage implements OnInit {
   async guardarDatos() {
     try {
       let que = this.question?.value;
-      if (this.question === undefined) {
+      if (this.id === undefined) {
         que.que_create = new Date().toISOString();
         que.que_status = 1;
         const response = await axios({
