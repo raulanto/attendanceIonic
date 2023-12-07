@@ -70,7 +70,7 @@ const routes: Routes = [
     loadChildren: () => import('./newextracurricular/newextracurricular.module').then( m => m.NewextracurricularPageModule)
   },
   {
-    path: 'newgrade',
+    path: 'newgrade/:grupoid',
     loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
   },
 

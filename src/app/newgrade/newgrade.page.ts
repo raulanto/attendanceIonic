@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import axios from 'axios';
+import { ActivatedRoute, 
+  Router } from '@angular/router';  
 
 @Component({
   selector: 'app-newgrade',
@@ -25,6 +27,8 @@ export class NewgradePage implements OnInit {
   personas: any = [];
 
   gradeId : any;
+
+  public grupoid: any;
   // MODIFICACIONES-----------------------------------------------------------
 
     // Mensajes de validación para campos del formulario
@@ -51,15 +55,27 @@ export class NewgradePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private alert: AlertController,
-    private modalCtrl: ModalController
-  ) { }
+    private modalCtrl: ModalController,
+    private route: ActivatedRoute,
+  ) {
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+  }
+
+  mostrar() {
+    console.log('Valor de grupoid en newgrades:', this.grupoid);
+  }
 
   ngOnInit() {
+    this.mostrar();
     this.cargarPersonas();
     this.formulario();
     // MODIFICACIONES-----------------------------------------------------------
     this.formulario2();
     // MODIFICACIONES-----------------------------------------------------------
+    if (this.grupoid) {
+      // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
+      this.grad.patchValue({ gra_fkgroup: this.grupoid });
+    } 
   }
 
   private formulario() {
@@ -217,12 +233,12 @@ export class NewgradePage implements OnInit {
           this.alertGuardado('La calificación ha sido registrada');
 
           this.grad2.reset(); // Reiniciar los valores del formulario
-          this.grad2.patchValue({ // Volver a asignar los valores guardados de Tipo, Fecha y Hora
-            graper_score: graper_score,
-            graper_commit: graper_commit,
-            graper_fkperson: graper_fkperson,
-            graper_fkgrade: graper_fkgrade,
-          });
+          // this.grad2.patchValue({
+          //   graper_score: graper_score,
+          //   graper_commit: graper_commit,
+          //   graper_fkperson: graper_fkperson,
+          //   graper_fkgrade: graper_fkgrade, -------------
+          // });
 
           }
       }).catch( (error) => {

@@ -131,6 +131,7 @@ export class NotextracurricularPage implements OnInit {
     const paginaModal = await this.modalCtrl.create({
       component: NewextracurricularPage, // El componente que se mostrará en el modal
       componentProps: {
+        groupID: this.grupoid,
         'title': 'Crear Invitación' //Agregar titulo como parametro
       },
       breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
@@ -146,9 +147,9 @@ export class NotextracurricularPage implements OnInit {
 
   async alertEliminar(idextra: any, name: any, code: any) {
     const alert = await this.alertCtrl.create({
-      header: 'Eliminar evento',
-      subHeader: name,
-      message: '¿Estás seguro de eliminar el evento ' + idextra + '?',
+      header: 'Eliminar invitación',
+      subHeader: code,
+      message: '¿Estás seguro de eliminar la invitación a' + code + '?',
       cssClass: 'alert-center',
       buttons: [
         {
@@ -179,7 +180,7 @@ export class NotextracurricularPage implements OnInit {
       }
     }).then((response) => {
       if (response?.status == 204) {
-        this.alertEliminado(code, 'El evento con ' + code + ' ha sido eliminado');
+        this.alertEliminado(code, 'La invtiación al evento' + code + ' ha sido eliminada');
       }
     }).catch(function (error) {
       console.log(error);
@@ -189,8 +190,8 @@ export class NotextracurricularPage implements OnInit {
 
   async alertEliminado(idextra: any, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Evento',
-      subHeader: 'Eliminado',
+      header: 'Invitación',
+      subHeader: 'ELIMINADA',
       message: msg,
       cssClass: 'alert-center',
       buttons: [
@@ -217,12 +218,14 @@ export class NotextracurricularPage implements OnInit {
     });
   }
 
-  async editar(idextra: any) {
+  async editar(idextra: any, name: any, code: any) {
 
     const paginaModal = await this.modalCtrl.create({
     component: NewextracurricularPage,
     componentProps: {
         'idextra': idextra,
+        'extcode': code,
+        'extname': name,
         'title': 'Modificar Invitación'
     },
     breakpoints: [0, 0.3, 0.5, 0.95],

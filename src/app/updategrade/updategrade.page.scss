@@ -1,5 +1,11 @@
 ion-content {
     .second-grid {
+      
+      .table-container {
+        width: 100%;
+        overflow-x: auto; /* Hace que aparezca el scrollbar horizontal si es necesario */
+      }
+      
       table {
         width: 100%;
         border-collapse: collapse;
@@ -27,3 +33,8 @@ ion-content {
       }
     }
   }
+
+  // .table-container {
+  //   width: 100%; /* Ancho máximo para que se muestre el scroll horizontal */
+  //   overflow-x: auto; /* Habilita el scroll horizontal */
+  // }

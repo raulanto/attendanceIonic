@@ -19,9 +19,15 @@ export class NewextracurricularPage implements OnInit {
 
   @Input() idextra: any | undefined;
 
+  @Input() extcode: any | undefined;
+
+  @Input() extname: any | undefined;
+
   // MODIFICACIONES-----------------------------------------------------------
   @Input() title: string = '';
   // MODIFICACIONES-----------------------------------------------------------
+
+  groupID: any; // Recibir el ID del grupo como un parámetro
 
   private editarDatos = [];
 
@@ -54,6 +60,10 @@ export class NewextracurricularPage implements OnInit {
     if (this.idextra !== undefined) {
       this.getDetalles();
     }
+    if (this.groupID) {
+      // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
+      this.extracur.patchValue({ extgro_fkgroup: this.groupID });
+    } 
   }
 
   // MODIFICACIONES-----------------------------------------------------------
@@ -84,7 +94,7 @@ export class NewextracurricularPage implements OnInit {
         }).then((response) => {//Llama la alerta en caso de exito
           if (response?.status == 201) {
             // MODIFICACIONES-----------------------------------------------------------
-            this.alertGuardado(response.data.extgro_id, 'El evento ' + response.data.extgro_id + ' ha sido registrado');
+            this.alertGuardado(response.data.extgro_id, 'La invitación al evento ha sido enviada', "ENVIADA");
             // MODIFICACIONES-----------------------------------------------------------
           }
         }).catch((error) => {
@@ -106,7 +116,7 @@ export class NewextracurricularPage implements OnInit {
         }).then((response) => {
             if (response?.status == 200) {
               // MODIFICACIONES-----------------------------------------------------------
-                this.alertGuardado(response.data.extgro_id, 'El evento ' + response.data.extgro_id + ' ha sido actualizado');
+                this.alertGuardado(response.data.extgro_id, 'La invitación a ' + this.extcode + ' ha sido actualizada', "ACTUALIZADA");
                 // MODIFICACIONES-----------------------------------------------------------
               }
             }).catch((error) => {
@@ -130,9 +140,9 @@ export class NewextracurricularPage implements OnInit {
   }
 
   //método para reutilizar un alert
-  private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
+  private async alertGuardado(ID: String, msg = "", subMsg = "") {
     const alert = await this.alert.create({
-      header: 'Evento', //Titulo de nuestra alerta
+      header: 'Invitación a evento', //Titulo de nuestra alerta
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-center',
@@ -180,7 +190,7 @@ export class NewextracurricularPage implements OnInit {
   async cargarEventos() {
     const response = await axios({
     method: 'get',
-    url : this.extraUrl,
+    url : this.extraUrl + '/buscar-todos',
     withCredentials: true,
     headers: {
         'Accept': 'application/json'
