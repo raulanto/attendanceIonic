@@ -46,5 +46,15 @@ ion-grid {
   .button-with-text ion-icon {
     margin-right: 8px; /* Espacio entre el icono y el texto */
   }
+
+  .content-container {
+    height: calc(100vh - 50px); /* El contenido ocupará el 100% de la altura menos 50px */
+    overflow-y: auto; /* Añade desplazamiento vertical si es necesario */
+  }
+  
+  .tabs-container {
+    height: 50px;
+    width: 375px; /* Ancho fijo de 375px */
+  }
   
   

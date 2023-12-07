@@ -6,6 +6,7 @@ import { InfiniteScrollCustomEvent,
 import { Router } from '@angular/router';        
 import axios from 'axios';
 import { NewgroupPage } from '../newgroup/newgroup.page';
+import { GrupoService} from "../services/grupos.service"
 
 @Component({
   selector: 'app-group',
@@ -17,15 +18,24 @@ export class GroupPage implements OnInit {
 
   public baseUrl: string = "http://attendancedb.test/group";
 
+  personid=1;
   grupos: any = [];
+  data: any = [];
 
   constructor(
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
+    private grupoService: GrupoService,
   ) { }
 
+  // Una función que utiliza el valor de 'grupoid'
+  mostrar() {
+    console.log('Valor de idperson en mi groups:', this.personid);
+
+    // Puedes realizar otras acciones con 'grupoid' aquí
+  }
   busqueda:string = '';
   page:number = 1;
   totalGrupos:number = 0;
@@ -33,42 +43,27 @@ export class GroupPage implements OnInit {
   ngOnInit() {
     this.cargarGrupos();
     this.contarGrupos();
+    this.mostrar();
   }
 
   //CARGAR GRUPOS
  
-  async cargarGrupos(event?: InfiniteScrollCustomEvent) {
+  async cargarGrupos(event?: InfiniteScrollCustomEvent){
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
-
-    let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = "http://attendancedb.test/group?expand=subject,teacher,classroom&page=" + this.page;
-    } else {
-      urlApi = "http://attendancedb.test/group/buscar/" + this.busqueda+ "?expand=subject,teacher,classroom&page=" + this.page;
-    }
-
-    const response = await axios({
-      method: 'GET',
-      url: urlApi,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
-      }
-    }).then((response) => {
+    try{
+      const response = await this.grupoService.grupospersonas(this.personid).toPromise();
       this.grupos = response.data;
       event?.target.complete();
-    }).catch(function (error) {
-      console.log(error);
-    });
-    loading.dismiss();
-    this.contarGrupos();
-  }
-
+    }catch (error){
+      console.error("Error al cargar codigos", error);
+    } finally {
+      loading.dismiss();
+    }
+    }
   async contarGrupos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
@@ -188,6 +183,7 @@ export class GroupPage implements OnInit {
     });
   }
 
+  //UNIRSE A UN GRUPO
   public alertButtons = ['Unirse'];
   public alertInputs = [
     {

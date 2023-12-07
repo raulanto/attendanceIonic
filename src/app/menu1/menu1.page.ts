@@ -24,7 +24,8 @@ export class Menu1Page implements OnInit {
   // Una función que utiliza el valor de 'grupoid'
   mostrar() {
     console.log('Valor de grupoid en mi menu1:', this.grupoid);
-
+    console.log('Valor de gruposubject en mi menu1:', this.gruposubject);
+    console.log('Valor de grupocode en mi menu1:', this.grupocode);
     // Puedes realizar otras acciones con 'grupoid' aquí
   }
 
