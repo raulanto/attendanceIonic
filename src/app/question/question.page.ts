@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class QuestionPage implements OnInit {
 
   imagenPath: string = 'assets/icon/image.png';
-  public baseUrl: string = 'http://attendancedb1.test/question';
+  public baseUrl: string = 'http://attendance.test/question';
   busqueda: string = '';
   page: number = 1;
   totalQuestions: number = 0;
@@ -40,9 +40,9 @@ export class QuestionPage implements OnInit {
     await loading.present();
     let urlApi: string = '';
     if (this.busqueda === '') {
-      urlApi = 'http://attendancedb1.test/question?expand=tag,teacher,person&page=' + this.page;
+      urlApi = 'http://attendance.test/question?expand=tag,teacher,person&page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb1.test/question/buscar/' + this.busqueda + '?expand=tag,teacher,person&page=' + this.page;
+      urlApi = 'http://attendance.test/question/buscar/' + this.busqueda + '?expand=tag,teacher,person&page=' + this.page;
     }
 
     const response = await axios({
@@ -78,9 +78,9 @@ export class QuestionPage implements OnInit {
   async contarQuestions() {
     let urlApi: string = '';
     if (this.busqueda === '') {
-      urlApi = 'http://attendancedb1.test/question/total';
+      urlApi = 'http://attendance.test/question/total';
     } else {
-      urlApi = 'http://attendancedb1.test/question/total/' + this.busqueda;
+      urlApi = 'http://attendance.test/question/total/' + this.busqueda;
     }
     const response = await axios({
       method: 'get',

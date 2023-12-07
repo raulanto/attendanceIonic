@@ -31,7 +31,7 @@ export class QuestionDetailPage implements OnInit {
     const response = await axios({
       method: 'GET',
       // Url de Monica
-      url: "http://attendancedb1.test/answers/"+queId+"?expand=title,desc",
+      url: "http://attendance.test/answers/"+ queId +"?expand=title,desc",
       // Url de Zarate
       //url: "http://attendancebd.test/question?expand=tag,teacher,person",      
       // Url de Raul
