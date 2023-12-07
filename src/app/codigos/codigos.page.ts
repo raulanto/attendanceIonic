@@ -44,7 +44,6 @@ export class CodigosPage implements OnInit {
 			spinner: 'bubbles',
 		});
 		await loading.present();
-
 		try {
 			const response = await this.codigoService.codigos(this.grupoid).toPromise();
 			this.data = response;
