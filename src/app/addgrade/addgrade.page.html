@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="personalizado">
+      <ion-title class="ion-text-center">{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="grad" (ngSubmit)="guardarDatos()">
+  <ion-grid> <!-- Cuadrícula de diseño -->
+  <ion-row> <!-- Fila de la cuadrícula -->
+    <ion-col size="12">
+      <ion-item>
+      <ion-label position="floating" color="primary">Alumno</ion-label>
+      <ion-select formControlName="graper_fkperson" class="form-control">
+        <ion-select-option *ngFor="let person of personas"
+            [value]="person.list_id">
+            {{ person.list_fkperson }}
+        </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div id="note" *ngFor="let validation of
+      mensajes_validacion.graper_fkperson">
+      <ion-note color="danger"
+      *ngIf="getError('graper_fkperson')[(validation.type)]">
+      <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+      </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+      <ion-item>
+          <ion-label position="floating" color="primary">Calificación</ion-label>
+          <ion-input type="text" formControlName="graper_score"
+          class="form-control"></ion-input>
+      </ion-item>
+      <div id="note" *ngFor="let validation of
+          mensajes_validacion.graper_score">
+          <ion-note color="danger"
+          *ngIf="getError('graper_score')[(validation.type)]">
+          
+          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+          </ion-note>
+      </div>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item>
+            <ion-label position="floating" color="primary">Comentario</ion-label>
+            <ion-input type="text" formControlName="graper_commit"
+            class="form-control"></ion-input>
+        </ion-item>
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.graper_commit">
+            <ion-note color="danger"
+            *ngIf="getError('graper_commit')[(validation.type)]">
+            
+            <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
+            </ion-note>
+        </div>
+        </ion-col>
+      <ion-col size="12">
+      <p class="ion-text-center">
+          <ion-button type="submit" [disabled]="!grad.valid">Guardar</ion-button>
+      </p>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

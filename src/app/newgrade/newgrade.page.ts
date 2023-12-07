@@ -16,7 +16,7 @@ export class NewgradePage implements OnInit {
   // MODIFICACIONES-----------------------------------------------------------
   baseUrl: string = "http://attendancedb.test/grade";
   baseUrl2: string = "http://attendancedb.test/grade-person";
-  personaUrl: string = "http://attendancedb.test/person";
+  personaUrl: string = 'http://attendancedb.test/listg/listas?id=';
   // MODIFICACIONES-----------------------------------------------------------
 
   public grad!: FormGroup;
@@ -103,7 +103,7 @@ export class NewgradePage implements OnInit {
   async cargarPersonas() {
     const response = await axios({
     method: 'get',
-    url : this.personaUrl,
+    url : this.personaUrl+this.grupoid,
     withCredentials: true,
     headers: {
         'Accept': 'application/json'

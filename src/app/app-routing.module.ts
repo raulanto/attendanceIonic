@@ -96,9 +96,21 @@ const routes: Routes = [
     loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
   },
   {
-    path: 'updategrade',
+    path: 'updategrade/:califid',
     loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
+  },  {
+    path: 'addgrade',
+    loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
   },
+  {
+    path: 'grade-alu',
+    loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
+  },
+  {
+    path: 'extra-alu',
+    loadChildren: () => import('./extra-alu/extra-alu.module').then( m => m.ExtraAluPageModule)
+  },
+
  
 
 

@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { ModgradePage } from '../modgrade/modgrade.page';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AddgradePage } from '../addgrade/addgrade.page';
 
 @Component({
   selector: 'app-updategrade',
@@ -14,9 +16,11 @@ import { Router } from '@angular/router';
 })
 export class UpdategradePage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/grade-person";
+  // baseUrl: string = "http://attendancedb.test/grade-person";
+  baseUrl: string = "http://attendancedb.test/grade-person/gradesp?id=";
 
   constructor(
+    private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
     private platform: Platform,
     public modalCtrl: ModalController,
@@ -36,24 +40,23 @@ export class UpdategradePage implements OnInit {
   }
 
   async loadGrade(event?: InfiniteScrollCustomEvent) {
+    const califid = this.route.snapshot.paramMap.get('califid');
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
     });
     await loading.present();
 
-    let urlApi:string = '';
-    if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/grade-person/?expand=person,grade&page=' + this.page;
-    } else {
-      urlApi = 'http://attendancedb.test/grade-person/buscar/'+this.busqueda + '?expand=person,grade'+ this.page;
-    }
+    // let urlApi:string = '';
+    // if(this.busqueda === '') {
+    //   urlApi = 'http://attendancedb.test/grade-person/?expand=person,grade&page=' + this.page;
+    // } else {
+    //   urlApi = 'http://attendancedb.test/grade-person/buscar/'+this.busqueda + '?expand=person,grade'+ this.page;
+    // }
 
     const response = await axios({
       method: 'get',
-      //url : "http://attendancedb.test/extracurricular",
-      //url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
-      url : urlApi,
+      url : this.baseUrl + califid,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
@@ -122,6 +125,25 @@ export class UpdategradePage implements OnInit {
     paginaModal.onDidDismiss().then((data) => {
         this.loadGrade();
     });
+}
+
+async new() {
+  // Crear una página modal utilizando el controlador de modales 
+  const califid = this.route.snapshot.paramMap.get('califid');
+  const paginaModal = await this.modalCtrl.create({
+    component: AddgradePage, // El componente que se mostrará en el modal
+    componentProps: {
+      'idgrade': califid,
+      'title': 'Crear Invitación' //Agregar titulo como parametro
+    },
+    breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
+    initialBreakpoint: 1.1, // Ubicacion inicial del punto de quiebre
+  });
+  // Presentar la página modal en la interfaz de usuario
+  await paginaModal.present();
+  paginaModal.onDidDismiss().then((data) => {
+    this.loadGrade();
+});
 }
 
 }

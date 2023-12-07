@@ -121,8 +121,8 @@
               <td>
                 <ion-select formControlName="graper_fkperson" class="form-control">
                   <ion-select-option *ngFor="let person of personas"
-                      [value]="person.per_id">
-                      {{ person.per_name }}
+                      [value]="person.list_id">
+                      {{ person.list_fkperson }}
                   </ion-select-option>
                   </ion-select>
                 <div id="note" *ngFor="let validation of
