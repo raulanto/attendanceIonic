@@ -15,6 +15,13 @@ ion-card {
     transform: scale(1.05);
     box-shadow: var(--ion-color-tertiary);
   }
+  .botonM{
+    position: fixed; /* Establece la posición fija para el botón */
+    top: 30px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+    right: 10px; /* Ajusta la distancia desde la derecha según tus necesidades */
+    z-index: 999; /* Ajusta el índice z si hay elementos superpuestos */
+  }
+
   
   /* Estilos para el contenido de la tarjeta */
   ion-card-content {
@@ -23,32 +30,10 @@ ion-card {
     flex-grow: 0;
     
   }
-  .ic{
-    display: flex;
-    flex-direction: row;
-  }
-  .ictittle{
-    font-size: 14px;
-    bottom: -75px;
-  }
-  .icdesc{
-    font-size: 12px;
-    bottom: -65px;
-  }
-  .icnameteacher{
-    position: relative;
-    font-size: 12px;
-    bottom: -75px;
-  }
-  .icfecha{
-    position: relative;
-    font-size: 12px;
-    bottom: -55px;
-    
-  }
+  
   .imagecard{
-    width: 100px; 
-    height: 100px;
+    width: 50px; 
+    height: 50px;
   }
 
   .bottom-right {
@@ -111,6 +96,14 @@ ion-card {
   height: 5px
 }
 
+ion-footer {
+  position: fixed; /* Asegura que el footer se mantiene en la parte inferior de la página */
+  bottom: 0; /* Coloca el footer en la parte inferior */
+  width: 100%; /*  el ancho que desees */
+  background-color: #ffffff00; /* Cambia el color de fondo según tus preferencias */
+  border-top: 1px solid #ccc; /* Agrega un borde superior para separar del contenido */
+  padding: 10px; /* Añade relleno según sea necesario */
+}
 
   /* Estilos para los encabezados de las tarjetas */
   ion-card-header {
@@ -149,4 +142,6 @@ ion-card-title {
   ion-fab-button::part(native):active::after {
     background-color: #87d361;
   }*/
+  
+
   

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { QuestionPageRoutingModule } from './question-routing.module';
 import { QuestionPage } from './question.page';
-import { PaginacionModule } from '../components/paginacion/paginacion.module';
+import { PaginacionQuestionModule } from '../components/paginacion-question/paginacion-question.module';
 
 @NgModule({
   imports: [
@@ -12,8 +12,9 @@ import { PaginacionModule } from '../components/paginacion/paginacion.module';
     FormsModule,
     IonicModule,
     QuestionPageRoutingModule,
-    PaginacionModule
+    PaginacionQuestionModule
   ],
   declarations: [QuestionPage]
 })
+
 export class QuestionPageModule {}
