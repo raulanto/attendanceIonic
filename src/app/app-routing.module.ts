@@ -6,6 +6,7 @@ const routes: Routes = [
 
   {
     path: '',
+    //loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
     loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
 
@@ -103,7 +104,11 @@ const routes: Routes = [
   {
     path: 'newlista',
     loadChildren: () => import('./newlista/newlista.module').then( m => m.NewlistaPageModule)
-  },  
+  }, 
+  {
+    path: 'detalle-asistencia',
+    loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
+  }, 
 
   //APARTADO DE CODIGOS
     //Agrego la nueva ruta donde llevara el id del grupo      
@@ -112,14 +117,10 @@ const routes: Routes = [
       loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
     },
     {
-      path: 'codigos',
-      loadChildren: () => import('./codigos/codigos.module').then( m => m.CodigosPageModule)
+      path: 'codiogog/idcode',
+      loadChildren: () => import('./codiogog/codiogog.module').then( m => m.CodiogogPageModule)
     },
 
-    {
-      path: 'lista-asistencia',
-      loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
-    },
     //Agrego la nueva ruta donde llevara el id del grupo
     {
       path: 'lista-asistencia/:grupoid',
@@ -133,19 +134,13 @@ const routes: Routes = [
       path: 'generar-codigo/:grupoid',
       loadChildren: () => import('./generar-codigo/generar-codigo.module').then( m => m.GenerarCodigoPageModule)
     },
-    {
-      path: 'detalle-asistencia',
-      loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
-    },
+
     //esta ruta nos mandara al despliege todas las asistencia que pertenecen a la persona
     {
       path: 'detalle-asistencia/:idperson',
       loadChildren: () => import('./detalle-asistencia/detalle-asistencia.module').then( m => m.DetalleAsistenciaPageModule)
     },
-    {
-      path: 'codiogog/idcode',
-      loadChildren: () => import('./codiogog/codiogog.module').then( m => m.CodiogogPageModule)
-    },
+
     {
       path: 'tomar-asistencia/:idperson',
       loadChildren: () => import('./tomar-asistencia/tomar-asistencia.module').then( m => m.TomarAsistenciaPageModule)
@@ -207,6 +202,7 @@ const routes: Routes = [
     loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
   },
 
+  //APARTADO DE QUESTIONS
   {
     path: 'question',
     loadChildren: () => import('./question/question.module').then( m => m.QuestionPageModule)
