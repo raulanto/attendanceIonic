@@ -1,44 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Eventos Asignados</ion-title>
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
+    <ion-title>
+      Calificaciones asignadas
+    </ion-title>
+    <!-- MODIFICACIONES----------------------------------------------------------- -->
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
 
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
   <ion-grid>
-    <!-- MODIFICACIONES----------------------------------------------------------- -->
-    <ion-row *ngFor="let extras of extra; let i = index">
-      <!-- MODIFICACIONES----------------------------------------------------------- -->
-      <ion-col size="6">
+    <ion-row *ngFor="let grades of grade ; let i = index">
+      <ion-col size="6" class="icon-col">
         <div class="rectangle-avatar">
-          <!-- MODIFICACIONES----------------------------------------------------------- -->
-          <ion-img [src]="'assets/img/extra-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
-          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <!-- <ion-img src="assets/img/extra.png" alt="Foto"></ion-img> -->
+          <!-- <ion-icon name="checkmark-done"></ion-icon> -->
+          <ion-icon name="document-text" class="purple-icon"></ion-icon>
         </div>
       </ion-col>
 
-      <ion-col size="8">
+      <ion-col size="8" class="text-col">
         <ion-label class="ion-text-wrap">
-          <h2 class="extracurricular-text">{{extras.ext_name}}</h2>
-          <h2 class="extracurricular-code">{{extras.ext_code}}</h2>
-          <!-- MODIFICACIONES----------------------------------------------------------- -->
-          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <h2 class="extracurricular-text">{{grades.gra_type}}</h2>
+          <h2 class="extracurricular-info">
+            {{grades.gra_date | date: 'dd/MM/y'}}
+          </h2>
+          <h2 class="extracurricular-info">{{grades.gra_time}}</h2>
+          <h2 class="extracurricular-info">{{grades.gra_score}}</h2>
+          <h2 class="extracurricular-info">{{grades.gra_commit}}</h2>
         </ion-label>
       </ion-col>
 
       <ion-col>
-        <ion-button id="click-trigger-{{extras.extgro_id}}-{{i}}">
+        <ion-button id="click-trigger-{{grades.gra_id}}-{{i}}">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover
-          trigger="click-trigger-{{extras.extgro_id}}-{{i}}"
+          trigger="click-trigger-{{grades.gra_id}}-{{i}}"
           [dismissOnSelect]="true"
           [keepContentsMounted]="true"
           side="end">
@@ -48,56 +53,51 @@
                 <ion-item 
                 [button]="true" 
                 [detail]="false"
-                (click)="alertEliminar(extras.extgro_id, extras.ext_name, extras.ext_code)"> 
+                (click)="alertEliminar(grades.gra_id)"> 
                 <ion-icon name="trash"></ion-icon>
                 Eliminar
                 </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
-                  (click)="editar(extras.extgro_id, extras.ext_name, extras.ext_code)"> 
+                  [routerLink]="['/updategrade', grades.gra_id, grupoid]"> 
                   <ion-icon name="create"></ion-icon>
                   Modificar 
                 </ion-item>
-                <ion-item
+                <!-- <ion-item
                   [button]="true"
                   [detail]="false"
                   [routerLink]="['extracurricular', extras.extgro_id]"> 
                   <ion-icon name="eye"></ion-icon>
                   Ver mas 
-                </ion-item>
+                </ion-item> -->
               </ion-list>
             </ion-content>
           </ng-template>
         </ion-popover>
       </ion-col>
 
-      <!-- <ion-col>
-        <ion-button (click)="alertEliminar(extras.extgro_id)" color="danger">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-col> -->
-
     </ion-row>
   </ion-grid>
-  
+
+  <!-- MODIFICACIONES----------------------------------------------------------- -->
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button (click)="new()">
+      <ion-fab-button [routerLink]="['/newgrade', grupoid]">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
       <!-- MODIFICACIONES----------------------------------------------------------- -->
-      <ion-fab-button [routerLink]="['events']">
-        <ion-icon name="school"></ion-icon>
-        <!-- MODIFICACIONES----------------------------------------------------------- -->
-      </ion-fab-button>
+      <!-- <ion-fab-button>
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button> -->
     </ion-fab-list>
   </ion-fab>
   <!-- MODIFICACIONES----------------------------------------------------------- -->
-  <app-paginacion [total]="totalExtracurriculares" (click)="pagina($event)"></app-paginacion>
-  <!-- MODIFICACIONES----------------------------------------------------------- -->
+
+  <app-paginacion [total]="totalCalificaciones" (click)="pagina($event)"></app-paginacion>
 
 </ion-content>

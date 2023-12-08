@@ -1,56 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollCustomEvent,
-        LoadingController, 
-        ModalController, 
-        AlertController,
-        Platform } from '@ionic/angular';
-import { ActivatedRoute, 
-          Router } from '@angular/router';        
 import axios from 'axios';
-import { NewextracurricularPage } from '../newextracurricular/newextracurricular.page';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { NeweventsPage } from '../newevents/newevents.page';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-notextracurricular',
-  templateUrl: './notextracurricular.page.html',
-  styleUrls: ['./notextracurricular.page.scss'],
+  selector: 'app-events',
+  templateUrl: './events.page.html',
+  styleUrls: ['./events.page.scss'],
 })
-export class NotextracurricularPage implements OnInit {
+export class EventsPage implements OnInit {
 
-  public grupoid: any;
-
-  //baseUrl: string = "http://attendancedb.test/extra-group";
-  baseUrl: string = "http://attendancedb.test/extra-group/extragroups?id="
-  eliminarUrl: string = "http://attendancedb.test/extra-group";
-
-  extra: any = [];
+  baseUrl: string = "http://attendancedb.test/extracurricular";
 
   constructor(
-    private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
+    private platform: Platform,
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private platform: Platform,
     private router: Router,
-  ) { 
-    //mandamos a pedir el id del grupo desde route paramMap
-    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
-  }
-
-    // Una función que utiliza el valor de 'groupid'
-    mostrar() {
-      console.log('Valor de grupoid en Eventos:', this.grupoid);
-    }
+  ) { }
 
   busqueda:string = '';
   page:number = 1;
-  totalExtracurriculares:number = 0;
+  totalEventos:number = 0;
+
+  extra: any = [];
 
   ngOnInit() {
-    this.mostrar();
     this.loadExtra();
     this.contarEventos();
   }
-
 
   async loadExtra(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -61,9 +44,9 @@ export class NotextracurricularPage implements OnInit {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}_expand=extracurricular&page=${this.page}`;
+      urlApi = 'http://attendancedb.test/extracurricular?page=' + this.page;
     } else {
-      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}&text=${this.busqueda}&_expand=extracurricular`;
+      urlApi = 'http://attendancedb.test/extracurricular/buscar/'+this.busqueda;
     }
 
     const response = await axios({
@@ -89,67 +72,58 @@ export class NotextracurricularPage implements OnInit {
 
 
 
-    async contarEventos() {
-      let urlApi:string = '';
-      if (this.busqueda === '') {
-        //urlApi = 'http://attendancedb.test/extra-group/total';
-        urlApi = `http://attendancedb.test/extra-group/total/?id=${this.grupoid}`;
-      } else {
-        //urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
-        urlApi = `http://attendancedb.test/extra-group/total?id=${this.grupoid}&text=${this.busqueda}`;
-      }
-      const response = await axios({
-          method: 'get',
-          url : urlApi,
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 100-token'
-          }
-      }).then( (response) => {
-          console.log(response);  
-          this.totalExtracurriculares = response.data;
-      }).catch(function (error) {
-          console.log(error);     
-      });
+  async contarEventos() {
+    let urlApi:string = '';
+    if(this.busqueda === '') {
+        urlApi = 'http://attendancedb.test/extracurricular/total';
+    } else {
+        urlApi = 'http://attendancedb.test/extracurricular/total/'+ this.busqueda;
     }
-
+    const response = await axios({
+        method: 'get',
+        url : urlApi,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token'
+        }
+    }).then( (response) => {
+        this.totalEventos = response.data;
+    }).catch(function (error) {
+        console.log(error);     
+    });
+  }
+  
   pagina(event:any) {
-    this.page = event.target.innerText;
-    this.loadExtra();
+  this.page = event.target.innerText;
+  this.loadExtra();
   }
   
   handleInput(event:any) {
-    this.busqueda = event.target.value.toLowerCase();
-    this.loadExtra();
+  this.busqueda = event.target.value.toLowerCase();
+  this.loadExtra();
   }
 
-  //CREAR NUEVA CALIFICACION
 
   async new() {
     // Crear una página modal utilizando el controlador de modales 
     const paginaModal = await this.modalCtrl.create({
-      component: NewextracurricularPage, // El componente que se mostrará en el modal
+      component: NeweventsPage, // El componente que se mostrará en el modal
       componentProps: {
-        groupID: this.grupoid,
-        'title': 'Crear Invitación' //Agregar titulo como parametro
+        'title': 'Crear Evento' //Agregar titulo como parametro
       },
       breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
       initialBreakpoint: 1.1, // Ubicacion inicial del punto de quiebre
     });
     // Presentar la página modal en la interfaz de usuario
     await paginaModal.present();
-    paginaModal.onDidDismiss().then((data) => {
-      this.loadExtra();
-  });
   }
-
 
   async alertEliminar(idextra: any, name: any, code: any) {
     const alert = await this.alertCtrl.create({
-      header: 'Eliminar invitación',
-      subHeader: code,
-      message: '¿Estás seguro de eliminar la invitación a' + code + '?',
+      header: 'Eliminar evento',
+      subHeader: name,
+      message: '¿Estás seguro de eliminar el evento ' + code + '?',
       cssClass: 'alert-center',
       buttons: [
         {
@@ -168,11 +142,10 @@ export class NotextracurricularPage implements OnInit {
     await alert.present();
   }
 
-
   async eliminar(idextra: any, code: any) {
     const response = await axios({
       method: 'delete',
-      url: this.eliminarUrl + '/' + idextra,
+      url: this.baseUrl + '/' + idextra,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -180,18 +153,17 @@ export class NotextracurricularPage implements OnInit {
       }
     }).then((response) => {
       if (response?.status == 204) {
-        this.alertEliminado(code, 'La invtiación al evento' + code + ' ha sido eliminada');
+        this.alertEliminado(code, 'El evento con ' + code + ' ha sido eliminado');
       }
     }).catch(function (error) {
       console.log(error);
     });
   }
-  
 
   async alertEliminado(idextra: any, msg = "") {
     const alert = await this.alertCtrl.create({
-      header: 'Invitación',
-      subHeader: 'ELIMINADA',
+      header: 'Evento',
+      subHeader: 'Eliminado',
       message: msg,
       cssClass: 'alert-center',
       buttons: [
@@ -213,20 +185,18 @@ export class NotextracurricularPage implements OnInit {
   }
 
   private regresar() {
-    this.router.navigate(['/tabs/notextracurricular']).then(() => {
+    this.router.navigate(['/tabs/events']).then(() => {
       window.location.reload();
     });
   }
 
-  async editar(idextra: any, name: any, code: any) {
+  async editar(idextra: any) {
 
     const paginaModal = await this.modalCtrl.create({
-    component: NewextracurricularPage,
+    component: NeweventsPage,
     componentProps: {
         'idextra': idextra,
-        'extcode': code,
-        'extname': name,
-        'title': 'Modificar Invitación'
+        'title': 'Modificar Evento'
     },
     breakpoints: [0, 0.3, 0.5, 0.95],
     initialBreakpoint: 0.95
@@ -234,7 +204,8 @@ export class NotextracurricularPage implements OnInit {
     await paginaModal.present();
 
     paginaModal.onDidDismiss().then((data) => {
-      this.loadExtra();
+        this.loadExtra();
     });
 }
+
 }

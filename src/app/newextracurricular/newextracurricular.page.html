@@ -1,113 +1,65 @@
 <ion-header>
-  <ion-toolbar color="personalizado">
-      <ion-title class="ion-text-center">Modificar Evento</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-<form [formGroup]="extracur" (ngSubmit)="guardarDatos()">
-  <ion-grid> <!-- Cuadrícula de diseño -->
-  <ion-row> <!-- Fila de la cuadrícula -->
-      <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
-      <ion-item>
-          <ion-label position="floating" color="primary">Nombre</ion-label>
-          <ion-input type="text" formControlName="ext_name"
-          class="form-control"></ion-input>
-      </ion-item>
-      <div id="note" *ngFor="let validation of mensajes_validacion.ext_name">
-          <ion-note color="danger"
-          *ngIf="getError('ext_name')[(validation.type)]">
-          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-          </ion-note>
-      </div>
-      </ion-col>
-      <ion-col size="12">
-      <ion-item>
-          <ion-label position="floating" color="primary">Fecha</ion-label>
-          <ion-input type="text" formControlName="ext_date"
-          class="form-control"></ion-input>
-      </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.ext_date">
-          <ion-note color="danger"
-          *ngIf="getError('ext_date')[(validation.type)]">
-          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-          </ion-note>
-      </div>
-      </ion-col>
-      <ion-col size="12">
-      <ion-item>
-          <ion-label position="floating" color="primary">Hora de inicio</ion-label>
-          <ion-input type="text" formControlName="ext_opening"
-          class="form-control"></ion-input>
-      </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.ext_opening">
-          <ion-note color="danger"
-          *ngIf="getError('ext_opening')[(validation.type)]">
-          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-          </ion-note>
-      </div>
-      </ion-col>
-      <ion-col size="12">
-      <ion-item>
-          <ion-label position="floating" color="primary">Hora de fin</ion-label>
-          <ion-input type="text" formControlName="ext_closing"
-          class="form-control"></ion-input>
-      </ion-item>
-      <div id="note" *ngFor="let validation of
-          mensajes_validacion.ext_closing">
-          <ion-note color="danger"
-          *ngIf="getError('ext_closing')[(validation.type)]">
-          <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
-          </ion-note>
-      </div>
-      </ion-col>
-      <ion-col size="12">
+    <ion-toolbar color="personalizado">
+        <ion-title class="ion-text-center">{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  <form [formGroup]="extracur" (ngSubmit)="guardarDatos()">
+    <ion-grid> <!-- Cuadrícula de diseño -->
+    <ion-row> <!-- Fila de la cuadrícula -->
+        <ion-col size="12"> <!-- Columna con tamaño completo (12) -->
         <ion-item>
-            <ion-label position="floating" color="primary">Descripcion</ion-label>
-            <ion-input type="text" formControlName="ext_description"
-            class="form-control"></ion-input>
+            <ion-label position="floating" color="primary">Actividad extracurricular</ion-label>
+            <ion-select formControlName="extgro_fkextracurricular" class="form-control">
+              <ion-select-option *ngFor="let evento of eventos"
+                  [value]="evento.ext_id">
+                  {{ evento.ext_code}}
+              </ion-select-option>
+              </ion-select>
         </ion-item>
-        <div id="note" *ngFor="let validation of mensajes_validacion.ext_description">
+        <div id="note" *ngFor="let validation of mensajes_validacion.extgro_fkextracurricular">
             <ion-note color="danger"
-            *ngIf="getError('ext_description')[(validation.type)]">
+            *ngIf="getError('extgro_fkextracurricular')[(validation.type)]">
             <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
             </ion-note>
         </div>
-      </ion-col>
-      <ion-col size="12">
+        </ion-col>
+        <!-- <ion-col size="12">
         <ion-item>
-            <ion-label position="floating" color="primary">Lugar</ion-label>
-            <ion-input type="text" formControlName="ext_place"
+            <ion-label position="floating" color="primary">Grupo</ion-label>
+            <ion-input type="text" formControlName="extgro_fkgroup"
             class="form-control"></ion-input>
         </ion-item>
-        <div id="note" *ngFor="let validation of mensajes_validacion.ext_place">
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.extgro_fkgroup">
             <ion-note color="danger"
-            *ngIf="getError('ext_place')[(validation.type)]">
+            *ngIf="getError('extgro_fkgroup')[(validation.type)]">
             <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
             </ion-note>
         </div>
-      </ion-col>
-      <ion-col size="12">
+        </ion-col> -->
+        <ion-col size="12">
         <ion-item>
-            <ion-label position="floating" color="primary">Codigo</ion-label>
-            <ion-input type="text" formControlName="ext_code"
+            <ion-label position="floating" color="primary">Comentario</ion-label>
+            <ion-input type="text" formControlName="extgro_commit"
             class="form-control"></ion-input>
         </ion-item>
-        <div id="note" *ngFor="let validation of mensajes_validacion.ext_code">
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.extgro_commit">
             <ion-note color="danger"
-            *ngIf="getError('ext_code')[(validation.type)]">
+            *ngIf="getError('extgro_commit')[(validation.type)]">
+            
             <ion-icon name="information-circle-outline"></ion-icon> {{validation.message }}
             </ion-note>
         </div>
-      </ion-col>
-      <ion-col size="12">
-      <p class="ion-text-center">
-          <ion-button type="submit" [disabled]="!extracur.valid">Guardar</ion-button>
-      </p>
-      </ion-col>
-  </ion-row>
-  </ion-grid>
-</form>
-</ion-content>
+        </ion-col>
+        <ion-col size="12">
+        <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!extracur.valid">Guardar</ion-button>
+        </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  </form>
+  </ion-content>

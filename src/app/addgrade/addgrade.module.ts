@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ModgradePageRoutingModule } from './modgrade-routing.module';
+import { AddgradePageRoutingModule } from './addgrade-routing.module';
 
-import { ModgradePage } from './modgrade.page';
+import { AddgradePage } from './addgrade.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModgradePageRoutingModule,
+    AddgradePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ModgradePage]
+  declarations: [AddgradePage]
 })
-export class ModgradePageModule {}
+export class AddgradePageModule {}

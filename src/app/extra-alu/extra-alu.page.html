@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Eventos Asignados</ion-title>
+    <ion-title>Mis eventos</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
@@ -28,6 +28,10 @@
         <ion-label class="ion-text-wrap">
           <h2 class="extracurricular-text">{{extras.ext_name}}</h2>
           <h2 class="extracurricular-code">{{extras.ext_code}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_date}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_opening}}-{{extras.ext_closing}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_place}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_description}}</h2>
           <!-- MODIFICACIONES----------------------------------------------------------- -->
           <!-- MODIFICACIONES----------------------------------------------------------- -->
         </ion-label>
@@ -45,20 +49,6 @@
           <ng-template>
             <ion-content>
               <ion-list>
-                <ion-item 
-                [button]="true" 
-                [detail]="false"
-                (click)="alertEliminar(extras.extgro_id, extras.ext_name, extras.ext_code)"> 
-                <ion-icon name="trash"></ion-icon>
-                Eliminar
-                </ion-item>
-                <ion-item
-                  [button]="true"
-                  [detail]="false"
-                  (click)="editar(extras.extgro_id, extras.ext_name, extras.ext_code)"> 
-                  <ion-icon name="create"></ion-icon>
-                  Modificar 
-                </ion-item>
                 <ion-item
                   [button]="true"
                   [detail]="false"
@@ -80,22 +70,7 @@
 
     </ion-row>
   </ion-grid>
-  
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
-      <ion-icon name="chevron-up-circle"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="new()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-      <!-- MODIFICACIONES----------------------------------------------------------- -->
-      <ion-fab-button [routerLink]="['events']">
-        <ion-icon name="school"></ion-icon>
-        <!-- MODIFICACIONES----------------------------------------------------------- -->
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+
   <!-- MODIFICACIONES----------------------------------------------------------- -->
   <app-paginacion [total]="totalExtracurriculares" (click)="pagina($event)"></app-paginacion>
   <!-- MODIFICACIONES----------------------------------------------------------- -->

@@ -231,7 +231,31 @@ const routes: Routes = [
   {
     path: 'question-detail/:que_id',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
+  },  {
+    path: 'addgrade',
+    loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
   },
+  {
+    path: 'events',
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
+  },
+  {
+    path: 'extra-alu',
+    loadChildren: () => import('./extra-alu/extra-alu.module').then( m => m.ExtraAluPageModule)
+  },
+  {
+    path: 'grade-alu',
+    loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
+  },
+  {
+    path: 'newevents',
+    loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
+  },
+  {
+    path: 'updategrade',
+    loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
+  },
+
 
 ];
 @NgModule({

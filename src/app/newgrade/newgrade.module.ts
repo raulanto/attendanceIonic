@@ -19,4 +19,3 @@ import { NewgradePage } from './newgrade.page';
   declarations: [NewgradePage]
 })
 export class NewgradePageModule {}
-

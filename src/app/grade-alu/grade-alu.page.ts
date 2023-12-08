@@ -10,15 +10,14 @@ import axios from 'axios';
 import { ModgradePage } from '../modgrade/modgrade.page';
 
 @Component({
-  selector: 'app-grade',
-  templateUrl: './grade.page.html',
-  styleUrls: ['./grade.page.scss'],
+  selector: 'app-grade-alu',
+  templateUrl: './grade-alu.page.html',
+  styleUrls: ['./grade-alu.page.scss'],
 })
-export class GradePage implements OnInit {
+export class GradeAluPage implements OnInit {
 
   public grupoid: any;
 
-  //baseUrl: string = "http://attendancedb.test/grade";
   baseUrl: string = "http://attendancedb.test/grade/grades?id="
   eliminarUrl: string = "http://attendancedb.test/grade";
 
@@ -32,15 +31,13 @@ export class GradePage implements OnInit {
     private platform: Platform,
     private router: Router,
   ) { 
-    //mandamos a pedir el id del grupo desde route paramMap
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
-  // Una función que utiliza el valor de 'groupid'
   mostrar() {
     console.log('Valor de grupoid en grade:', this.grupoid);
   }
-  
+
   busqueda:string = '';
   page:number = 1;
   totalCalificaciones:number = 0;
@@ -50,8 +47,6 @@ export class GradePage implements OnInit {
     this.loadGrade();
     this.contarCalificaciones();
   }
-
-  //CARGAR GRADES
 
   async loadGrade(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
@@ -205,7 +200,4 @@ export class GradePage implements OnInit {
       window.location.reload();
     });
   }
-
-
-
 }
