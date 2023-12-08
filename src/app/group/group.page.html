@@ -15,7 +15,9 @@
     <ion-row *ngFor="let grupo of grupos; let i = index" >
       <!-- Crear columna para el icono-->
       <ion-col size="1" [routerLink]="['/menu1', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
-        <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <ion-img [src]="'assets/img/grupos' + ((i % 5) + 1) + '.png'" alt="Foto"></ion-img>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/menu1', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
