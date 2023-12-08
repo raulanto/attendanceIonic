@@ -20,7 +20,7 @@ import { FormGroup } from '@angular/forms';
 export class NewmajorPage {
 
   majors: any = [];
-  baseUrl:string = 'http://attendancedb.test/major'
+  baseUrl:string = 'http://attendance.test/major'
 
 
   public CarreraForm!: FormGroup;

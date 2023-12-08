@@ -15,7 +15,7 @@ import { GrupoService} from "../services/grupos.service"
 })
 export class GroupAlumPage implements OnInit {
 
-  public baseUrl: string = "http://attendancedb.test/group";
+  public baseUrl: string = "http://attendance.test/group";
 
   personid=1;
   grupos: any = [];
@@ -54,8 +54,8 @@ export class GroupAlumPage implements OnInit {
     });
     await loading.present();
     try{
-      //const response = await this.grupoService.grupospersonas(this.data).toPromise();
-      const response = await this.grupoService.grupospersonas(this.personid).toPromise();
+      const response = await this.grupoService.grupospersonas(this.data).toPromise();
+      //const response = await this.grupoService.grupospersonas(this.personid).toPromise();
       this.grupos = response.data;
       event?.target.complete();
     }catch (error){
@@ -68,9 +68,9 @@ export class GroupAlumPage implements OnInit {
   async contarGrupos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/group/total';
+      urlApi = 'http://attendance.test/group/total';
     } else {
-      urlApi = 'http://attendancedb.test/group/total/' + this.busqueda;
+      urlApi = 'http://attendance.test/group/total/' + this.busqueda;
     }
     const response = await axios({
         method: 'get',

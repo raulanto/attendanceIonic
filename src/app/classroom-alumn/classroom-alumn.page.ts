@@ -14,7 +14,7 @@ import { NewclassroomPage } from '../newclassroom/newclassroom.page';
 })
 export class ClassroomAlumnPage implements OnInit {
 
-  public baseUrl: string = "http://attendancedb.test/classroom";
+  public baseUrl: string = "http://attendance.test/classroom";
 
   classrooms: any = [];
 
@@ -45,9 +45,9 @@ export class ClassroomAlumnPage implements OnInit {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = "http://attendancedb.test/classroom?page=" + this.page;
+      urlApi = "http://attendance.test/classroom?page=" + this.page;
     } else {
-      urlApi = "http://attendancedb.test/classroom/buscar/" + this.busqueda;
+      urlApi = "http://attendance.test/classroom/buscar/" + this.busqueda;
     }
 
     const response = await axios({
@@ -71,9 +71,9 @@ export class ClassroomAlumnPage implements OnInit {
   async contarClassrooms() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/classroom/total';
+      urlApi = 'http://attendance.test/classroom/total';
     } else {
-      urlApi = 'http://attendancedb.test/classroom/total/' + this.busqueda;
+      urlApi = 'http://attendance.test/classroom/total/' + this.busqueda;
     }
     const response = await axios({
         method: 'get',

@@ -32,8 +32,8 @@ export class MajorPage {
   totalMajors:number = 0;
   
   majors: any = [];
-  majorUrl: string = "http://attendanceproyect.atwebpages.com/major"
-  baseUrl: string = 'http://attendancedb.test/major'
+  majorUrl: string = "http://attendance.test/major"
+  baseUrl: string = 'http://attendance.test/major'
 
   public alertButtons = ['Crear'];
   public alertInputs = [

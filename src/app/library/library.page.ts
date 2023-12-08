@@ -19,8 +19,8 @@ export class LibraryPage implements OnInit {
   
   public grupoid: any;
 
-  public baseUrl: string = "http://attendancedb.test/library/librarys?id=";
-  public eliminarUrl: string = "http://attendancedb.test/library";
+  public baseUrl: string = "http://attendance.test/library/librarys?id=";
+  public eliminarUrl: string = "http://attendance.test/library";
 
   librarys: any = [];
 

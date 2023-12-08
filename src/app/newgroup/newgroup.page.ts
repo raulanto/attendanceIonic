@@ -17,10 +17,10 @@ export class NewgroupPage implements OnInit {
   private editarDatos = []; // Arreglo para almacenar datos de edición si es necesario
   //
 
-  baseUrl: string = "http://attendancedb.test/group";
-  materiaUrl:string = "http://attendancedb.test/subject/"
-  docenteUrl:string = "http://attendancedb.test/teacher/"
-  claseUrl:string = "http://attendancedb.test/classroom/"
+  baseUrl: string = "http://attendance.test/group";
+  materiaUrl:string = "http://attendance.test/subject/"
+  docenteUrl:string = "http://attendance.test/teacher/"
+  claseUrl:string = "http://attendance.test/classroom/"
 
   public grupo!: FormGroup; //Sirve para ingresar datos de "grupos"
 

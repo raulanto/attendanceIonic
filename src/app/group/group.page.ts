@@ -16,7 +16,7 @@ import { GrupoService} from "../services/grupos.service"
 
 export class GroupPage implements OnInit {
 
-  public baseUrl: string = "http://attendancedb.test/group";
+  public baseUrl: string = "http://attendance.test/group";
 
   personid=1;
   grupos: any = [];
@@ -69,9 +69,9 @@ export class GroupPage implements OnInit {
   async contarGrupos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/group/total';
+      urlApi = 'http://attendance.test/group/total';
     } else {
-      urlApi = 'http://attendancedb.test/group/total/' + this.busqueda;
+      urlApi = 'http://attendance.test/group/total/' + this.busqueda;
     }
     const response = await axios({
         method: 'get',

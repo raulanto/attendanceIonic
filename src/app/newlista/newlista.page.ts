@@ -19,8 +19,8 @@ export class NewlistaPage implements OnInit {
 
   groupID: any; // Recibir el ID del grupo como un parámetro
 
-  baseUrl: string = "http://attendancedb.test/listg";
-  alumnoUrl:string = "http://attendancedb.test/person/"
+  baseUrl: string = "http://attendance.test/listg";
+  alumnoUrl:string = "http://attendance.test/person/"
 
   public lista!: FormGroup; //Sirve para ingresar datos de "alumnos a un grupo"
 

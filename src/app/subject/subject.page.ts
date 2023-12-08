@@ -29,7 +29,7 @@ export class SubjectPage {
   ) { }
 
   subjects: any = [];
-  baseUrl: string = 'http://attendancedb.test/subject';
+  baseUrl: string = 'http://attendance.test/subject';
 
 
   public alertButtons = ['Crear'];

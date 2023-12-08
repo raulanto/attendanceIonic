@@ -25,7 +25,7 @@ export class ModsubjectPage implements OnInit {
     public formBuilder: FormBuilder,
     private alert : AlertController,) { }
 
-  baseUrl: string = 'http://attendancedb.test/subject';
+  baseUrl: string = 'http://attendance.test/subject';
   subjects: any = [];
   private editarDatos = [];
   public editMateria!: FormGroup;

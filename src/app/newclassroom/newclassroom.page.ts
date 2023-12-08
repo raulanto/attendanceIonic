@@ -17,7 +17,7 @@ export class NewclassroomPage implements OnInit {
   private editarDatos = []; // Arreglo para almacenar datos de edición si es necesario
   //
 
-  baseUrl: string = "http://attendancedb.test/classroom";
+  baseUrl: string = "http://attendance.test/classroom";
 
   public clase!: FormGroup; //Sirve para ingresar datos de "salones"
 

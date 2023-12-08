@@ -19,7 +19,7 @@ export class NewlibraryPage implements OnInit {
   
   groupID: any; // Recibir el ID del grupo como un parámetro
 
-  baseUrl: string = "http://attendancedb.test/library";
+  baseUrl: string = "http://attendance.test/library";
 
   public libro!: FormGroup; //Sirve para ingresar datos de "libros"
 

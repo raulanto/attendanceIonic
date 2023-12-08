@@ -74,7 +74,7 @@ export class NotextracurricularPage implements OnInit {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 100-token'
+        'Authorization': '3I5kpzOA8v0KA0wAKZoN1T'
       }
     }).then((response) => {
       this.extra = response.data;

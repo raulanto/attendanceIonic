@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class NewSubjectPage {
 
-  baseUrl:string = 'http://attendancedb.test/subject'
+  baseUrl:string = 'http://attendance.test/subject'
 
   public materia!: FormGroup;
 
