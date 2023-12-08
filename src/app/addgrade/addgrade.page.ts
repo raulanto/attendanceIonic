@@ -27,6 +27,8 @@ export class AddgradePage implements OnInit {
 
   @Input() title: string = '';
 
+  @Input() gid: any | undefined;
+
   mensajes_validacion: any = {
     'graper_fkperson': [{ type: 'required', message: 'Nombre del alumno requerido' }],
     'graper_fkgrade': [{ type: 'required', message: 'Asignación requerida' }],
@@ -52,6 +54,10 @@ export class AddgradePage implements OnInit {
     this.cargarPersonas();
     // MODIFICACIONES-----------------------------------------------------------
     this.formulario();
+    if (this.gid) {
+      // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
+      this.grad.patchValue({ graper_fkgrade: this.gid });
+    }
   }
 
   private formulario() {
@@ -96,6 +102,7 @@ export class AddgradePage implements OnInit {
           }
         }).then((response) => {//Llama la alerta en caso de exito
           if (response?.status == 201) {
+
             // MODIFICACIONES-----------------------------------------------------------
             this.alertGuardado(response.data.graper_id, 'La calificación ha sido enviada', "ENVIADA");
             // MODIFICACIONES-----------------------------------------------------------

@@ -17,6 +17,7 @@ import { AddgradePage } from '../addgrade/addgrade.page';
 export class UpdategradePage implements OnInit {
 
   public grupoid: any;
+  public califid: any;
 
 
   // baseUrl: string = "http://attendancedb.test/grade-person";
@@ -31,6 +32,7 @@ export class UpdategradePage implements OnInit {
     private router: Router,
   ) { 
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+    this.califid = this.route.snapshot.paramMap.get('califid');
   }
 
   mostrar() {
@@ -44,12 +46,13 @@ export class UpdategradePage implements OnInit {
   grades: any = [];
 
   ngOnInit() {
+    this.mostrar();
     this.loadGrade();
     this.contarCalificaciones();
   }
 
   async loadGrade(event?: InfiniteScrollCustomEvent) {
-    const califid = this.route.snapshot.paramMap.get('califid');
+    const calif = this.route.snapshot.paramMap.get('califid');
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -65,7 +68,7 @@ export class UpdategradePage implements OnInit {
 
     const response = await axios({
       method: 'get',
-      url : this.baseUrl + califid,
+      url : this.baseUrl + calif,
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
@@ -142,6 +145,7 @@ async new() {
   const paginaModal = await this.modalCtrl.create({
     component: AddgradePage, // El componente que se mostrará en el modal
     componentProps: {
+      'gid': this.califid,
       //'idgrade': califid,
       'title': 'Crear Invitación', //Agregar titulo como parametro
       grupoid: this.grupoid,
