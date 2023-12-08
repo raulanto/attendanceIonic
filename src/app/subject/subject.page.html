@@ -1,7 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/ruta-anterior"></ion-back-button>
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+          
     </ion-buttons>
     <ion-title>
       Materias Disponibles
@@ -15,10 +16,8 @@
 
   <ion-grid>
     <ion-row *ngFor="let subject of subjects">
-      <ion-col size="1">
-        <div class="rectangle-avatar">
-          <ion-img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Foto"></ion-img>
-        </div>
+    
+      <ion-col size = "0.1">
       </ion-col>
 
       <ion-col size="8">
@@ -45,62 +44,25 @@
                   <ion-icon name="create"></ion-icon>
                   Modificar
                 </ion-item>
+                
               </ion-list>
             </ion-content>
           </ng-template>
         </ion-popover>
       </ion-col>
 
-      <!-- <ion-col>
-        <ion-button (click)="alertEliminar(extras.extgro_id)" color="danger">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-col> 
--->
+      
     </ion-row>
   </ion-grid>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
-
-      <ion-icon name="chevron-down-circle"></ion-icon>
+    <ion-fab-button (click)="newSubject()">
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="newSubject()">
-        <ion-icon name="pencil-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
   </ion-fab>
 
 
-  <!--
-  <ion-grid>
-     Crear una fila por cada elemento  
-    <ion-row *ngFor="let subjects of subject" >
-      < Crear columna para el icono
-      <ion-col size="1" >
-      <img alt src="https://ionicframework.com/docs/img/demos/card-media.png">
-      </ion-col>
-      Crear columna para el texto
-      <ion-col >
-        <ion-label>
-          <h2>{{subjects.sub_name}}</h2>
-          <h3>{{subjects.sub_code}}</h3>
-        </ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
--->
-
-  <!-- Utiliza *ngFor para iterar sobre las asignaturas y mostrarlas en tarjetas 
-  <ion-card *ngFor="let subjects of subject" >
-    <ion-card-header>
-      <ion-card-title>{{ subjects.sub_name }}</ion-card-title>
-      <ion-card-subtitle>{{ subjects.sub_code }}</ion-card-subtitle>
-    </ion-card-header>
   
-  </ion-card>
--->
 
 
 <app-paginacion [total]="totalSubjects" (click)="pagina($event)"></app-paginacion>
