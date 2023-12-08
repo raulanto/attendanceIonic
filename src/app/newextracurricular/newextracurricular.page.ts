@@ -12,9 +12,9 @@ import axios from 'axios';
 export class NewextracurricularPage implements OnInit {
 
   // MODIFICACIONES-----------------------------------------------------------
-  baseUrl: string = "http://attendancedb.test/extra-group";
-  extraUrl: string = "http://attendancedb.test/extracurricular";
-  groupUrl: string = "http://attendancedb.test/group";
+  baseUrl: string = "http://attendance.test/extra-group";
+  extraUrl: string = "http://attendance.test/extracurricular";
+  groupUrl: string = "http://attendance.test/group";
   // MODIFICACIONES-----------------------------------------------------------
 
   @Input() idextra: any | undefined;

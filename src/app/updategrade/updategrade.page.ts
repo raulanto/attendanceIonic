@@ -20,8 +20,8 @@ export class UpdategradePage implements OnInit {
   public califid: any;
 
 
-  // baseUrl: string = "http://attendancedb.test/grade-person";
-  baseUrl: string = "http://attendancedb.test/grade-person/gradesp?id=";
+  // baseUrl: string = "http://attendance.test/grade-person";
+  baseUrl: string = "http://attendance.test/grade-person/gradesp?id=";
 
   constructor(
     private route: ActivatedRoute,
@@ -61,9 +61,9 @@ export class UpdategradePage implements OnInit {
 
     // let urlApi:string = '';
     // if(this.busqueda === '') {
-    //   urlApi = 'http://attendancedb.test/grade-person/?expand=person,grade&page=' + this.page;
+    //   urlApi = 'http://attendance.test/grade-person/?expand=person,grade&page=' + this.page;
     // } else {
-    //   urlApi = 'http://attendancedb.test/grade-person/buscar/'+this.busqueda + '?expand=person,grade'+ this.page;
+    //   urlApi = 'http://attendance.test/grade-person/buscar/'+this.busqueda + '?expand=person,grade'+ this.page;
     // }
 
     const response = await axios({
@@ -87,9 +87,9 @@ export class UpdategradePage implements OnInit {
   async contarCalificaciones() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/grade-person/total';
+        urlApi = 'http://attendance.test/grade-person/total';
     } else {
-        urlApi = 'http://attendancedb.test/grade-person/total/'+ this.busqueda;
+        urlApi = 'http://attendance.test/grade-person/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',

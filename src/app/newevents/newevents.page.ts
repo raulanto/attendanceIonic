@@ -11,7 +11,7 @@ import axios from 'axios';
 })
 export class NeweventsPage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/extracurricular";
+  baseUrl: string = "http://attendance.test/extracurricular";
 
   @Input() idextra: any | undefined;
   @Input() title: string = '';

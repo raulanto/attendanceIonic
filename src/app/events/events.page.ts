@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class EventsPage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/extracurricular";
+  baseUrl: string = "http://attendance.test/extracurricular";
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -44,15 +44,15 @@ export class EventsPage implements OnInit {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = 'http://attendancedb.test/extracurricular?page=' + this.page;
+      urlApi = 'http://attendance.test/extracurricular?page=' + this.page;
     } else {
-      urlApi = 'http://attendancedb.test/extracurricular/buscar/'+this.busqueda;
+      urlApi = 'http://attendance.test/extracurricular/buscar/'+this.busqueda;
     }
 
     const response = await axios({
       method: 'get',
-      //url : "http://attendancedb.test/extracurricular",
-      //url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
+      //url : "http://attendance.test/extracurricular",
+      //url: "http://attendance.test/extra-group/?expand=extracurricular,group,date,time,code,place",
       url : urlApi,
       withCredentials: true,
       headers: {
@@ -75,9 +75,9 @@ export class EventsPage implements OnInit {
   async contarEventos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
-        urlApi = 'http://attendancedb.test/extracurricular/total';
+        urlApi = 'http://attendance.test/extracurricular/total';
     } else {
-        urlApi = 'http://attendancedb.test/extracurricular/total/'+ this.busqueda;
+        urlApi = 'http://attendance.test/extracurricular/total/'+ this.busqueda;
     }
     const response = await axios({
         method: 'get',

@@ -18,9 +18,9 @@ export class GradePage implements OnInit {
 
   public grupoid: any;
 
-  //baseUrl: string = "http://attendancedb.test/grade";
-  baseUrl: string = "http://attendancedb.test/grade/grades?id="
-  eliminarUrl: string = "http://attendancedb.test/grade";
+  //baseUrl: string = "http://attendance.test/grade";
+  baseUrl: string = "http://attendance.test/grade/grades?id="
+  eliminarUrl: string = "http://attendance.test/grade";
 
   grade: any = [];
 
@@ -62,9 +62,9 @@ export class GradePage implements OnInit {
 
     let urlApi:string = '';
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/grade/grades?id=${this.grupoid}&page=${this.page}`;
+			urlApi = `http://attendance.test/grade/grades?id=${this.grupoid}&page=${this.page}`;
 		} else {
-			urlApi = `http://attendancedb.test/grade/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
+			urlApi = `http://attendance.test/grade/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
 		}
 
     const response = await axios({
@@ -89,9 +89,9 @@ export class GradePage implements OnInit {
   async contarCalificaciones() {
     let urlApi:string = '';
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/grade/total/?id=${this.grupoid}`;
+			urlApi = `http://attendance.test/grade/total/?id=${this.grupoid}`;
 		} else {
-			urlApi = `http://attendancedb.test/grade/total/?text=${this.busqueda}&id=${this.grupoid}`;
+			urlApi = `http://attendance.test/grade/total/?text=${this.busqueda}&id=${this.grupoid}`;
 		}
     const response = await axios({
         method: 'get',

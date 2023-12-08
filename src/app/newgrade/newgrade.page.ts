@@ -14,9 +14,9 @@ import { ActivatedRoute,
 export class NewgradePage implements OnInit {
 
   // MODIFICACIONES-----------------------------------------------------------
-  baseUrl: string = "http://attendancedb.test/grade";
-  baseUrl2: string = "http://attendancedb.test/grade-person";
-  personaUrl: string = 'http://attendancedb.test/listg/listas?id=';
+  baseUrl: string = "http://attendance.test/grade";
+  baseUrl2: string = "http://attendance.test/grade-person";
+  personaUrl: string = 'http://attendance.test/listg/listas?id=';
   // MODIFICACIONES-----------------------------------------------------------
 
   public grad!: FormGroup;

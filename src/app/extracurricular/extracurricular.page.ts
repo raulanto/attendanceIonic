@@ -33,9 +33,9 @@ export class ExtracurricularPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      //url: "http://attendancedb.test/extra-groups/"+extcode+"?expand=group, extracurricular",
-      url: "http://attendancedb.test/extra-group/view?id="+extcode+"&expand=group, extracurricular,date,time,description,place",
-      //url : "http://attendancedb.test/extra-group/?expand=group,extracurricular",
+      //url: "http://attendance.test/extra-groups/"+extcode+"?expand=group, extracurricular",
+      url: "http://attendance.test/extra-group/view?id="+extcode+"&expand=group, extracurricular,date,time,description,place",
+      //url : "http://attendance.test/extra-group/?expand=group,extracurricular",
       withCredentials: true,
       headers: {
         'Accept': 'application/json'

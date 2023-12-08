@@ -12,7 +12,7 @@ import axios from 'axios';
 export class ModgradePage implements OnInit {
 
   // MODIFICACIONES-----------------------------------------------------------
-  baseUrl: string = "http://attendancedb.test/grade-person";
+  baseUrl: string = "http://attendance.test/grade-person";
   // MODIFICACIONES-----------------------------------------------------------
 
   @Input() idgrade: any | undefined;

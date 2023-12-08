@@ -18,9 +18,9 @@ export class NotextracurricularPage implements OnInit {
 
   public grupoid: any;
 
-  //baseUrl: string = "http://attendancedb.test/extra-group";
-  baseUrl: string = "http://attendancedb.test/extra-group/extragroups?id="
-  eliminarUrl: string = "http://attendancedb.test/extra-group";
+  //baseUrl: string = "http://attendance.test/extra-group";
+  baseUrl: string = "http://attendance.test/extra-group/extragroups?id="
+  eliminarUrl: string = "http://attendance.test/extra-group";
 
   extra: any = [];
 
@@ -61,15 +61,15 @@ export class NotextracurricularPage implements OnInit {
 
     let urlApi:string = '';
     if(this.busqueda === '') {
-      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}_expand=extracurricular&page=${this.page}`;
+      urlApi = `http://attendance.test/extra-group/extragroups?id=${this.grupoid}_expand=extracurricular&page=${this.page}`;
     } else {
-      urlApi = `http://attendancedb.test/extra-group/extragroups?id=${this.grupoid}&text=${this.busqueda}&_expand=extracurricular`;
+      urlApi = `http://attendance.test/extra-group/extragroups?id=${this.grupoid}&text=${this.busqueda}&_expand=extracurricular`;
     }
 
     const response = await axios({
       method: 'get',
-      //url : "http://attendancedb.test/extracurricular",
-      //url: "http://attendancedb.test/extra-group/?expand=extracurricular,group,date,time,code,place",
+      //url : "http://attendance.test/extracurricular",
+      //url: "http://attendance.test/extra-group/?expand=extracurricular,group,date,time,code,place",
       url : urlApi,
       withCredentials: true,
       headers: {
@@ -92,11 +92,11 @@ export class NotextracurricularPage implements OnInit {
     async contarEventos() {
       let urlApi:string = '';
       if (this.busqueda === '') {
-        //urlApi = 'http://attendancedb.test/extra-group/total';
-        urlApi = `http://attendancedb.test/extra-group/total/?id=${this.grupoid}`;
+        //urlApi = 'http://attendance.test/extra-group/total';
+        urlApi = `http://attendance.test/extra-group/total/?id=${this.grupoid}`;
       } else {
-        //urlApi = 'http://attendancedb.test/extra-group/total/'+ this.busqueda;
-        urlApi = `http://attendancedb.test/extra-group/total?id=${this.grupoid}&text=${this.busqueda}`;
+        //urlApi = 'http://attendance.test/extra-group/total/'+ this.busqueda;
+        urlApi = `http://attendance.test/extra-group/total?id=${this.grupoid}&text=${this.busqueda}`;
       }
       const response = await axios({
           method: 'get',

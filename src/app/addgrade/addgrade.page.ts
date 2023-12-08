@@ -13,9 +13,9 @@ import { ActivatedRoute,
 })
 export class AddgradePage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/grade";
-  baseUrl2: string = "http://attendancedb.test/grade-person";
-  personaUrl: string = 'http://attendancedb.test/listg/listas?id=';
+  baseUrl: string = "http://attendance.test/grade";
+  baseUrl2: string = "http://attendance.test/grade-person";
+  personaUrl: string = 'http://attendance.test/listg/listas?id=';
 
   public grad!: FormGroup; //Sirve para ingresar datos de "libros"
 
