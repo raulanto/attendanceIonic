@@ -53,6 +53,10 @@ const routes: Routes = [
     loadChildren: () => import('./classroom/classroom.module').then( m => m.ClassroomPageModule)
   },
   {
+    path: 'classroom-alumn',
+    loadChildren: () => import('./classroom-alumn/classroom-alumn.module').then( m => m.ClassroomAlumnPageModule)
+  },
+  {
     path: 'newclassroom',
     loadChildren: () => import('./newclassroom/newclassroom.module').then( m => m.NewclassroomPageModule)
   },
@@ -90,6 +94,10 @@ const routes: Routes = [
   {
     path: 'menu1/:gro_id/:gro_subject/:gro_code',
     loadChildren: () => import('./menu1/menu1.module').then( m => m.Menu1PageModule)
+  },
+  {
+    path: 'menu1-alum/:gro_id/:gro_subject/:gro_code',
+    loadChildren: () => import('./menu1-alum/menu1-alum.module').then( m => m.Menu1AlumPageModule)
   },
 
   //Menu para acceder a ver asistencia, tomar asistencia y codigo
@@ -203,6 +211,10 @@ const routes: Routes = [
     loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
   },
   {
+    path: 'library-alumn/:grupoid',
+    loadChildren: () => import('./library-alumn/library-alumn.module').then( m => m.LibraryAlumnPageModule)
+  },
+  {
     path: 'newlibrary',
     loadChildren: () => import('./newlibrary/newlibrary.module').then( m => m.NewlibraryPageModule)
   },
@@ -220,7 +232,6 @@ const routes: Routes = [
     path: 'question-detail/:que_id',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
   },
-
 
 ];
 @NgModule({

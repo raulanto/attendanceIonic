@@ -21,10 +21,10 @@ export class MaestroFormPage implements OnInit {
   passwordTypeInput = 'password';
   validation_messages: any = {
     'username': [
-      { type: 'required', message: 'Usuario requerida.' },
-      { type: 'minlength', message: 'Usuario debe contener al menos 8 caracteres.' },
-      { type: 'maxlength', message: 'Usuario no puede contener más de 10 caracteres.' },
-      { type: 'pattern', message: 'Dígita un usuario valida' },
+      { type: 'required', message: "Usuario requerida." },
+      { type: 'minLength', message: "Usuario debe contener al menos 8 caracteres." },
+      { type: 'maxlength', message: "El usario no puede contener mas de 10 caracteres" },
+      { type: 'pattern', message: "Dígita un usuario valido" },
     ],
     'password': [
       { type: 'required', message: 'Contraseña requerida.' },
@@ -50,7 +50,7 @@ export class MaestroFormPage implements OnInit {
     ],
     'tea_mail': [
       { type: 'required', message: "Correo requerido" },
-      { type: 'pattern', message: 'Tiene que llevar @gamil.com' },
+      { type: 'pattern', message: 'Requiere que llevar @gmail.com' },
     ],
     'tea_phone': [
       { type: 'required', message: 'Numero requerido' },
@@ -187,8 +187,8 @@ export class MaestroFormPage implements OnInit {
 
 
   customActionSheetOptions = {
-    header: 'Que eres?',
-    subHeader: 'Seleciona tu posicion en tu institucion',
+    header: '¿Que eres?',
+    subHeader: 'Seleciona tu posición en tu institución',
   };
 
   async cargarDegree() {
