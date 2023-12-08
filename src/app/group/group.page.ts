@@ -32,7 +32,7 @@ export class GroupPage implements OnInit {
 
   // Una función que utiliza el valor de 'grupoid'
   mostrar() {
-    console.log('Valor de idperson en mi groups:', this.personid);
+    console.log('Valor de idperson en mi groups:', this.data);
 
     // Puedes realizar otras acciones con 'grupoid' aquí
   }
@@ -55,6 +55,7 @@ export class GroupPage implements OnInit {
     });
     await loading.present();
     try{
+      //const response = await this.grupoService.grupospersonas(this.data).toPromise();
       const response = await this.grupoService.grupospersonas(this.personid).toPromise();
       this.grupos = response.data;
       event?.target.complete();
@@ -64,6 +65,7 @@ export class GroupPage implements OnInit {
       loading.dismiss();
     }
     }
+    
   async contarGrupos() {
     let urlApi:string = '';
     if(this.busqueda === '') {
@@ -82,8 +84,8 @@ export class GroupPage implements OnInit {
     }).then( (response) => {
         console.log(response);  
         this.totalGrupos = response.data;
-    }).catch(function (error) {
-        console.log(error);     
+   }).catch(function (error) {
+       console.log(error);     
     });
   }
 

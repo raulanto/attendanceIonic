@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Salones</ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor= "let classroom of classrooms; let i = index" >
+      <!-- Crear columna para el icono-->
+      <ion-col size="1">
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
+        <ion-img [src]="'assets/classrooms/classrooms' + ((i % 3) + 1) + '.png'" alt="Foto"></ion-img>
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col>
+        <ion-label>
+          <h2>{{classroom.clas_name}}</h2>
+          <h3>{{classroom.clas_description}}</h3>
+        </ion-label>
+      </ion-col>
+
+      <!-- Crear columna para boton eliminar
+      <ion-col size="auto">
+        <ion-button color="danger" (click)="alertEliminar(classroom.clas_id)">
+          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+      <!-- Cierro filas y grid -->
+    </ion-row>
+  </ion-grid>
+
+
+  
+</ion-content>

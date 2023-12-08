@@ -19,4 +19,3 @@ import { ModgradePage } from './modgrade.page';
   declarations: [ModgradePage]
 })
 export class ModgradePageModule {}
-

@@ -11,7 +11,13 @@ const routes: Routes = [
   {
     path: 'extracurricular/:extcode',
     loadChildren: () => import('../extracurricular/extracurricular.module').then( m => m.ExtracurricularPageModule)
+  },
+  // MODIFICACIONES-----------------------------------------------------------
+  {
+    path: 'events',
+    loadChildren: () => import('../events/events.module').then( m => m.EventsPageModule)
   }
+  // MODIFICACIONES-----------------------------------------------------------
 ];
 
 @NgModule({

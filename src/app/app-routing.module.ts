@@ -6,8 +6,9 @@ const routes: Routes = [
 
   {
     path: '',
-    //loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
-    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
+    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+    //loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
+    //loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
 
   //APARTADO DE LOGIN
@@ -38,6 +39,10 @@ const routes: Routes = [
     loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
   },
   {
+    path: 'group-alum',
+    loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
+  },
+  {
     path: 'newgroup',
     loadChildren: () => import('./newgroup/newgroup.module').then( m => m.NewgroupPageModule)
   },
@@ -46,6 +51,10 @@ const routes: Routes = [
   {
     path: 'classroom',
     loadChildren: () => import('./classroom/classroom.module').then( m => m.ClassroomPageModule)
+  },
+  {
+    path: 'classroom-alumn',
+    loadChildren: () => import('./classroom-alumn/classroom-alumn.module').then( m => m.ClassroomAlumnPageModule)
   },
   {
     path: 'newclassroom',
@@ -85,6 +94,10 @@ const routes: Routes = [
   {
     path: 'menu1/:gro_id/:gro_subject/:gro_code',
     loadChildren: () => import('./menu1/menu1.module').then( m => m.Menu1PageModule)
+  },
+  {
+    path: 'menu1-alum/:gro_id/:gro_subject/:gro_code',
+    loadChildren: () => import('./menu1-alum/menu1-alum.module').then( m => m.Menu1AlumPageModule)
   },
 
   //Menu para acceder a ver asistencia, tomar asistencia y codigo
@@ -183,7 +196,7 @@ const routes: Routes = [
     loadChildren: () => import('./grade/grade.module').then( m => m.GradePageModule)
   },
   {
-    path: 'newgrade',
+    path: 'newgrade/:grupoid',
     loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
   },  
   {
@@ -196,6 +209,10 @@ const routes: Routes = [
   {
     path: 'library/:grupoid',
     loadChildren: () => import('./library/library.module').then( m => m.LibraryPageModule)
+  },
+  {
+    path: 'library-alumn/:grupoid',
+    loadChildren: () => import('./library-alumn/library-alumn.module').then( m => m.LibraryAlumnPageModule)
   },
   {
     path: 'newlibrary',
@@ -212,10 +229,33 @@ const routes: Routes = [
     loadChildren: () => import('./new-question/new-question.module').then( m => m.NewQuestionPageModule)
   },
   {
-    path: 'question-detail',
+    path: 'question-detail/:que_id',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
   },
-
+  {
+    path: 'addgrade/:grupoid',
+    loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
+  },
+  {
+    path: 'events',
+    loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
+  },
+  {
+    path: 'extra-alu/:grupoid',
+    loadChildren: () => import('./extra-alu/extra-alu.module').then( m => m.ExtraAluPageModule)
+  },
+  {
+    path: 'grade-alu/:grupoid',
+    loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
+  },
+  {
+    path: 'newevents',
+    loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
+  },
+  {
+    path: 'updategrade/:califid/:grupoid',
+    loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
+  },
 
 
 ];

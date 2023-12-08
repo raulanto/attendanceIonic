@@ -11,36 +11,40 @@ import axios from 'axios';
 })
 export class NewextracurricularPage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/extracurricular";
+  // MODIFICACIONES-----------------------------------------------------------
+  baseUrl: string = "http://attendancedb.test/extra-group";
+  extraUrl: string = "http://attendancedb.test/extracurricular";
+  groupUrl: string = "http://attendancedb.test/group";
+  // MODIFICACIONES-----------------------------------------------------------
 
   @Input() idextra: any | undefined;
+
+  @Input() extcode: any | undefined;
+
+  @Input() extname: any | undefined;
+
+  // MODIFICACIONES-----------------------------------------------------------
+  @Input() title: string = '';
+  // MODIFICACIONES-----------------------------------------------------------
+
+  groupID: any; // Recibir el ID del grupo como un parámetro
 
   private editarDatos = [];
 
   public extracur!: FormGroup; //Sirve para ingresar datos de "libros"
 
+  // MODIFICACIONES-----------------------------------------------------------
+  eventos: any = [];
+  // MODIFICACIONES-----------------------------------------------------------
+
+  // MODIFICACIONES-----------------------------------------------------------
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
-    'ext_name': [{ type: 'required', message: 'Nombre requerido.' }],
-    'ext_date': [
-      { type: 'required', message: 'Fecha requerida.' },
-      { type: 'pattern', message: 'Fecha en formato YYYY-MM-DD.' },
-    ],
-    'ext_opening': [
-      { type: 'required', message: 'Hora de inicio requerida.' },
-      { type: 'pattern', message: 'Hora en formato HH-MM-SS.' },
-    ],
-    'ext_closing': [
-      { type: 'required', message: 'Hora de cierre requerida.' },
-      { type: 'pattern', message: 'Hora en formato HH-MM-SS.' },
-    ],
-    'ext_description': [{ type: 'required', message: 'Descripcion requerida.' }],
-    'ext_place': [{ type: 'required', message: 'Lugar requerido.' }],
-    'ext_code': [
-      { type: 'required', message: 'Codigo requerido.' },
-      { type: 'maxLength', message: 'Codigo de no más de 10 caracteres.' },
-    ],
+    'extgro_fkextracurricular': [{ type: 'required', message: 'Nombre del evento requerido' }],
+    'extgro_fkgroup': [{ type: 'required', message: 'Grupo requerido' }],
+    'extgro_commit': [{ type: 'required', message: 'Comentario requerido' }],
   };
+  // MODIFICACIONES-----------------------------------------------------------
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,35 +53,28 @@ export class NewextracurricularPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // MODIFICACIONES-----------------------------------------------------------
+    this.cargarEventos();
+    // MODIFICACIONES-----------------------------------------------------------
     this.formulario();
     if (this.idextra !== undefined) {
       this.getDetalles();
     }
+    if (this.groupID) {
+      // Hacer lo que necesites con this.groupID, por ejemplo, asignarlo a un campo del formulario.
+      this.extracur.patchValue({ extgro_fkgroup: this.groupID });
+    } 
   }
 
+  // MODIFICACIONES-----------------------------------------------------------
   private formulario() {
     // Crear el formulario reactivo con campos y validaciones
     this.extracur = this.formBuilder.group({
-      ext_name: ['', [Validators.required]],
-      ext_date: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
-      ])],
-      ext_opening: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern("^([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")
-      ])],
-      ext_closing: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern("^([0-1]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")
-      ])],
-      ext_description: ['', [Validators.required]],
-      ext_place: ['', [Validators.required]],
-      ext_code: ['', Validators.compose([
-        Validators.maxLength(10),
-        Validators.required,
-      ])],
+      extgro_fkextracurricular: ['', [Validators.required]],
+      extgro_fkgroup: ['', [Validators.required]],
+      extgro_commit: ['', [Validators.required]],
     });
+    // MODIFICACIONES-----------------------------------------------------------
   }
 
   async guardarDatos() {
@@ -96,11 +93,15 @@ export class NewextracurricularPage implements OnInit {
           }
         }).then((response) => {//Llama la alerta en caso de exito
           if (response?.status == 201) {
-            this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido registrado');
+            // MODIFICACIONES-----------------------------------------------------------
+            this.alertGuardado(response.data.extgro_id, 'La invitación al evento ha sido enviada', "ENVIADA");
+            // MODIFICACIONES-----------------------------------------------------------
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
-            this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+            // MODIFICACIONES-----------------------------------------------------------
+            this.alertGuardado(extracur.extgro_id, error?.response?.data[0]?.message, "Error");
+            // MODIFICACIONES-----------------------------------------------------------
           }
         });
       } else {
@@ -114,11 +115,13 @@ export class NewextracurricularPage implements OnInit {
         }
         }).then((response) => {
             if (response?.status == 200) {
-                this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido actualizado');
-            }
+              // MODIFICACIONES-----------------------------------------------------------
+                this.alertGuardado(response.data.extgro_id, 'La invitación a ' + this.extcode + ' ha sido actualizada', "ACTUALIZADA");
+                // MODIFICACIONES-----------------------------------------------------------
+              }
             }).catch((error) => {
             if (error?.response?.status == 422) {
-                this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+                this.alertGuardado(extracur.extgro_id, error?.response?.data[0]?.message, "Error");
             }
         });
     }
@@ -137,9 +140,9 @@ export class NewextracurricularPage implements OnInit {
   }
 
   //método para reutilizar un alert
-  private async alertGuardado(ID: String, msg = "", subMsg = "Guardado") {
+  private async alertGuardado(ID: String, msg = "", subMsg = "") {
     const alert = await this.alert.create({
-      header: 'Evento', //Titulo de nuestra alerta
+      header: 'Invitación a evento', //Titulo de nuestra alerta
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-center',
@@ -183,4 +186,21 @@ export class NewextracurricularPage implements OnInit {
     });
   }
 
+  // MODIFICACIONES-----------------------------------------------------------
+  async cargarEventos() {
+    const response = await axios({
+    method: 'get',
+    url : this.extraUrl + '/buscar-todos',
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+    }
+    }).then( (response) => {
+    this.eventos = response.data;
+    }).catch(function (error) {
+    console.log(error);     
+    });
 }
+
+}
+// MODIFICACIONES-----------------------------------------------------------

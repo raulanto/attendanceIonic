@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
 
   validation_messages:any = {
     'username': [
-      { type: 'required', message: 'Usuario requerid.' },
+      { type: 'required', message: 'Usuario requerido.' },
       { type: 'minlength', message: 'Usuario debe contener al menos 8 caracteres.' },
       { type: 'maxlength', message: 'Matrícula no puede contener más de 10 caracteres.' },
       { type: 'pattern', message: 'Dígita una matrícula valida' },

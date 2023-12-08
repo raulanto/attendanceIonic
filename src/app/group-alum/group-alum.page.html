@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tus Grupos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+  <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
+    <ion-row *ngFor="let grupo of grupos; let i = index" >
+      <!-- Crear columna para el icono-->
+      <ion-col size="1" [routerLink]="['/menu1-alum', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <ion-img [src]="'assets/grupos/grupos-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+      </ion-col>
+      <!-- Crear columna para el texto-->
+      <ion-col [routerLink]="['/menu1-alum', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
+        <ion-label>
+          <h2>{{grupo.subject}} {{grupo.listFkgroup.gro_code}}</h2>
+          <h3>Ubicación: {{grupo.classroom}} </h3>
+        </ion-label>
+      </ion-col>
+
+      <!-- Crear columna para boton eliminar
+      <ion-col size="auto">
+        <ion-button color="danger" (click)="alertEliminar(grupo.listFkgroup.gro_id)">
+          <ion-icon slot="icon-only" name="trash" class="custom-trash-icon"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+
+    <!-- Cierro filas y grid -->
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<!-- Boton flotante para acciones -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">    
+  <!-- Boton principal -->
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <!-- Botones secundarios -->
+  <ion-fab-list side="top">
+    <!-- Unirse a un grupo -->
+    <ion-fab-button (click)="mostrarAlerta()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button >
+    <!-- Tabla classroom -->
+    <ion-fab-button [routerLink]="['/classroom-alumn']">
+      <ion-icon name="business"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+

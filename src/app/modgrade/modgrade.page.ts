@@ -11,7 +11,9 @@ import axios from 'axios';
 })
 export class ModgradePage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/grade";
+  // MODIFICACIONES-----------------------------------------------------------
+  baseUrl: string = "http://attendancedb.test/grade-person";
+  // MODIFICACIONES-----------------------------------------------------------
 
   @Input() idgrade: any | undefined;
 
@@ -19,11 +21,13 @@ export class ModgradePage implements OnInit {
 
   public grades!: FormGroup; //Sirve para ingresar datos de "libros"
 
+  // MODIFICACIONES-----------------------------------------------------------
   // Mensajes de validación para campos del formulario
   mensajes_validacion: any = {
-    'gra_score': [{ type: 'required', message: 'Calificación requerida' }],
-    'gra_commit': [{ type: 'required', message: 'Comentario requerido' }],
+    'graper_score': [{ type: 'required', message: 'Calificación requerida' }],
+    'graper_commit': [{ type: 'required', message: 'Comentario requerido' }],
   };
+  // MODIFICACIONES-----------------------------------------------------------
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,10 +43,12 @@ export class ModgradePage implements OnInit {
   }
 
   private formulario() {
+    // MODIFICACIONES-----------------------------------------------------------
     // Crear el formulario reactivo con campos y validaciones
     this.grades = this.formBuilder.group({
-      gra_score: ['', [Validators.required]],
-      gra_commit: ['', [Validators.required]],
+      graper_score: ['', [Validators.required]],
+      graper_commit: ['', [Validators.required]],
+      // MODIFICACIONES-----------------------------------------------------------
     });
   }
 

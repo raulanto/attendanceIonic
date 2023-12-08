@@ -14,9 +14,9 @@ export class CarruselPage implements OnInit {
 
   ngOnInit() {
     this.slides = [
-      {banner: 'assets/carrusel/page1.svg',text:'Raul es muy pro'},
-      {banner: 'assets/carrusel/page2.svg',text:'Para cual quier ocasion'},
-      {banner: 'assets/carrusel/page3.svg',text:'No pierdas tiempoion'},
+      {banner: 'assets/carrusel/page1.svg',text:'Tu actitud determina tu dirección.'},
+      {banner: 'assets/carrusel/page2.svg',text:'El conocimiento es tu mejor inversión.'},
+      {banner: 'assets/carrusel/page3.svg',text:'Pequeños pasos, grandes logros.'},
     ];
   }
 

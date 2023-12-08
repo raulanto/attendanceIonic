@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <!--     Boton para regresar
- --> <ion-buttons slot="start">
+ --> <ion-buttons slot="start" class="bbutton">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Dudas y Preguntas</ion-title>
+    <ion-title class ="tittle">Preguntas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +27,7 @@
       <!-- Crear columna para boton de opciones -->
       <ion-col size="auto">
         <!-- Boton de opciones -->
-        <ion-button id="click-trigger-{{question.que_id}}" size="small">
+        <ion-button id="click-trigger-{{question.que_id}}" size="small" class="botonR">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover trigger="click-trigger-{{question.que_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"

@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Calificaciones </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  
+    <ion-grid class="second-grid"> <!-- Cuadrícula de diseño -->
+      <ion-row> <!-- Fila de la cuadrícula -->
+        <ion-col size="12">
+
+          <div class="table-container">
+
+          <table class="table">
+
+            <tr>
+              <th>Calificacion</th>
+              <th>Comentario</th>
+              <th>Alumno</th>
+              <th>Grade</th>
+            </tr>
+
+            <ng-container *ngFor="let grade of grades">
+
+            <tr (click)="editar(grade.graper_id)">
+
+              <td>
+                <ion-label color="primary">{{grade.graper_score}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.graper_commit}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.graper_fkperson}}</ion-label>
+              </td>
+
+              <td>
+                <ion-label color="primary">{{grade.graper_fkgrade}}</ion-label>
+              </td>
+
+              <!-- <td>
+                <ion-button fill="clear" (click)="editar(grade.graper_id)">MODIFICAR</ion-button>
+              </td> -->
+
+            </tr>
+
+          </ng-container>
+
+          </table>
+
+          </div>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button>
+          <ion-icon name="chevron-up-circle"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+          <ion-fab-button (click)="new()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+  
+</ion-content>

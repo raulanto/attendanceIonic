@@ -22,7 +22,7 @@ export class GradePage implements OnInit {
   baseUrl: string = "http://attendancedb.test/grade/grades?id="
   eliminarUrl: string = "http://attendancedb.test/grade";
 
-  grades: any = [];
+  grade: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,17 +43,17 @@ export class GradePage implements OnInit {
   
   busqueda:string = '';
   page:number = 1;
-  totalGrades:number = 0;
+  totalCalificaciones:number = 0;
 
   ngOnInit() {
     this.mostrar();
-    this.cargarGrades();
-    this.contarGrades();
+    this.loadGrade();
+    this.contarCalificaciones();
   }
 
   //CARGAR GRADES
 
-  async cargarGrades(event?: InfiniteScrollCustomEvent) {
+  async loadGrade(event?: InfiniteScrollCustomEvent) {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando',
       spinner: 'bubbles',
@@ -77,16 +77,16 @@ export class GradePage implements OnInit {
         'Authorization': 'Bearer 100-token'
       }
     }).then((response) => {
-      this.grades = response.data;
+      this.grade = response.data;
       event?.target.complete();
     }).catch(function (error) {
       console.log(error);
     });
     loading.dismiss();
-    this.contarGrades();
+    this.contarCalificaciones();
   }
 
-  async contarGrades() {
+  async contarCalificaciones() {
     let urlApi:string = '';
 		if (this.busqueda === '') {
 			urlApi = `http://attendancedb.test/grade/total/?id=${this.grupoid}`;
@@ -103,7 +103,7 @@ export class GradePage implements OnInit {
         }
     }).then( (response) => {
         console.log(response);  
-        this.totalGrades = response.data;
+        this.totalCalificaciones = response.data;
     }).catch(function (error) {
         console.log(error);     
     });
@@ -111,75 +111,75 @@ export class GradePage implements OnInit {
 
   pagina(event:any) {
     this.page = event.target.innerText;
-    this.cargarGrades();
+    this.loadGrade();
   }
   
   handleInput(event:any) {
     this.busqueda = event.target.value.toLowerCase();
-    this.cargarGrades();
+    this.loadGrade();
   }
 
-  //CREAR NUEVA CALIFICACION
-
-  async new(idgrade: any) {
-    const paginaModal = await this.modalCtrl.create({
-      component: ModgradePage, // El componente que se mostrará en el modal
-      componentProps: { 'idgrade': idgrade }, // Pasar el ID de la calificacion como un parámetro
-      breakpoints: [0, 0.3, 0.5, 0.95], // Configuración de puntos de quiebre
-      initialBreakpoint: 0.95, // Ubicacion inicial del punto de quiebre
+  async alertEliminar(idgrade: any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminar Calificación',
+      message: '¿Estás seguro de eliminar esta calificación?',
+      cssClass: 'alert-center',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.eliminar(idgrade);
+          }
+        }
+      ]
     });
-    // Presentar la página modal en la interfaz de usuario
-    await paginaModal.present();
-
-    paginaModal.onDidDismiss().then((data) => {
-      this.cargarGrades();
-  });
+    await alert.present();
   }
 
-  async eliminar(idgrade:any) {
+  async eliminar(idgrade: any) {
     const response = await axios({
-    method: 'delete',
-    url: this.eliminarUrl + '/' + idgrade,
-    withCredentials: true,
-    headers: {
+      method: 'delete',
+      url: this.eliminarUrl + '/' + idgrade,
+      withCredentials: true,
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 100-token'
-    }
+      }
     }).then((response) => {
-    if (response?.status == 204) {
-        this.alertEliminado(idgrade, ' El archivo ' + idgrade + ' ha sido eliminado');
-    }
-    }).catch((error) => {
-    if (error?.response?.status == 500) {
-        this.alertEliminado(idgrade, "No puedes eliminar porque existe informacion relacionada ");
-    }
+      if (response?.status == 204) {
+        this.alertEliminado(idgrade, 'La calificación ha sido eliminada');
+      }
+    }).catch(function (error) {
+      console.log(error);
     });
   }
 
-
-  async alertEliminado(archivoid: any, msg = "") {
+  async alertEliminado(idgrade: any, msg = "") {
     const alert = await this.alertCtrl.create({
-    header: 'Calificacion',
-    subHeader: 'Eliminar',
-    message: msg,
-    cssClass: 'alert-center',
-    buttons: [
+      header: 'Califiación',
+      subHeader: 'Eliminada',
+      message: msg,
+      cssClass: 'alert-center',
+      buttons: [
         {
-        text: 'Continuar',
-        role: 'cancel',
-        handler: () => {
-          this.regresar();
-      },
+          text: 'Continuar',
+          role: 'cancel',
         },
         {
-        text: 'Salir',
-        role: 'confirm',
-        handler: () => {
+          text: 'Salir',
+          role: 'confirm',
+          handler: () => {
             this.regresar();
+          },
         },
-        },
-    ],
+      ],
     });
+
     await alert.present();
   }
 
@@ -194,7 +194,7 @@ export class GradePage implements OnInit {
     });
     await paginaModal.present();
     paginaModal.onDidDismiss().then((data) => {
-        this.cargarGrades();
+        this.loadGrade();
     });
   }
 
