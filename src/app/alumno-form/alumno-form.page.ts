@@ -140,7 +140,7 @@ export class AlumnoFormPage implements OnInit {
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', registrarData.username);
             this.alterCreado(registrarData.username);
-            this.router.navigate(['grupos']);
+            this.router.navigate(['tab1']);
           } else if (response?.data === '') {
             this.alertError();
           }

@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AlumnoFormPageRoutingModule } from './alumno-form-routing.module';
+import { AsistenciaGeneradaPageRoutingModule } from './asistencia-generada-routing.module';
 
-import { AlumnoFormPage } from './alumno-form.page';
+import { AsistenciaGeneradaPage } from './asistencia-generada.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { AlumnoFormPage } from './alumno-form.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    AlumnoFormPageRoutingModule
+    AsistenciaGeneradaPageRoutingModule
   ],
-  declarations: [AlumnoFormPage]
+  declarations: [AsistenciaGeneradaPage]
 })
-export class AlumnoFormPageModule {}
+export class AsistenciaGeneradaPageModule {}
