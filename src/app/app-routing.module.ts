@@ -217,7 +217,7 @@ const routes: Routes = [
     loadChildren: () => import('./new-question/new-question.module').then( m => m.NewQuestionPageModule)
   },
   {
-    path: 'question-detail',
+    path: 'question-detail/:que_id',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
   },
 

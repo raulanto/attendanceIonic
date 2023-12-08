@@ -10,7 +10,9 @@ ion-card {
     width: 325px; /* Ancho deseado para la tarjeta */
     height: 130px;
 }
-  
+  .bbutton{
+    color: #040404;
+  }
   ion-card:hover {
     transform: scale(1.05);
     box-shadow: var(--ion-color-tertiary);
@@ -64,7 +66,14 @@ ion-card {
     width: 75px; 
     height: 5px
 }
+.tittle{
+  color: #040404; 
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10;
 
+}
 .settings{
     position: relative;
     left: 190px;
