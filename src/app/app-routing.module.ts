@@ -97,6 +97,10 @@ const routes: Routes = [
     path: 'asistencia-generada',
     loadChildren: () => import('./asistencia-generada/asistencia-generada.module').then( m => m.AsistenciaGeneradaPageModule)
   },
+  {
+    path: 'mis-asistencias',
+    loadChildren: () => import('./mis-asistencias/mis-asistencias.module').then( m => m.MisAsistenciasPageModule)
+  },
 
 
 

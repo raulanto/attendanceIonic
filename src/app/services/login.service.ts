@@ -37,6 +37,7 @@ export class LoginService {
       axios.post(url, dataRegistrar, {
         withCredentials: true,
         headers: this.headers
+        //pene
       })
         .then(response => {
           observer.next(response);
