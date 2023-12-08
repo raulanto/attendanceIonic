@@ -32,42 +32,6 @@
         </ion-button>
       </ion-col> -->
 
-      <!-- Crear columna para boton de opciones -->
-      <ion-col size="auto">
-        <!-- Boton de opciones -->        
-          <ion-button id="click-trigger-{{grupo.listFkgroup.gro_id}} -{{i}}" size="small">
-            <ion-icon name="ellipsis-vertical"></ion-icon>
-          </ion-button>
-          <ion-popover
-            trigger="click-trigger-{{grupo.listFkgroup.gro_id}} -{{i}}"
-            [dismissOnSelect]="true"
-            [keepContentsMounted]="true"
-            side="end">
-            <ng-template>
-              <ion-content>
-                <ion-list>
-                  <!-- Opcion de eliminar  -->
-                  <ion-item 
-                    [button]="true" 
-                    [detail]="false"
-                    (click)="eliminar(grupo.listFkgroup.gro_id)"> 
-                    <ion-icon name="trash"></ion-icon>
-                    Eliminar
-                  </ion-item>
-                  <!-- Opcion de modificar -->
-                  <ion-item
-                    [button]="true"
-                    [detail]="false"
-                    (click)="editar(grupo.listFkgroup.gro_id)">  <!-- Agregamos la opción de Modificar -->
-                    <ion-icon name="create"></ion-icon>
-                    Modificar
-                  </ion-item>
-                  <!-- Cierro mi lista  -->
-                </ion-list>
-              </ion-content>
-            </ng-template>
-          </ion-popover>
-        </ion-col>
     <!-- Cierro filas y grid -->
     </ion-row>
   </ion-grid>
@@ -86,21 +50,10 @@
     <ion-fab-button (click)="mostrarAlerta()">
       <ion-icon name="person-add"></ion-icon>
     </ion-fab-button >
-    <!-- Crear grupo -->
-    <ion-fab-button (click)="new()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
     <!-- Tabla classroom -->
     <ion-fab-button [routerLink]="['/classroom']">
       <ion-icon name="business"></ion-icon>
     </ion-fab-button>
-    <!-- Tabla Major -->
-    <ion-fab-button [routerLink]="['/major']">
-      <ion-icon name="cash-outline"></ion-icon>
-    </ion-fab-button>
-    <!-- Tabla Subject -->
-    <ion-fab-button [routerLink]="['/subject']">
-      <ion-icon name="bookmarks-outline"></ion-icon>
-    </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
+

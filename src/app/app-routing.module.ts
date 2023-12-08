@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '',
     //loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
-    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
+    loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
+    //loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
 
   //APARTADO DE LOGIN
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'group',
     loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+  },
+  {
+    path: 'group-alum',
+    loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
   },
   {
     path: 'newgroup',
@@ -215,7 +220,6 @@ const routes: Routes = [
     path: 'question-detail',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
   },
-
 
 
 ];

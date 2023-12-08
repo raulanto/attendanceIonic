@@ -16,7 +16,7 @@ export class GrupoService {
 
   grupospersonas(dataLogin: any): Observable<any> {
     const url = `${this.urlpersonlista}/gruposp?id=${dataLogin}`;
-    //const url = `${this.urlpersonlista}login/grupop?id=${dataLogin}`;
+    //http://attendance.test/listg/?id=2
     return new Observable(observer => {
       axios.get(url, {
         withCredentials: true,

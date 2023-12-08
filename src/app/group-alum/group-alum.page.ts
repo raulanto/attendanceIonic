@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent,
-        LoadingController, 
-        ModalController, 
-        AlertController } from '@ionic/angular';
+  LoadingController, 
+  ModalController, 
+  AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';        
 import axios from 'axios';
 import { NewgroupPage } from '../newgroup/newgroup.page';
 import { GrupoService} from "../services/grupos.service"
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.page.html',
-  styleUrls: ['./group.page.scss'],
+  selector: 'app-group-alum',
+  templateUrl: './group-alum.page.html',
+  styleUrls: ['./group-alum.page.scss'],
 })
-
-export class GroupPage implements OnInit {
+export class GroupAlumPage implements OnInit {
 
   public baseUrl: string = "http://attendancedb.test/group";
 
@@ -215,3 +214,4 @@ export class GroupPage implements OnInit {
   }
   
 }
+
