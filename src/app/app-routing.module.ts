@@ -196,7 +196,7 @@ const routes: Routes = [
     loadChildren: () => import('./grade/grade.module').then( m => m.GradePageModule)
   },
   {
-    path: 'newgrade',
+    path: 'newgrade/:grupoid',
     loadChildren: () => import('./newgrade/newgrade.module').then( m => m.NewgradePageModule)
   },  
   {
@@ -231,8 +231,9 @@ const routes: Routes = [
   {
     path: 'question-detail/:que_id',
     loadChildren: () => import('./question-detail/question-detail.module').then( m => m.QuestionDetailPageModule)
-  },  {
-    path: 'addgrade',
+  },
+  {
+    path: 'addgrade/:grupoid',
     loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
   },
   {
@@ -240,11 +241,11 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
   },
   {
-    path: 'extra-alu',
+    path: 'extra-alu/:grupoid',
     loadChildren: () => import('./extra-alu/extra-alu.module').then( m => m.ExtraAluPageModule)
   },
   {
-    path: 'grade-alu',
+    path: 'grade-alu/:grupoid',
     loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
   },
   {
@@ -252,7 +253,7 @@ const routes: Routes = [
     loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
   },
   {
-    path: 'updategrade',
+    path: 'updategrade/:califid/:grupoid',
     loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
   },
 
