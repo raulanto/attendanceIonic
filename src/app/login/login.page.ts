@@ -81,6 +81,21 @@ export class LoginPage implements OnInit {
           console.log(error);
         }
       );
+      await this.loginPersonService.login(loginData).subscribe(
+        async response => {
+          if (response?.status == 200 && response?.data !== '') {
+            await localStorage.setItem('token', response?.data);
+            localStorage.setItem('sesion', 'login');
+            localStorage.setItem('username', loginData.username);
+            this.router.navigate(['group_alum']);
+          } else if( response?.data === '') {
+            this.alertError();
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
       
     } catch (error) {
       console.log(error);
