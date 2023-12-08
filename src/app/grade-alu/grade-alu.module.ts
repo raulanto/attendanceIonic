@@ -8,12 +8,15 @@ import { GradeAluPageRoutingModule } from './grade-alu-routing.module';
 
 import { GradeAluPage } from './grade-alu.page';
 
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GradeAluPageRoutingModule
+    GradeAluPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [GradeAluPage]
 })

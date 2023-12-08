@@ -104,7 +104,7 @@ const routes: Routes = [
     loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
   },
   {
-    path: 'grade-alu',
+    path: 'grade-alu/:grupoid',
     loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
   },
   {
