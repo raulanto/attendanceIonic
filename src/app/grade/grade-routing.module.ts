@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   // MODIFICACIONES-----------------------------------------------------------
   {
-    path: 'updategrade/:califid',
+    path: 'updategrade/:califid/:grupoid',
     loadChildren: () => import('../updategrade/updategrade.module').then( m => m.UpdategradePageModule)
   }
     // MODIFICACIONES---------------------------------------------------------

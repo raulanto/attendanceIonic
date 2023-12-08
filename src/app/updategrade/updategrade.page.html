@@ -27,7 +27,7 @@
 
             <ng-container *ngFor="let grade of grades">
 
-            <tr>
+            <tr (click)="editar(grade.graper_id)">
 
               <td>
                 <ion-label color="primary">{{grade.graper_score}}</ion-label>
@@ -45,9 +45,9 @@
                 <ion-label color="primary">{{grade.graper_fkgrade}}</ion-label>
               </td>
 
-              <td>
+              <!-- <td>
                 <ion-button fill="clear" (click)="editar(grade.graper_id)">MODIFICAR</ion-button>
-              </td>
+              </td> -->
 
             </tr>
 

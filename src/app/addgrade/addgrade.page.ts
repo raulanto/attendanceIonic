@@ -13,27 +13,23 @@ import { ActivatedRoute,
 })
 export class AddgradePage implements OnInit {
 
-  baseUrl: string = "http://attendancedb.test/grade-person";
+  baseUrl: string = "http://attendancedb.test/grade";
+  baseUrl2: string = "http://attendancedb.test/grade-person";
   personaUrl: string = 'http://attendancedb.test/listg/listas?id=';
-  groupUrl: string = "http://attendancedb.test/grade";
-
-  @Input() idgrade: any | undefined;
-
-  @Input() title: string = '';
-
-  public grupoid: any;
-
-  private editarDatos = [];
 
   public grad!: FormGroup; //Sirve para ingresar datos de "libros"
 
-  calificaciones: any = [];
-
   personas: any = [];
+
+  gradeId : any;
+
+  grupoid: any;
+
+  @Input() title: string = '';
 
   mensajes_validacion: any = {
     'graper_fkperson': [{ type: 'required', message: 'Nombre del alumno requerido' }],
-    'graper_fkgradre': [{ type: 'required', message: 'Asignación requerida' }],
+    'graper_fkgrade': [{ type: 'required', message: 'Asignación requerida' }],
     'graper_commit': [{ type: 'required', message: 'Comentario requerido' }],
     'graper_score': [{ type: 'required', message: 'Calificación requerida' }],
   };
@@ -47,17 +43,26 @@ export class AddgradePage implements OnInit {
     this.grupoid = this.route.snapshot.paramMap.get('grupoid');
   }
 
+  mostrar() {
+    console.log('Valor de grupoid en newgrades:', this.grupoid);
+  }
+
   ngOnInit() {
+    this.mostrar();
     this.cargarPersonas();
     // MODIFICACIONES-----------------------------------------------------------
     this.formulario();
-    if (this.idgrade !== undefined) {
-      this.getDetalles();
-    }
   }
 
-  mostrar() {
-    console.log('Valor de grupoid en newgrades:', this.grupoid);
+  private formulario() {
+    // Crear el formulario reactivo con campos y validaciones
+    this.grad = this.formBuilder.group({
+      graper_fkperson: ['', [Validators.required]],
+      graper_fkgrade: ['', [Validators.required]],
+      graper_commit: ['', [Validators.required]],
+      graper_score: ['', [Validators.required]],
+    });
+    // MODIFICACIONES-----------------------------------------------------------
   }
 
   async cargarPersonas() {
@@ -77,26 +82,13 @@ export class AddgradePage implements OnInit {
     });
 }
 
-  private formulario() {
-    // Crear el formulario reactivo con campos y validaciones
-    this.grad = this.formBuilder.group({
-      graper_fkperson: ['', [Validators.required]],
-      graper_fkgrade: ['', [Validators.required]],
-      graper_commit: ['', [Validators.required]],
-      graper_score: ['', [Validators.required]],
-    });
-    // MODIFICACIONES-----------------------------------------------------------
-  }
 
   async guardarDatos() {
     try {
       const grad = this.grad?.value; //Obtener los valores del formulario
-
-
-      if (this.idgrade === undefined) {
         const response = await axios({
           method: 'post',
-          url: this.baseUrl,
+          url: this.baseUrl2,
           data: grad, // Datos del libro para enviar al servidor
           headers: {
             'Content-Type': 'application/json',
@@ -115,27 +107,6 @@ export class AddgradePage implements OnInit {
             // MODIFICACIONES-----------------------------------------------------------
           }
         });
-      } else {
-        const response = await axios({
-        method: 'put',
-        url: this.baseUrl + '/' + this.idgrade,
-        data: grad,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 100-token'
-        }
-        }).then((response) => {
-            if (response?.status == 200) {
-              // MODIFICACIONES-----------------------------------------------------------
-                this.alertGuardado(response.data.graper_id, 'La calificacion ha sido actualizada', "ACTUALIZADA");
-                // MODIFICACIONES-----------------------------------------------------------
-              }
-            }).catch((error) => {
-            if (error?.response?.status == 422) {
-                this.alertGuardado(grad.graper_id, error?.response?.data[0]?.message, "Error");
-            }
-        });
-    }
 } catch (e) {
     console.log(e);
 }
@@ -173,28 +144,6 @@ export class AddgradePage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  async getDetalles() {
-    const response = await axios({
-      method: 'get',
-      url: this.baseUrl + "/" + this.idgrade,
-      withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then((response) => {
-      this.editarDatos = response.data;
-      Object.keys(this.editarDatos).forEach((key: any) => {
-        const control = this.grad.get(String(key));
-        if (control !== null) {
-          control.markAsTouched();
-          control.patchValue(this.editarDatos[key]);
-        }
-      })
-    }).catch(function (error) {
-      console.log(error);
-    });
   }
 
 }

@@ -217,7 +217,7 @@ export class NewgradePage implements OnInit {
     async guardarDatos2() {
       try {
         const grad2 = this.grad2?.value; //Obtener los valores del formulario
-        const { graper_score, graper_commit, graper_fkperson, graper_fkgrade} = this.grad2.value; // Guardar los valores de Tipo, Fecha y Hora
+        const { graper_fkgrade} = this.grad2.value; // Guardar los valores de Tipo, Fecha y Hora
 
         const response = await axios({
           method: 'post',
@@ -233,12 +233,12 @@ export class NewgradePage implements OnInit {
           this.alertGuardado('La calificación ha sido registrada');
 
           this.grad2.reset(); // Reiniciar los valores del formulario
-          // this.grad2.patchValue({
+           this.grad2.patchValue({
           //   graper_score: graper_score,
           //   graper_commit: graper_commit,
           //   graper_fkperson: graper_fkperson,
-          //   graper_fkgrade: graper_fkgrade, -------------
-          // });
+             graper_fkgrade: graper_fkgrade,
+           });
 
           }
       }).catch( (error) => {

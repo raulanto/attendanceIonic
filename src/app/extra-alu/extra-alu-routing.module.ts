@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ExtraAluPage
-  }
+  },
+  {
+    path: 'extracurricular/:extcode',
+    loadChildren: () => import('../extracurricular/extracurricular.module').then( m => m.ExtracurricularPageModule)
+  },
 ];
 
 @NgModule({

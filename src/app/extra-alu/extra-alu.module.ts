@@ -8,12 +8,15 @@ import { ExtraAluPageRoutingModule } from './extra-alu-routing.module';
 
 import { ExtraAluPage } from './extra-alu.page';
 
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ExtraAluPageRoutingModule
+    ExtraAluPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [ExtraAluPage]
 })

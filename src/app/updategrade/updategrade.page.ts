@@ -16,6 +16,9 @@ import { AddgradePage } from '../addgrade/addgrade.page';
 })
 export class UpdategradePage implements OnInit {
 
+  public grupoid: any;
+
+
   // baseUrl: string = "http://attendancedb.test/grade-person";
   baseUrl: string = "http://attendancedb.test/grade-person/gradesp?id=";
 
@@ -26,7 +29,13 @@ export class UpdategradePage implements OnInit {
     public modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
-  ) { }
+  ) { 
+    this.grupoid = this.route.snapshot.paramMap.get('grupoid');
+  }
+
+  mostrar() {
+    console.log('Valor de grupoid en Eventos:', this.grupoid);
+  }
 
   busqueda:string = '';
   page:number = 1;
@@ -129,12 +138,13 @@ export class UpdategradePage implements OnInit {
 
 async new() {
   // Crear una página modal utilizando el controlador de modales 
-  const califid = this.route.snapshot.paramMap.get('califid');
+  //const califid = this.route.snapshot.paramMap.get('califid');
   const paginaModal = await this.modalCtrl.create({
     component: AddgradePage, // El componente que se mostrará en el modal
     componentProps: {
-      'idgrade': califid,
-      'title': 'Crear Invitación' //Agregar titulo como parametro
+      //'idgrade': califid,
+      'title': 'Crear Invitación', //Agregar titulo como parametro
+      grupoid: this.grupoid,
     },
     breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
     initialBreakpoint: 1.1, // Ubicacion inicial del punto de quiebre

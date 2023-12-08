@@ -96,10 +96,11 @@ const routes: Routes = [
     loadChildren: () => import('./newevents/newevents.module').then( m => m.NeweventsPageModule)
   },
   {
-    path: 'updategrade/:califid',
+    path: 'updategrade/:califid/:grupoid',
     loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
-  },  {
-    path: 'addgrade',
+  },
+  {
+    path: 'addgrade/:grupoid',
     loadChildren: () => import('./addgrade/addgrade.module').then( m => m.AddgradePageModule)
   },
   {
@@ -107,7 +108,7 @@ const routes: Routes = [
     loadChildren: () => import('./grade-alu/grade-alu.module').then( m => m.GradeAluPageModule)
   },
   {
-    path: 'extra-alu',
+    path: 'extra-alu/:grupoid',
     loadChildren: () => import('./extra-alu/extra-alu.module').then( m => m.ExtraAluPageModule)
   },
 
