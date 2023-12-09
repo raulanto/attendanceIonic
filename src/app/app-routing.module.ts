@@ -255,7 +255,11 @@ const routes: Routes = [
   {
     path: 'updategrade/:califid/:grupoid',
     loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
+  },  {
+    path: 'asistencia-alu',
+    loadChildren: () => import('./asistencia-alu/asistencia-alu.module').then( m => m.AsistenciaAluPageModule)
   },
+
 
 
 ];
