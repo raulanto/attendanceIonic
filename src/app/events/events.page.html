@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title> Eventos Disponibles </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -33,7 +33,7 @@
       </ion-col>
 
       <ion-col>
-        <ion-button id="click-trigger-{{extras.ext_id}}-{{i}}">
+        <ion-button id="click-trigger-{{extras.ext_id}}-{{i}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover
