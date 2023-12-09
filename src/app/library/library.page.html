@@ -15,11 +15,11 @@
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let library of librarys">
       <!-- Crear columna para el icono -->
-      <ion-col size="auto" class="icon-col">
+      <ion-col size="auto" (click)="openLibraryFile(library.lib_file)">
         <ion-icon [name]="getIconName(library.lib_type)" class="purple-icon"></ion-icon>
       </ion-col>
       <!-- Crear columna para el texto -->
-      <ion-col>
+      <ion-col (click)="openLibraryFile(library.lib_file)">
         <ion-label>
           <h2>{{ library.lib_title }}</h2>
           <h3>{{ library.lib_description }}</h3>

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <!--     Boton para regresar
  --> <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+  <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Asistencia</ion-title>
   </ion-toolbar>
@@ -11,30 +11,48 @@
 <ion-content [fullscreen]="true">
 
   <ion-list [inset]="true" >
-    <ion-item-sliding button *ngFor="let asistencia of asistencias">
-      <ion-item [button]="true">
-         
-        <ion-label class="ion-text-wrap">
-          <h2>{{asistencia.att_commit}}</h2>
-          <!--  <h3> {{asistencia.att_fkcode}} </h3> -->
-          <p>{{asistencia.att_time}}</p>
-          <!-- <p>{{asistencia.att_date | date:'y-MM-dd'}}</p>  -->
-        </ion-label>
-      </ion-item>
-      <ion-item-options slot="end">
-        <ion-item-option color="primary" >
-          <ion-icon name="color-wand-outline"  size="large"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="tertiary"  (click)="showDataAlert(asistencia)">
-          <ion-icon slot="icon-only" name="share"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" expandable="true">
-          <ion-button (click)="alertEliminar(asistencia.att_id)" expand="block" fill="clear" shape="round">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+    <ion-grid>
+      <!-- Crear una fila por cada elemento --> 
+      <ion-row *ngFor="let asistencia of asistencias">
+        <!-- Crear columna para el texto -->
+        <ion-col (click)="showDataAlert(asistencia)">
+          <ion-label>
+            <h2>{{asistencia.att_commit}}</h2>
+            <h3>{{asistencia.att_time}}</h3>
+          </ion-label>
+        </ion-col>
+  
+        <!-- Crear columna para boton de opciones -->
+        <ion-col size="auto">
+        <!-- Boton de opciones -->        
+          <ion-button id="click-trigger-{{asistencia.att_id}}" size="small">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>
-        </ion-item-option>
-        
-      </ion-item-options>
-    </ion-item-sliding>
+          <ion-popover
+            trigger="click-trigger-{{asistencia.att_id}}"
+            [dismissOnSelect]="true"
+            [keepContentsMounted]="true"
+            side="end">
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <!-- Opcion de eliminar  -->
+                  <ion-item 
+                    [button]="true" 
+                    [detail]="false"
+                    (click)="alertEliminar(asistencia.att_id)"> 
+                    <ion-icon name="trash"></ion-icon>
+                    Eliminar
+                  </ion-item>
+                  <!-- Cierro mi lista  -->
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-col>
+      <!-- Cierro filas y grid -->
+      </ion-row>
+    </ion-grid>
   </ion-list>
+
 </ion-content>
