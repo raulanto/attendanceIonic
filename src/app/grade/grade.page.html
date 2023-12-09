@@ -26,16 +26,15 @@
           <ion-icon name="document-text" class="purple-icon"></ion-icon>
       </ion-col>
       <!-- Crear columna para el texto -->
-      <ion-col class="text-col">
-        <ion-label class="ion-text-wrap">
+      <ion-col class>
+        <ion-label class>
           <h2 class="extracurricular-text">{{grades.gra_type}}</h2>
           <h2 class="extracurricular-info">{{grades.gra_date | date: 'dd/MM/y'}}</h2>
           <h2 class="extracurricular-info">{{grades.gra_time}}</h2>
         </ion-label>
       </ion-col>
 
-      <!-- Crear columna para boton de opciones -->
-      <ion-col size="auto">
+      <ion-col>
         <ion-button id="click-trigger-{{grades.gra_id}}-{{i}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
