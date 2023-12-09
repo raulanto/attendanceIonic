@@ -2,7 +2,7 @@
   
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Lista Asistencia</ion-title>
   </ion-toolbar>
@@ -12,9 +12,11 @@
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
   
   <ion-list>
-    <ion-item button *ngFor="let lista of listas" [routerLink]="['/detalle-asistencia',lista.list_id]">
+    <ion-item button *ngFor="let lista of listas; let i = index" [routerLink]="['/detalle-asistencia',lista.list_id]">
       <ion-avatar aria-hidden="true" slot="start">
-        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
+          <ion-img class="mi-imagen" [src]="'assets/users/users' + ((i % 20) + 1) + '.png'" alt="Foto" width="40" height="40"></ion-img>
+          <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-avatar>
       <ion-label>{{lista.person}}</ion-label>
     </ion-item>
