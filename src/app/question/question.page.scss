@@ -7,75 +7,52 @@ ion-header {
 }
 
 ion-grid {
-  margin: 5px;
-  ion-row {
-      border: 1px solid #f6f1f1; // Borde de cada notificación
-      background-color: var(--ion-color-primary-contrast);
-      border-radius: 10px;
-      box-shadow: 0 5px 5px rgba(13, 13, 13, 0.2);
-      margin-bottom: 10px; // Espacio entre notificaciones
-      padding: 10px;
-      ion-col {
-          display: flex;
-          align-items: center;
-          padding: 10px;
-          &:nth-child(1) {
-              justify-content: flex-start;
-              padding: 0px;
-          }
-          &:nth-child(2) {
-              flex-grow: 1;
-              color: var(--ion-color-text1);
-          }
-          &:nth-child(3) {
-              justify-content: right;
-          }
-      }
-  }
-} 
+    margin: 5px;
+    ion-row {
+        border: 1px solid #f6f1f1; // Borde de cada notificación
+        background-color: var(--ion-color-primary-contrast);
+        border-radius: 10px;
+        box-shadow: 0 5px 5px rgba(13, 13, 13, 0.2);
+        margin-bottom: 10px; // Espacio entre notificaciones
+        padding: 10px;
+        ion-col {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            &:nth-child(1) {
+                justify-content: flex-start;
+                padding: 0px;
+            }
+            &:nth-child(2) {
+                flex-grow: 1;
+                color: var(--ion-color-text1);
+            }
+            &:nth-child(3) {
+                justify-content: right;
+            }
+        }
+    }
+}
 
-.extracurricular-text {
+.text-title {
   font-size: 18px;
   font-style: oblique;
   font-weight: bold;
 }
 
-.extracurricular-code {
+.text-info {
   font-size: 15px;
   color: var(--ion-color-text2);
   padding: 5px;
 }
 
-.extracurricular-info {
+.text-details {
   font-size: 12px;
 }
-  .mi-imagen {
-    width: 100px;
-    height: 63px;
-  }
 
-  .icon-large {
-    font-size: 100px; /* Tamaño de los iconos de los archivos */
-  }
-
-  .button-with-text {
-    display: flex;
-    align-items: center;
-  }
-  
-  .button-with-text ion-icon {
-    margin-right: 8px; /* Espacio entre el icono y el texto */
-  }
-
-  .content-container {
-    height: calc(100vh - 50px); /* El contenido ocupará el 100% de la altura menos 50px */
-    overflow-y: auto; /* Añade desplazamiento vertical si es necesario */
-  }
-  
-  .tabs-container {
-    height: 50px;
-    width: 375px; /* Ancho fijo de 375px */
-  }
-  
+.mi-imagen {
+  width: 116px;
+  height: 77px;
+}
 
   

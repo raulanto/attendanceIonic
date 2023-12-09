@@ -2,7 +2,6 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button default-href="#" routerLink="/"></ion-back-button>
-          
     </ion-buttons>
     <ion-title>
       Carreras Disponibles
@@ -22,13 +21,13 @@
       
       <ion-col size="8">
         <ion-label class="ion-text-wrap">
-          <h2>{{major.maj_name}}</h2>
-          <h3>{{major.maj_code}}</h3>
+          <h2 class="text-title">{{major.maj_name}}</h2>
+          <h3 class="text-info">{{major.maj_code}}</h3>
         </ion-label>
       </ion-col>
 
       <ion-col >
-        <ion-button id="click-trigger-{{major.maj_id}}">
+        <ion-button id="click-trigger-{{major.maj_id}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover trigger="click-trigger-{{major.maj_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"

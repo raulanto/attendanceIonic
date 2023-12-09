@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Eventos Asignados</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -37,8 +37,8 @@
         </ion-label>
       </ion-col>
 
-      <ion-col>
-        <ion-button id="click-trigger-{{extras.extgro_id}}-{{i}}">
+      <ion-col size="auto">
+        <ion-button id="click-trigger-{{extras.extgro_id}}-{{i}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover
