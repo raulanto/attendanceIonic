@@ -16,7 +16,8 @@
     <!-- MODIFICACIONES----------------------------------------------------------- -->
     <ion-row *ngFor="let extras of extra; let i = index">
       <!-- MODIFICACIONES----------------------------------------------------------- -->
-      <ion-col size="6">
+      <!-- <ion-col size="6"> -->
+        <ion-col size="6" [routerLink]="['extracurricular', extras.extgro_id]"> 
         <div class="rectangle-avatar">
           <!-- MODIFICACIONES----------------------------------------------------------- -->
           <ion-img [src]="'assets/img/extra-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
@@ -26,8 +27,11 @@
 
       <ion-col size="8">
         <ion-label class="ion-text-wrap">
+          <!-- 
           <h2 class="extracurricular-text">{{extras.ext_name}}</h2>
-          <h2 class="extracurricular-code">{{extras.ext_code}}</h2>
+          <h2 class="extracurricular-code">{{extras.ext_code}}</h2>-->
+          <h2 class="extracurricular-text" [routerLink]="['extracurricular', extras.extgro_id]">{{extras.ext_name}}</h2>
+          <h2 class="extracurricular-code" [routerLink]="['extracurricular', extras.extgro_id]">{{extras.ext_code}}</h2>
           <!-- MODIFICACIONES----------------------------------------------------------- -->
           <!-- MODIFICACIONES----------------------------------------------------------- -->
         </ion-label>
@@ -45,6 +49,7 @@
           <ng-template>
             <ion-content>
               <ion-list>
+                  <!-- Opcion de eliminar  -->                
                 <ion-item 
                 [button]="true" 
                 [detail]="false"
@@ -52,6 +57,7 @@
                 <ion-icon name="trash"></ion-icon>
                 Eliminar
                 </ion-item>
+                  <!-- Opcion de eliminar  -->                
                 <ion-item
                   [button]="true"
                   [detail]="false"
@@ -59,13 +65,14 @@
                   <ion-icon name="create"></ion-icon>
                   Modificar 
                 </ion-item>
+                  <!-- 
                 <ion-item
                   [button]="true"
                   [detail]="false"
                   [routerLink]="['extracurricular', extras.extgro_id]"> 
                   <ion-icon name="eye"></ion-icon>
                   Ver mas 
-                </ion-item>
+                </ion-item>-->   
               </ion-list>
             </ion-content>
           </ng-template>

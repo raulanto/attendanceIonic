@@ -9,11 +9,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+
   <ion-grid> <!-- pendiente de cerrar -->
-    <ion-row *ngFor="let question of questions" class="ic">
+    <ion-row *ngFor="let question of questions; let i = index" class="ic">
       <ion-col size="1" [routerLink]="['/question-detail', question.que_id]">
-        <img [src]="imagenPath" class="imagecard">
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
+        <ion-img [src]="'assets/questions/pregunta' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+        <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/question-detail', question.que_id]">
@@ -59,15 +63,9 @@
   <app-paginacion-question [total]="totalQuestions" (click)="pagina($event)"></app-paginacion-question>
 </ion-content>
 
-<ion-fab class="botonM" slot="fixed" vertical="top" horizontal="end" [edge]="true">
-  <!-- Boton principal -->
-  <ion-fab-button>
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="bottom">
-    <!-- Agregar question -->
+  <!-- Boton flotante de agregar -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="new()">
-      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-  </ion-fab-list>
-</ion-fab>
+  </ion-fab>
