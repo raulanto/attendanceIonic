@@ -1,9 +1,9 @@
 ion-header {
-    ion-toolbar {
-        --ion-toolbar-background: linear-gradient(90deg, rgba(111,96,228,1) 4%, rgba(94,109,231,1) 37%, rgba(14,171,245,1) 60%, rgba(146,197,215,1) 86%);
-        color: #fff;
-        font-weight: bold;
-    }
+  ion-toolbar {
+      --ion-toolbar-background: linear-gradient(90deg, rgba(111,96,228,1) 4%, rgba(94,109,231,1) 37%, rgba(14,171,245,1) 60%, rgba(146,197,215,1) 86%);
+      color: #fff;
+      font-weight: bold;
+  }
 }
 
 ion-grid {
@@ -20,8 +20,8 @@ ion-grid {
             align-items: center;
             padding: 10px;
             &:nth-child(1) {
-              justify-content: flex-start;
-              padding-right: 1px; /* Ajusta el espacio entre la primera y segunda columna */
+                justify-content: flex-start;
+                padding: 0px;
             }
             &:nth-child(2) {
                 flex-grow: 1;
@@ -32,32 +32,26 @@ ion-grid {
             }
         }
     }
-} 
+}
+
+.text-title {
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.text-info {
+  font-size: 15px;
+  color: var(--ion-color-text2);
+  padding: 5px;
+}
+
+.text-details {
+  font-size: 12px;
+}
 
 .mi-imagen {
     width: 116px;
     height: 77px;
   }
 
-  .icon-large {
-    font-size: 100px; /* Tamaño de los iconos de los archivos */
-  }
-
-  .button-with-text {
-    display: flex;
-    align-items: center;
-  }
-  
-  .button-with-text ion-icon {
-    margin-right: 8px; /* Espacio entre el icono y el texto */
-  }
-
-  .content-container {
-    height: calc(100vh - 50px); /* El contenido ocupará el 100% de la altura menos 50px */
-    overflow-y: auto; /* Añade desplazamiento vertical si es necesario */
-  }
-  
-  .tabs-container {
-    height: 50px;
-    width: 375px; /* Ancho fijo de 375px */
-  }

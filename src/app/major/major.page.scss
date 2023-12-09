@@ -1,6 +1,10 @@
-/* Estilos para las tarjetas */
-
-/* Estilos para las tarjetas */
+ion-header {
+  ion-toolbar {
+      --ion-toolbar-background: linear-gradient(90deg, rgba(111,96,228,1) 4%, rgba(94,109,231,1) 37%, rgba(14,171,245,1) 60%, rgba(146,197,215,1) 86%);
+      color: #fff;
+      font-weight: bold;
+  }
+}
 
 ion-grid {
     margin: 5px;
@@ -28,74 +32,33 @@ ion-grid {
             }
         }
     }
-  }
-  
-  .icon-large {
-    font-size: 30px; /* Tamaño de los iconos de los archivos */
-  }
-  /*
-  ion-card {
-    background-color:var(--ion-color-secondary-tint) ;
-    border-radius: 15px;
-    box-shadow: #187d7b;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  */
-  
-  .major-text {
-    font-size: 18px;
-    font-style: oblique;
-    font-weight: bold;
-  }
+}
+
+.text-title {
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.text-info {
+  font-size: 15px;
+  color: var(--ion-color-text2);
+  padding: 5px;
+}
+
+.text-details {
+  font-size: 12px;
+}
+
+
   i0on-grid:hover {
     transform: scale(1.05);
     box-shadow: var(--ion-color-secondary-shade);
   }
-  
-  /* Estilos para el contenido de la tarjeta
-  ion-card-content {
-    padding: 15px;
-  }
-  */
-  
-  /* Estilos para los encabezados de las tarjetas
-  ion-card-header {
-    background-color: var(--ion-color-primary-contrast);
-    border-bottom: var(--ion-color-primary-contrast);
-    padding: 15px;
-  }
-  
-  */
-  
-  /* Estilos para los títulos y subtítulos de las tarjetas
-  ion-card-title {
-    color: var(--ion-color-primary); 
-  }
-  
-  ion-card-subtitle {
-    color: var(--ion-color-secondary);
-  }
-  */
-  
-  ion-header {
-    ion-toolbar {
-        --ion-toolbar-background: linear-gradient(90deg, rgba(111,96,228,1) 4%, rgba(94,109,231,1) 37%, rgba(14,171,245,1) 60%, rgba(146,197,215,1) 86%);
-        color: #fff;
-        font-weight: bold;
-    }
-  }
+
   
   ion-fab-button::part(native) {
     background-color: var(--ion-color-secondary);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
     color: var(--ion-color-primary-contrast);
   }
-  
-  /*ion-fab-button::part(native):hover::after {
-    background-color: #a3e681;
-  }
-  
-  ion-fab-button::part(native):active::after {
-    background-color: #87d361;
-  }*/

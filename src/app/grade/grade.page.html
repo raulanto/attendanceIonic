@@ -6,7 +6,7 @@
     </ion-title>
     <!-- MODIFICACIONES----------------------------------------------------------- -->
     <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,27 +17,26 @@
 
   <!-- MODIFICACIONES----------------------------------------------------------- -->
   <ion-grid>
+    <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let grades of grade ; let i = index">
-      <ion-col class="icon-col">
-        <div class="rectangle-avatar">
+      <!-- Crear columna para el icono -->
+        <ion-col size="auto" class="icon-col">
           <!-- <ion-img src="assets/img/extra.png" alt="Foto"></ion-img> -->
           <!-- <ion-icon name="checkmark-done"></ion-icon> -->
           <ion-icon name="document-text" class="purple-icon"></ion-icon>
-        </div>
       </ion-col>
-
-      <ion-col size="8" class="text-col">
+      <!-- Crear columna para el texto -->
+      <ion-col class="text-col">
         <ion-label class="ion-text-wrap">
           <h2 class="extracurricular-text">{{grades.gra_type}}</h2>
-          <h2 class="extracurricular-info">
-            {{grades.gra_date | date: 'dd/MM/y'}}
-          </h2>
+          <h2 class="extracurricular-info">{{grades.gra_date | date: 'dd/MM/y'}}</h2>
           <h2 class="extracurricular-info">{{grades.gra_time}}</h2>
         </ion-label>
       </ion-col>
 
-      <ion-col>
-        <ion-button id="click-trigger-{{grades.gra_id}}-{{i}}">
+      <!-- Crear columna para boton de opciones -->
+      <ion-col size="auto">
+        <ion-button id="click-trigger-{{grades.gra_id}}-{{i}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
         <ion-popover

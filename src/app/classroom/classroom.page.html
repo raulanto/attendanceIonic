@@ -2,7 +2,7 @@
   <ion-toolbar>
 <!-- Boton para regresar -->    
       <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+        <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Salones</ion-title>
   </ion-toolbar> 
@@ -23,8 +23,8 @@
       <!-- Crear columna para el texto-->
       <ion-col>
         <ion-label>
-          <h2>{{classroom.clas_name}}</h2>
-          <h3>{{classroom.clas_description}}</h3>
+          <h2 class="text-title">{{classroom.clas_name}}</h2>
+          <h3 class="text-info">{{classroom.clas_description}}</h3>
         </ion-label>
       </ion-col>
 

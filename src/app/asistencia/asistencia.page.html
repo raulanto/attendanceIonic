@@ -1,24 +1,37 @@
-<ion-header class="ion-no-border  ">
+<ion-header [translucent]="true">
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button default-href="#" routerLink="/"></ion-back-button>
-          <ion-title class="dark">Regresar</ion-title>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" routerLink="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Grupo
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list lines="inset">
-    <ion-item class="ion-text-wrap" button fill="clear" [routerLink]="['/lista-asistencia',grupoid]" >
-      <ion-icon slot="start" src="assets/grupoMenu/code.svg"></ion-icon>
-      <ion-label>Ver asistencia</ion-label>
-      <!-- lista de asistencia -->
-      <!-- <ion-button fill="clear" [routerLink]="['/lista-asistencia',grupoid]"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button> -->
-    </ion-item>
-    <ion-item button fill="clear" [routerLink]="['/codigos',grupoid]">
-      <ion-icon slot="start" src="assets/grupoMenu/qr-code.svg"></ion-icon>
-      <ion-label>Codigo</ion-label>
-      <!-- <ion-button fill="clear" [routerLink]="['/codigos',grupoid]"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button> -->
-    </ion-item>
-  </ion-list>  
+
+  <ion-grid>
+    <!-- Primera fila de elementos -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <!-- Botón para la página 'asistencia' -->
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear" [routerLink]="['/lista-asistencia',grupoid]">
+          <ion-icon aria-hidden="true" src="assets/grupoMenu/code.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Ver asistencia</ion-label>
+      </ion-col>
+      <!-- Botón para obtener código -->
+      <ion-col>
+        <ion-button class="ion-activatable ripple-parent circle" fill="clear" [routerLink]="['/codigos',grupoid]">
+          <ion-icon size="large" src="assets/grupoMenu/qr-code.svg" size="large"></ion-icon>
+        </ion-button>
+        <ion-label>Codigos</ion-label>
+      </ion-col>
+      <!-- Botón para la página 'library' -->      
+    <!-- Cierro primera fila de elementos -->
+    </ion-row>
+  <!-- Cierro grid -->
+  </ion-grid>
+
 </ion-content>

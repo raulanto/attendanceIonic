@@ -2,7 +2,7 @@
   <ion-toolbar>
 <!-- Boton para regresar -->    
       <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+        <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Preguntas</ion-title>
   </ion-toolbar> 
@@ -22,10 +22,10 @@
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/question-detail', question.que_id]">
         <ion-label>
-          <h3 class="extracurricular-text">{{ question.que_title }}</h3>
-          <h4 class="extracurricular-code">{{ question.que_description }}</h4>
-          <p class="extracurricular-info">{{ question.teacher }}</p>
-          <p class="extracurricular-info">{{ question.que_create }}</p>
+          <h3 class="text-title">{{ question.que_title }}</h3>
+          <h4 class="text-info">{{ question.que_description }}</h4>
+          <p class="text-details">{{ question.teacher }}</p>
+          <p class="text-details">{{ question.que_create }}</p>
         </ion-label>
       </ion-col>
       
