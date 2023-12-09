@@ -207,13 +207,14 @@ handleInput(event:any) {
           method: 'delete',
           url: this.baseUrl + "/" + selectedSubject,
           withCredentials: true,
+          data: selectedSubject,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
           }
         }).then((response) => {
           if (response?.status == 201) {
-            this.alertEliminado(selectedSubject, response.data.sub_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
+            this.alertEliminado(selectedSubject, response.data.sub_id, 'La Carrera con el id ' + response.data.sub_id + ' ha sido eliminada');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
@@ -228,7 +229,24 @@ handleInput(event:any) {
         });
       } else {
         // Si selectedMajor no tiene valor, muestra un mensaje de error.
-        this.alertEliminado("", "No has seleccionado una carrera para eliminar", "Error");
+        const response = await axios({
+          method: 'delete',
+          url: this.baseUrl + "/" + selectedSubject,
+          withCredentials: true,
+          data: selectedSubject,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 100-token'
+          }
+        }).then((response) => {
+          if (response?.status == 200) {
+            this.alertEliminado(selectedSubject, response.data.sub_id, 'La Carrera con el id ' + response.data.sub_id + ' ha sido eliminada');
+          }
+        }).catch((error) => {
+          if (error?.response?.status == 422) {
+            this.alertEliminado(selectedSubject, error?.response?.data[0]?.message, "Error");
+          }
+        });
       }
     } catch (e) {
       console.log(e);

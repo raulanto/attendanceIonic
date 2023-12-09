@@ -209,18 +209,18 @@ handleInput(event:any) {
       const response = await axios({
         method: 'delete',
         url: this.baseUrl + "/" + selectedMajor,
-        data: eliminar,
+        data: selectedMajor,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token'
         }
       }).then((response) => {
-        if (response?.status == 201) {
+        if (response?.status == 200) {
           this.alertGuardado(response.data.maj_id, 'La Carrera con el id ' + response.data.maj_id + ' ha sido eliminada');
         }
       }).catch((error) => {
         if (error?.response?.status == 422) {
-          this.alertGuardado(eliminar.maj_id, error?.response?.data[0]?.message, "Error");
+          this.alertGuardado(selectedMajor.maj_id, error?.response?.data[0]?.message, "Error");
         }
         if (error?.response?.status == 500) {
           this.alertGuardado(selectedMajor, error?.response?.data[0]?.message, "Este elemento no puede ser borrado porque entra en conflicto con un elemento externo");
