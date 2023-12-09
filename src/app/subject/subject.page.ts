@@ -237,7 +237,7 @@ handleInput(event:any) {
 
   async alertEliminado(selectedSubject: String, msg = "", subMsg = "eliminado") {
     const alert = await this.alert.create({
-      header: 'Carrera',
+      header: 'Materia',
       subHeader: subMsg,
       message: msg,
       cssClass: 'alert-center',

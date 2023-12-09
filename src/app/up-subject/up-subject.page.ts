@@ -86,7 +86,7 @@ export class UpSubjectPage  {
     try {
       const editar = this.editMateria?.value;
       if (this.selectedSubject === undefined) {
-         // Crea un objeto con la carrera a editar
+         // Crea un objeto con la materia a editar
         const response = await axios({
           method: 'post',
           url: this.baseUrl + "/" + this.selectedSubject,
@@ -98,7 +98,7 @@ export class UpSubjectPage  {
           }
         }).then((response) => {
           if (response?.status == 201) {
-            this.alertGuardado(response.data.sub_id, 'La Carrera con el id ' + response.data.sub_id + ' ha sido modificada');
+            this.alertGuardado(response.data.sub_id, 'La Materia con el id ' + response.data.sub_id + ' ha sido modificada');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
@@ -122,7 +122,7 @@ export class UpSubjectPage  {
           }
           }).then((response) => {
               if (response?.status == 200) {
-                  this.alertGuardado(response.data.sub_id, 'La carrera con el id ' + response.data.sub_id + ' ha sido actualizada');
+                  this.alertGuardado(response.data.sub_id, 'La Materia con el id ' + response.data.sub_id + ' ha sido actualizada');
               }
               }).catch((error) => {
               if (error?.response?.status == 422) {
@@ -137,7 +137,7 @@ export class UpSubjectPage  {
 
   private async alertGuardado(matricula: String, msg = "",  subMsg= "Guardado") {
     const alert = await this.alert.create({
-    header: 'Recurso',
+    header: 'Materia',
     subHeader: subMsg,
     message: msg,
     cssClass: 'alert-center',
