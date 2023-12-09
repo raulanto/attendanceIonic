@@ -73,6 +73,7 @@ export class LoginPage implements OnInit {
             localStorage.setItem('sesion', 'login');
             localStorage.setItem('username', loginData.username);
             this.router.navigate(['group']);
+            
           } else if( response?.data === '') {
             this.alertError();
           }
