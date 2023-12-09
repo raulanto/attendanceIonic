@@ -1,52 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <!--     Boton para regresar
- --> <ion-buttons slot="start" class="bbutton">
+<!-- Boton para regresar -->    
+      <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class ="tittle">Preguntas</ion-title>
-  </ion-toolbar>
+    <ion-title>Preguntas</ion-title>
+  </ion-toolbar> 
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
 
   <ion-grid> <!-- pendiente de cerrar -->
-    <ion-row *ngFor="let question of questions; let i = index" class="ic">
-      <ion-col size="1" [routerLink]="['/question-detail', question.que_id]">
+    <ion-row *ngFor="let question of questions; let i = index">
+      <!-- Crear columna para el icono-->
+      <ion-col [routerLink]="['/question-detail', question.que_id]">
         <!-- MODIFICACIONES----------------------------------------------------------- -->
-        <ion-img [src]="'assets/questions/pregunta' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+        <ion-img class="mi-imagen" [src]="'assets/questions/pregunta' + ((i % 4) + 1) + '.png'" alt="Foto" width="116" height="77"></ion-img>
         <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/question-detail', question.que_id]">
         <ion-label>
-          <h3 class="ictittle">{{ question.que_title }}</h3>
-          <h4 class="icdesc">{{ question.que_description }}</h4>
-          <p class="icnameteacher">{{ question.teacher }}</p>
-          <p class="icfecha">{{ question.que_create }}</p>
+          <h3 class="extracurricular-text">{{ question.que_title }}</h3>
+          <h4 class="extracurricular-code">{{ question.que_description }}</h4>
+          <p class="extracurricular-info">{{ question.teacher }}</p>
+          <p class="extracurricular-info">{{ question.que_create }}</p>
         </ion-label>
       </ion-col>
+      
       <!-- Crear columna para boton de opciones -->
       <ion-col size="auto">
         <!-- Boton de opciones -->
-        <ion-button id="click-trigger-{{question.que_id}}" size="small" class="botonR">
+        <ion-button id="click-trigger-{{question.que_id}}" size="small">
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>
-        <ion-popover trigger="click-trigger-{{question.que_id}}" [dismissOnSelect]="true" [keepContentsMounted]="true"
+        <ion-popover 
+          trigger="click-trigger-{{question.que_id}}" 
+          [dismissOnSelect]="true" 
+          [keepContentsMounted]="true"
           side="end">
           <ng-template>
             <ion-content>
               <ion-list>
                 <!-- Opcion de eliminar  -->
-                <ion-item [button]="true" [detail]="false" (click)="alertEliminar(question.que_id)">
+                <ion-item 
+                  [button]="true" 
+                  [detail]="false" 
+                  (click)="alertEliminar(question.que_id)">
                   <ion-icon name="trash"></ion-icon>
                   Eliminar
                 </ion-item>
                 <!-- Opcion de modificar -->
-                <ion-item [button]="true" [detail]="false" (click)="editar(question.que_id)">
-                  <!-- Agregamos la opción de Modificar -->
+                  <ion-item 
+                  [button]="true" 
+                  [detail]="false" 
+                  (click)="editar(question.que_id)">
                   <ion-icon name="create"></ion-icon>
                   Modificar
                 </ion-item>

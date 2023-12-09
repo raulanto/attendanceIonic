@@ -15,8 +15,8 @@
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let library of librarys">
       <!-- Crear columna para el icono -->
-      <ion-col size="auto">
-        <ion-icon [name]="getIconName(library.lib_type)" class="icon-large"></ion-icon>
+      <ion-col size="auto" class="icon-col">
+        <ion-icon [name]="getIconName(library.lib_type)" class="purple-icon"></ion-icon>
       </ion-col>
       <!-- Crear columna para el texto -->
       <ion-col>

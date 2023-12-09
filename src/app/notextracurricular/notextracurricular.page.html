@@ -20,7 +20,7 @@
         <ion-col size="6" [routerLink]="['extracurricular', extras.extgro_id]"> 
         <div class="rectangle-avatar">
           <!-- MODIFICACIONES----------------------------------------------------------- -->
-          <ion-img [src]="'assets/img/extra-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+          <ion-img [src]="'assets/img/extra-' + ((i % 4) + 1) + '.png'" alt="Foto" width="116" height="77"></ion-img>
           <!-- MODIFICACIONES----------------------------------------------------------- -->
         </div>
       </ion-col>
@@ -98,7 +98,7 @@
       </ion-fab-button>
       <!-- MODIFICACIONES----------------------------------------------------------- -->
       <ion-fab-button [routerLink]="['events']">
-        <ion-icon name="school"></ion-icon>
+        <ion-icon name="school-outline"></ion-icon>
         <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-fab-button>
     </ion-fab-list>

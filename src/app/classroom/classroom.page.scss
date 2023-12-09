@@ -20,16 +20,44 @@ ion-grid {
             align-items: center;
             padding: 10px;
             &:nth-child(1) {
-                justify-content: flex-start;
-                padding: 0px;
+              justify-content: flex-start;
+              padding-right: 1px; /* Ajusta el espacio entre la primera y segunda columna */
             }
             &:nth-child(2) {
                 flex-grow: 1;
-                color: var(--ion-color-text12);
+                color: var(--ion-color-text1);
             }
             &:nth-child(3) {
                 justify-content: right;
             }
         }
     }
-}
+} 
+
+.mi-imagen {
+    width: 116px;
+    height: 77px;
+  }
+
+  .icon-large {
+    font-size: 100px; /* Tamaño de los iconos de los archivos */
+  }
+
+  .button-with-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-with-text ion-icon {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+  }
+
+  .content-container {
+    height: calc(100vh - 50px); /* El contenido ocupará el 100% de la altura menos 50px */
+    overflow-y: auto; /* Añade desplazamiento vertical si es necesario */
+  }
+  
+  .tabs-container {
+    height: 50px;
+    width: 375px; /* Ancho fijo de 375px */
+  }

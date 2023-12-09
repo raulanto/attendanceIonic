@@ -25,7 +25,7 @@ ion-grid {
             }
             &:nth-child(2) {
                 flex-grow: 1;
-                color: var(--ion-color-text12);
+                color: var(--ion-color-text2);
             }
             &:nth-child(3) {
                 justify-content: right;
@@ -34,7 +34,8 @@ ion-grid {
     }
 }
 
-.icon-large {
-    font-size: 30px; /* Tamaño de los iconos de los archivos */
-  }
-
+  .purple-icon {
+    color: var(--ion-color-primary);
+    font-size: 30px;
+    margin-right: 10px;
+}

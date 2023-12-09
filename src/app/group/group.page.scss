@@ -25,17 +25,38 @@ ion-grid {
             }
             &:nth-child(2) {
                 flex-grow: 1;
-                color: var(--ion-color-text12);
+                color: var(--ion-color-text1);
             }
             &:nth-child(3) {
                 justify-content: right;
             }
         }
     }
-} 
+}
+
+.extracurricular-text {
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.extracurricular-code {
+  font-size: 15px;
+  color: var(--ion-color-text2);
+  padding: 5px;
+}
+
+.extracurricular-info {
+  font-size: 12px;
+}
+
+.mi-imagen {
+  width: 116px;
+  height: 77px;
+}
 
 .icon-large {
-    font-size: 30px; /* Tamaño de los iconos de los archivos */
+    font-size: 100px; /* Tamaño de los iconos de los archivos */
   }
 
   .button-with-text {
@@ -56,5 +77,3 @@ ion-grid {
     height: 50px;
     width: 375px; /* Ancho fijo de 375px */
   }
-  
-  
