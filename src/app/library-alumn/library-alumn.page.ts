@@ -61,9 +61,9 @@ export class LibraryAlumnPage implements OnInit {
 
     let urlApi:string = '';
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/library/librarys?id=${this.grupoid}&page=${this.page}`;
+			urlApi = `http://attendace.test/library/librarys?id=${this.grupoid}&page=${this.page}`;
 		} else {
-			urlApi = `http://attendancedb.test/library/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
+			urlApi = `http://attendace.test/library/buscar/?text=${this.busqueda}&id=${this.grupoid}`;
 		}
 
     const response = await axios({
@@ -88,9 +88,9 @@ export class LibraryAlumnPage implements OnInit {
   async contarLibrarys() {
     let urlApi:string = '';
 		if (this.busqueda === '') {
-			urlApi = `http://attendancedb.test/library/total/?id=${this.grupoid}`;
+			urlApi = `http://attendace.test/library/total/?id=${this.grupoid}`;
 		} else {
-			urlApi = `http://attendancedb.test/library/total/?text=${this.busqueda}&id=${this.grupoid}`;
+			urlApi = `http://attendace.test/library/total/?text=${this.busqueda}&id=${this.grupoid}`;
 		}
     const response = await axios({
         method: 'get',
