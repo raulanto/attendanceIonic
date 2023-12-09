@@ -147,7 +147,7 @@ async new() {
     componentProps: {
       'gid': this.califid,
       //'idgrade': califid,
-      'title': 'Crear Invitación', //Agregar titulo como parametro
+      'title': 'Añadir calificación', //Agregar titulo como parametro
       grupoid: this.grupoid,
     },
     breakpoints: [0, 0.3, 0.5, 0.95, 1.1], // Configuración de puntos de quiebre
