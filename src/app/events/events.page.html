@@ -65,8 +65,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+
+  <!-- Boton flotante de agregar -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
@@ -75,7 +82,7 @@
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
+  </ion-fab>-->
 
   <app-paginacion [total]="totalEventos" (click)="pagina($event)"></app-paginacion>
 
