@@ -81,50 +81,91 @@ export class NeweventsPage implements OnInit {
     });
   }
 
-  async guardarDatos() {
-    try {
-      const extracur = this.extracur?.value; //Obtener los valores del formulario
+//   async guardarDatos() {
+//     try {
+//       const extracur = this.extracur?.value; //Obtener los valores del formulario
 
 
-      if (this.idextra === undefined) {
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl,
-          data: extracur, // Datos del libro para enviar al servidor
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 100-token',
-          }
-        }).then((response) => {//Llama la alerta en caso de exito
-          if (response?.status == 201) {
-            this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido registrado');
-          }
-        }).catch((error) => {
-          if (error?.response?.status == 422) {
-            this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
-          }
-        });
-      } else {
-        const response = await axios({
-        method: 'put',
-        url: this.baseUrl + '/' + this.idextra,
-        data: extracur,
+//       if (this.idextra === undefined) {
+//         const response = await axios({
+//           method: 'post',
+//           url: this.baseUrl,
+//           data: extracur, // Datos del libro para enviar al servidor
+//           headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer 100-token',
+//           }
+//         }).then((response) => {//Llama la alerta en caso de exito
+//           if (response?.status == 201) {
+//             this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido registrado');
+//           }
+//         }).catch((error) => {
+//           if (error?.response?.status == 422) {
+//             this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+//           }
+//         });
+//       } else {
+//         const response = await axios({
+//         method: 'put',
+//         url: this.baseUrl + '/' + this.idextra,
+//         data: extracur,
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer 100-token'
+//         }
+//         }).then((response) => {
+//             if (response?.status == 200) {
+//                 this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido actualizado');
+//             }
+//             }).catch((error) => {
+//             if (error?.response?.status == 422) {
+//                 this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+//             }
+//         });
+//     }
+// } catch (e) {
+//     console.log(e);
+// }
+// }
+
+async guardarDatos() {
+  try {
+    const extracur = this.extracur?.value; //Obtener los valores del formulario
+
+
+    if (this.idextra === undefined) {
+      const response = await axios.post('http://attendance.test/extracurricular/crear', extracur, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 100-token',
+        }
+      }).then((response) => {//Llama la alerta en caso de exito
+        if (response?.status == 200) {
+          this.alertGuardado(response.data.ext_code, 'El evento ' + extracur.ext_code + ' ha sido registrado');
+        }
+      }).catch((error) => {
+        if (error?.response?.status == 422) {
+          this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+        }
+      });
+    } else {
+      const response = await axios.put('http://attendance.test/extracurricular/actualizar' + '/' + this.idextra, extracur, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
         }
-        }).then((response) => {
-            if (response?.status == 200) {
-                this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido actualizado');
-            }
-            }).catch((error) => {
-            if (error?.response?.status == 422) {
-                this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
-            }
-        });
-    }
+      }).then((response) => {
+          if (response?.status == 200) {
+              this.alertGuardado(response.data.ext_code, 'El evento ' + response.data.ext_code + ' ha sido actualizado');
+          }
+          }).catch((error) => {
+          if (error?.response?.status == 422) {
+              this.alertGuardado(extracur.ext_code, error?.response?.data[0]?.message, "Error");
+          }
+      });
+  }
 } catch (e) {
-    console.log(e);
+  console.log(e);
 }
 }
 

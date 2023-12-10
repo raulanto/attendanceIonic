@@ -83,16 +83,13 @@ export class NewextracurricularPage implements OnInit {
 
 
       if (this.idextra === undefined) {
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl,
-          data: extracur, // Datos del libro para enviar al servidor
+        const response = await axios.post('http://attendance.test/extra-group/crear', extracur, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token',
           }
         }).then((response) => {//Llama la alerta en caso de exito
-          if (response?.status == 201) {
+          if (response?.status == 200) {
             // MODIFICACIONES-----------------------------------------------------------
             this.alertGuardado(response.data.extgro_id, 'La invitación al evento ha sido enviada', "ENVIADA");
             // MODIFICACIONES-----------------------------------------------------------
@@ -129,6 +126,59 @@ export class NewextracurricularPage implements OnInit {
     console.log(e);
 }
 }
+
+// async guardarDatos() {
+//   try {
+//     const extracur = this.extracur?.value; //Obtener los valores del formulario
+
+
+//     if (this.idextra === undefined) {
+//       const response = await axios({
+//         method: 'post',
+//         url: this.baseUrl,
+//         data: extracur, // Datos del libro para enviar al servidor
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer 100-token',
+//         }
+//       }).then((response) => {//Llama la alerta en caso de exito
+//         if (response?.status == 201) {
+//           // MODIFICACIONES-----------------------------------------------------------
+//           this.alertGuardado(response.data.extgro_id, 'La invitación al evento ha sido enviada', "ENVIADA");
+//           // MODIFICACIONES-----------------------------------------------------------
+//         }
+//       }).catch((error) => {
+//         if (error?.response?.status == 422) {
+//           // MODIFICACIONES-----------------------------------------------------------
+//           this.alertGuardado(extracur.extgro_id, error?.response?.data[0]?.message, "Error");
+//           // MODIFICACIONES-----------------------------------------------------------
+//         }
+//       });
+//     } else {
+//       const response = await axios({
+//       method: 'put',
+//       url: this.baseUrl + '/' + this.idextra,
+//       data: extracur,
+//       headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer 100-token'
+//       }
+//       }).then((response) => {
+//           if (response?.status == 200) {
+//             // MODIFICACIONES-----------------------------------------------------------
+//               this.alertGuardado(response.data.extgro_id, 'La invitación a ' + this.extcode + ' ha sido actualizada', "ACTUALIZADA");
+//               // MODIFICACIONES-----------------------------------------------------------
+//             }
+//           }).catch((error) => {
+//           if (error?.response?.status == 422) {
+//               this.alertGuardado(extracur.extgro_id, error?.response?.data[0]?.message, "Error");
+//           }
+//       });
+//   }
+// } catch (e) {
+//   console.log(e);
+// }
+// }
 
   public getError(controlName: string) {
     let errors: any[] = [];
