@@ -76,10 +76,7 @@ export class ModgradePage implements OnInit {
           }
         });
       } else {
-        const response = await axios({
-        method: 'put',
-        url: this.baseUrl + '/' + this.idgrade,
-        data: grades,
+        const response = await axios.put('http://attendance.test/grade-person/modificar' + '/' + this.idgrade, grades, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
