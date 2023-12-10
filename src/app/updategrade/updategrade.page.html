@@ -22,7 +22,6 @@
               <th>Calificacion</th>
               <th>Comentario</th>
               <th>Alumno</th>
-              <th>Grade</th>
             </tr>
 
             <ng-container *ngFor="let grade of grades">
@@ -41,10 +40,6 @@
                 <ion-label color="primary">{{grade.graper_fkperson}}</ion-label>
               </td>
 
-              <td>
-                <ion-label color="primary">{{grade.graper_fkgrade}}</ion-label>
-              </td>
-
               <!-- <td>
                 <ion-button fill="clear" (click)="editar(grade.graper_id)">MODIFICAR</ion-button>
               </td> -->
@@ -61,15 +56,11 @@
         </ion-row>
       </ion-grid>
 
-      <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button>
-          <ion-icon name="chevron-up-circle"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-list side="top">
-          <ion-fab-button (click)="new()">
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab-list>
-      </ion-fab>
+<!-- Boton flotante de agregar -->
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="new()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
   
 </ion-content>

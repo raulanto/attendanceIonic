@@ -18,7 +18,7 @@ export class GroupPage implements OnInit {
 
   public baseUrl: string = "http://attendance.test/group";
 
-  personid=1;
+  personid=2;
   grupos: any = [];
   data: any = [];
 

@@ -6,9 +6,9 @@ const routes: Routes = [
 
   {
     path: '',
-    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+    //loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
     //loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
-    //loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
+    loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
 
   //APARTADO DE LOGIN
