@@ -52,17 +52,15 @@ export class NewclassroomPage implements OnInit {
     try {
       const clase = this.clase?.value; //Obtener los valores del formulario
       if (this.classroomid === undefined) {
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl,
-          data: clase, // Datos del libro para enviar al servidor
+        //const response = await axios({
+        const response = await axios.post('http://attendance.test/classroom/crear',clase, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token',
           }
         }).then( (response) => {//Llama la alerta en caso de exito
-          if(response?.status == 201) {
-            this.alertGuardado(response.data.clas_name, 'El salon ' + response.data.clas_name + ' ha sido registrado');
+          if(response?.status == 200) {
+            this.alertGuardado(clase.clas_name, 'El salon ' + clase.clas_name + ' ha sido registrado');
           }
         }).catch( (error) => {
           if(error?.response?.status == 422) {
@@ -70,17 +68,14 @@ export class NewclassroomPage implements OnInit {
           }     
         });
       } else {
-        const response = await axios({
-          method: 'put',
-          url: this.baseUrl + '/' + this.classroomid,
-          data: clase,
+        const response = await axios.put('http://attendance.test/classroom/modificar'+ '/' + this.classroomid,clase, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
           }
         }).then((response) => {
           if (response?.status == 200) {
-            this.alertGuardado(response.data.clas_name, 'El salon ' + response.data.clas_name + ' ha sido actualizado');
+            this.alertGuardado(clase.clas_name, 'El salon ' + clase.clas_name + ' ha sido actualizado');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {

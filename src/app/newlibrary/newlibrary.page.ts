@@ -73,17 +73,14 @@ export class NewlibraryPage implements OnInit {
     try {
       const libro = this.libro?.value; //Obtener los valores del formulario
       if (this.libraryid === undefined) {
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl,
-          data: libro, // Datos del libro para enviar al servidor
+        const response = await axios.post('http://attendance.test/library/crear',libro, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token',
           }
         }).then( (response) => {//Llama la alerta en caso de exito
-          if(response?.status == 201) {
-            this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido registrado');
+          if(response?.status == 200) {
+            this.alertGuardado(libro.lib_title, 'El archivo ' + libro.lib_title + ' ha sido registrado');
           }
         }).catch( (error) => {
           if(error?.response?.status == 422) {
@@ -91,17 +88,14 @@ export class NewlibraryPage implements OnInit {
           }     
         });
       } else {
-        const response = await axios({
-          method: 'put',
-          url: this.baseUrl + '/' + this.libraryid,
-          data: libro,
+        const response = await axios.put('http://attendance.test/library/modificar'+ '/' + this.libraryid,libro, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
           }
         }).then((response) => {
           if (response?.status == 200) {
-            this.alertGuardado(response.data.lib_title, 'El archivo ' + response.data.lib_title + ' ha sido actualizado');
+            this.alertGuardado(libro.lib_title, 'El archivo ' + libro.lib_title + ' ha sido actualizado');
           }
         }).catch((error) => {
           if (error?.response?.status == 422) {
