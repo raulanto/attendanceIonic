@@ -124,18 +124,18 @@ export class NewgradePage implements OnInit {
       const grad = this.grad?.value; //Obtener los valores del formulario
       const { gra_type, gra_date, gra_time, gra_fkgroup} = this.grad.value; // Guardar los valores de Tipo, Fecha y Hora
       // MODIFICACIONES-----------------------------------------------------------
-      const response = await axios({
-        method: 'post',
-        url: this.baseUrl,
-        data: grad, // Datos del libro para enviar al servidor
+      const response = await axios.post('http://attendance.test/grade/crear', grad, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 100-token',
         }
       }).then( (response) => {//Llama la alerta en caso de exito
-        if(response?.status == 201) {
+        if(response?.status == 200) {
+          const { data } = response;
+
+          const { id } = data;
           // MODIFICACIONES-----------------------------------------------------------
-        this.gradeId = response.data.gra_id; //GUARDAR EL ID DEL REGISTRO CREADO
+        this.gradeId = id; //GUARDAR EL ID DEL REGISTRO CREADO
 
         this.grad2.patchValue({
           graper_fkgrade: this.gradeId,
@@ -219,16 +219,13 @@ export class NewgradePage implements OnInit {
         const grad2 = this.grad2?.value; //Obtener los valores del formulario
         const { graper_fkgrade} = this.grad2.value; // Guardar los valores de Tipo, Fecha y Hora
 
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl2,
-          data: grad2, // Datos del libro para enviar al servidor
+        const response = await axios.post('http://attendance.test/grade-person/crear', grad2, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token',
           }
         }).then( (response) => {//Llama la alerta en caso de exito
-          if(response?.status == 201) {
+          if(response?.status == 200) {
 
           this.alertGuardado('La calificación ha sido registrada');
 
