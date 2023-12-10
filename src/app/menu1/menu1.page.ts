@@ -30,4 +30,3 @@ export class Menu1Page implements OnInit {
   }
 
 }
-

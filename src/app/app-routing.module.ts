@@ -6,8 +6,8 @@ const routes: Routes = [
 
   {
     path: '',
-    loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
-    //loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
+    //loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+    loadChildren: () => import('./group-alum/group-alum.module').then( m => m.GroupAlumPageModule)
     //loadChildren: () => import('./carrusel/carrusel.module').then( m => m.CarruselPageModule)
   },
 
@@ -255,9 +255,6 @@ const routes: Routes = [
   {
     path: 'updategrade/:califid/:grupoid',
     loadChildren: () => import('./updategrade/updategrade.module').then( m => m.UpdategradePageModule)
-  },  {
-    path: 'asistencia-alu',
-    loadChildren: () => import('./asistencia-alu/asistencia-alu.module').then( m => m.AsistenciaAluPageModule)
   },
 
 

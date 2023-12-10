@@ -182,7 +182,7 @@ export class ClassroomAlumnPage implements OnInit {
   
   //VOLVER A CARGAR
   private regresar() {
-    this.router.navigate(['/classroom-alumn']).then(() => {
+    this.router.navigate(['/classroom']).then(() => {
     window.location.reload();
     });
   }

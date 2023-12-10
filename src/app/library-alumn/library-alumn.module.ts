@@ -8,12 +8,15 @@ import { LibraryAlumnPageRoutingModule } from './library-alumn-routing.module';
 
 import { LibraryAlumnPage } from './library-alumn.page';
 
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LibraryAlumnPageRoutingModule
+    LibraryAlumnPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [LibraryAlumnPage]
 })

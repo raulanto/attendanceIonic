@@ -2,7 +2,7 @@
   <ion-toolbar>
 <!-- Boton para regresar -->    
       <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+        <ion-back-button default-href="#" routerLink="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Salones</ion-title>
   </ion-toolbar> 
@@ -15,16 +15,16 @@
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor= "let classroom of classrooms; let i = index" >
       <!-- Crear columna para el icono-->
-      <ion-col size="1">
+      <ion-col>
         <!-- MODIFICACIONES----------------------------------------------------------- -->
-        <ion-img [src]="'assets/classrooms/classrooms' + ((i % 3) + 1) + '.png'" alt="Foto"></ion-img>
+        <ion-img class="mi-imagen" [src]="'assets/classrooms/classrooms' + ((i % 3) + 1) + '.png'" alt="Foto" width="116" height="77"></ion-img>
         <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col>
         <ion-label>
-          <h2>{{classroom.clas_name}}</h2>
-          <h3>{{classroom.clas_description}}</h3>
+          <h2 class="text-title">{{classroom.clas_name}}</h2>
+          <h3 class="text-info">{{classroom.clas_description}}</h3>
         </ion-label>
       </ion-col>
 
@@ -39,6 +39,7 @@
     </ion-row>
   </ion-grid>
 
-
+  <app-paginacion [total]="totalClassrooms" (click)="pagina($event)"></app-paginacion>
   
 </ion-content>
+

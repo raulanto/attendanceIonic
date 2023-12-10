@@ -14,16 +14,16 @@
     <!-- Crear una fila por cada elemento --> 
     <ion-row *ngFor="let grupo of grupos; let i = index" >
       <!-- Crear columna para el icono-->
-      <ion-col size="1" [routerLink]="['/menu1-alum', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
+      <ion-col [routerLink]="['/menu1-alum', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
           <!-- MODIFICACIONES----------------------------------------------------------- -->
-          <ion-img [src]="'assets/grupos/grupos-' + ((i % 4) + 1) + '.png'" alt="Foto"></ion-img>
+          <ion-img class="mi-imagen" [src]="'assets/grupos/grupos-' + ((i % 4) + 1) + '.png'" alt="Foto" width="116" height="77"></ion-img>
           <!-- MODIFICACIONES----------------------------------------------------------- -->
       </ion-col>
       <!-- Crear columna para el texto-->
       <ion-col [routerLink]="['/menu1-alum', grupo.listFkgroup.gro_id, grupo.subject, grupo.listFkgroup.gro_code]">
         <ion-label>
-          <h2>{{grupo.subject}} {{grupo.listFkgroup.gro_code}}</h2>
-          <h3>Ubicación: {{grupo.classroom}} </h3>
+          <h2 class="text-title" > {{grupo.subject}} {{grupo.listFkgroup.gro_code}}</h2>
+          <h3 class="text-info" > Ubicación: {{grupo.classroom}} </h3>
         </ion-label>
       </ion-col>
 
@@ -50,12 +50,11 @@
   <ion-fab-list side="top">
     <!-- Unirse a un grupo -->
     <ion-fab-button (click)="mostrarAlerta()">
-      <ion-icon name="person-add"></ion-icon>
+      <ion-icon name="person-add-outline"></ion-icon>
     </ion-fab-button >
     <!-- Tabla classroom -->
     <ion-fab-button [routerLink]="['/classroom-alumn']">
-      <ion-icon name="business"></ion-icon>
+      <ion-icon name="business-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
-
