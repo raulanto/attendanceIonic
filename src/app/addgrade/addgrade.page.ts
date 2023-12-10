@@ -92,19 +92,16 @@ export class AddgradePage implements OnInit {
   async guardarDatos() {
     try {
       const grad = this.grad?.value; //Obtener los valores del formulario
-        const response = await axios({
-          method: 'post',
-          url: this.baseUrl2,
-          data: grad, // Datos del libro para enviar al servidor
+        const response = await axios.post('http://attendance.test/grade-person/crear', grad, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token',
           }
         }).then((response) => {//Llama la alerta en caso de exito
-          if (response?.status == 201) {
+          if (response?.status == 200) {
 
             // MODIFICACIONES-----------------------------------------------------------
-            this.alertGuardado(response.data.graper_id, 'La calificación ha sido enviada', "ENVIADA");
+            this.alertGuardado(grad.graper_id, 'La calificación ha sido enviada', "ENVIADA");
             // MODIFICACIONES-----------------------------------------------------------
           }
         }).catch((error) => {
