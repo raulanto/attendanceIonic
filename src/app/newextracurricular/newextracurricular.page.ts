@@ -102,10 +102,7 @@ export class NewextracurricularPage implements OnInit {
           }
         });
       } else {
-        const response = await axios({
-        method: 'put',
-        url: this.baseUrl + '/' + this.idextra,
-        data: extracur,
+        const response = await axios.put('http://attendance.test/extra-group/modificar' + '/' + this.idextra, extracur, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
@@ -113,7 +110,7 @@ export class NewextracurricularPage implements OnInit {
         }).then((response) => {
             if (response?.status == 200) {
               // MODIFICACIONES-----------------------------------------------------------
-                this.alertGuardado(response.data.extgro_id, 'La invitación a ' + this.extcode + ' ha sido actualizada', "ACTUALIZADA");
+                this.alertGuardado(extracur.extgro_id, 'La invitación a ' + this.extcode + ' ha sido actualizada', "ACTUALIZADA");
                 // MODIFICACIONES-----------------------------------------------------------
               }
             }).catch((error) => {

@@ -149,7 +149,7 @@ async guardarDatos() {
         }
       });
     } else {
-      const response = await axios.put('http://attendance.test/extracurricular/actualizar' + '/' + this.idextra, extracur, {
+      const response = await axios.put('http://attendance.test/extracurricular/modificar' + '/' + this.idextra, extracur, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer 100-token'
