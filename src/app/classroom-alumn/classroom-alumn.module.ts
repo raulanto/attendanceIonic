@@ -8,12 +8,15 @@ import { ClassroomAlumnPageRoutingModule } from './classroom-alumn-routing.modul
 
 import { ClassroomAlumnPage } from './classroom-alumn.page';
 
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClassroomAlumnPageRoutingModule
+    ClassroomAlumnPageRoutingModule,
+    PaginacionModule
   ],
   declarations: [ClassroomAlumnPage]
 })

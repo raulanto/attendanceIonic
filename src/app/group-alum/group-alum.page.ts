@@ -54,8 +54,8 @@ export class GroupAlumPage implements OnInit {
     });
     await loading.present();
     try{
-      const response = await this.grupoService.grupospersonas(this.data).toPromise();
-      //const response = await this.grupoService.grupospersonas(this.personid).toPromise();
+      //const response = await this.grupoService.grupospersonas(this.data).toPromise();
+      const response = await this.grupoService.grupospersonas(this.personid).toPromise();
       this.grupos = response.data;
       event?.target.complete();
     }catch (error){
@@ -214,4 +214,3 @@ export class GroupAlumPage implements OnInit {
   }
   
 }
-

@@ -134,14 +134,15 @@ export class LibraryAlumnPage implements OnInit {
   }
   
   openLibraryFile(libFile: string) {
-    // Abre la URL del archivo en una nueva ventana o realiza la acción deseada
+    console.log('URL del archivo:', libFile);
+  
     if (libFile) {
-      // Verifica que la URL no sea nula o vacía
       this.platform.ready().then(() => {
         window.open(libFile, '_blank');
       });
     }
   }
+  
   
   //CREAR NUEVO ARCHIVO
 
@@ -225,7 +226,7 @@ export class LibraryAlumnPage implements OnInit {
 
   //VOLVER A CARGAR
   private regresar() {
-    this.router.navigate(['library-alumn', this.grupoid]).then(() => {
+    this.router.navigate(['library', this.grupoid]).then(() => {
       window.location.reload();
     });
   }
