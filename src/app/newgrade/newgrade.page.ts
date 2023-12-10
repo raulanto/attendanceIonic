@@ -14,8 +14,8 @@ import { ActivatedRoute,
 export class NewgradePage implements OnInit {
 
   // MODIFICACIONES-----------------------------------------------------------
-  baseUrl: string = "http://attendance.test/grade";
-  baseUrl2: string = "http://attendance.test/grade-person";
+  baseUrl: string = "http://attendance.test/grade/guardar";
+  baseUrl2: string = "http://attendance.test/grade-person/guardar";
   personaUrl: string = 'http://attendance.test/listg/listas?id=';
   // MODIFICACIONES-----------------------------------------------------------
 
